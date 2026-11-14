@@ -3,26 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KAUSTUBH × AI VISION — Digital Studio</title>
+<meta name="theme-color" content="#090909">
+<meta name="description" content="AI Vision Studio — Digital experiences by Kaustubh Shukla.">
+
+<title>AI VISION — Kaustubh Shukla</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --black:#050607;
-  --white:#f1efe9;
-  --muted:#747674;
-  --line:rgba(255,255,255,.12);
-  --gold:#c9b27a;
+  --black:#080808;
+  --white:#f4f1e9;
+  --orange:#ff4d00;
+  --gold:#d8b56a;
+  --grey:#8d8d8d;
+  --line:rgba(244,241,233,.13);
   --ease:cubic-bezier(.16,1,.3,1);
 }
 
 *{
-  box-sizing:border-box;
   margin:0;
   padding:0;
+  box-sizing:border-box;
 }
 
 html{
@@ -33,9 +37,9 @@ html{
 body{
   background:var(--black);
   color:var(--white);
-  font-family:Inter,sans-serif;
+  font-family:Inter,Arial,sans-serif;
   overflow-x:hidden;
-  cursor:none;
+  cursor:auto;
 }
 
 a{
@@ -45,1791 +49,2329 @@ a{
 
 button{
   font:inherit;
-  border:0;
-  background:none;
-  color:inherit;
-  cursor:none;
 }
 
-/* =========================================================
-LOADER
-========================================================= */
+::selection{
+  background:var(--orange);
+  color:#fff;
+}
+
+/* =========================
+   LOADER
+========================= */
 
 .loader{
   position:fixed;
   inset:0;
-  z-index:99999;
-  background:#050607;
+  z-index:9999;
+  background:#080808;
   display:flex;
   align-items:center;
   justify-content:center;
-  transition:opacity 1.2s var(--ease),visibility 1.2s;
+  overflow:hidden;
+  transition:
+    opacity 1s var(--ease),
+    visibility 1s;
 }
 
-.loader.done{
+.loader.hide{
   opacity:0;
   visibility:hidden;
-  pointer-events:none;
 }
 
 .loader-inner{
-  width:min(720px,86vw);
+  width:min(90vw,1100px);
 }
 
 .loader-top{
   display:flex;
   justify-content:space-between;
-  color:#656765;
-  font:9px "DM Mono",monospace;
-  letter-spacing:.12em;
-  margin-bottom:35px;
+  font:11px "DM Mono",monospace;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:#777;
+  margin-bottom:30px;
 }
 
 .loader-name{
-  font-size:clamp(55px,10vw,145px);
-  line-height:.76;
+  font-size:clamp(54px,11vw,180px);
   font-weight:900;
-  letter-spacing:-.105em;
-}
-
-.loader-name i{
-  color:#666;
-  font-family:"Playfair Display",serif;
-  font-weight:400;
-}
-
-.loader-bottom{
-  display:flex;
-  justify-content:space-between;
-  margin-top:55px;
-  color:#666;
-  font:8px "DM Mono",monospace;
-}
-
-.loader-bar{
-  width:100%;
-  height:1px;
-  background:#222;
-  margin-top:14px;
+  line-height:.78;
+  letter-spacing:-.075em;
   overflow:hidden;
 }
 
-.loader-fill{
-  height:100%;
-  width:0;
-  background:#fff;
-  animation:loading 2.4s var(--ease) forwards;
+.loader-name span{
+  display:block;
+  transform:translateY(110%);
+  animation:loaderText 1.3s var(--ease) forwards;
 }
 
-@keyframes loading{
+.loader-name span:nth-child(2){
+  animation-delay:.08s;
+  color:var(--orange);
+}
+
+.loader-line{
+  height:1px;
+  background:#222;
+  margin-top:45px;
+  overflow:hidden;
+}
+
+.loader-line i{
+  display:block;
+  width:0;
+  height:100%;
+  background:var(--orange);
+  animation:loadLine 2.1s var(--ease) forwards;
+}
+
+@keyframes loaderText{
+  to{transform:translateY(0)}
+}
+
+@keyframes loadLine{
   to{width:100%}
 }
 
-/* =========================================================
-GRAIN
-========================================================= */
+/* =========================
+   GRAIN
+========================= */
 
 .grain{
   position:fixed;
-  inset:-100%;
-  z-index:9000;
+  inset:-50%;
+  z-index:9990;
   pointer-events:none;
-  opacity:.035;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation:noise .18s steps(2) infinite;
+  opacity:.055;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+  animation:grain .25s steps(2) infinite;
 }
 
-@keyframes noise{
+@keyframes grain{
   0%{transform:translate(0,0)}
-  25%{transform:translate(2%,-1%)}
-  50%{transform:translate(-1%,2%)}
-  75%{transform:translate(1%,1%)}
-  100%{transform:translate(-2%,-2%)}
+  25%{transform:translate(3%,-2%)}
+  50%{transform:translate(-2%,3%)}
+  75%{transform:translate(2%,2%)}
+  100%{transform:translate(-3%,-2%)}
 }
 
-/* =========================================================
-CURSOR
-========================================================= */
+/* =========================
+   CURSOR
+========================= */
 
 .cursor{
   position:fixed;
   z-index:10000;
-  width:44px;
-  height:44px;
+  width:20px;
+  height:20px;
   pointer-events:none;
   transform:translate(-50%,-50%);
   opacity:0;
 }
 
-.cursor.show{
-  opacity:1;
-}
-
 .cursor-ring{
   position:absolute;
-  inset:0;
-  border:1px solid rgba(255,255,255,.65);
+  inset:-17px;
+  border:1px solid rgba(255,255,255,.6);
   border-radius:50%;
-  transition:.7s var(--ease);
+  transition:
+    transform .45s var(--ease),
+    width .45s var(--ease),
+    height .45s var(--ease),
+    border-color .3s;
 }
 
 .cursor-core{
   position:absolute;
-  width:4px;
-  height:4px;
+  width:5px;
+  height:5px;
   border-radius:50%;
-  background:#fff;
+  background:var(--orange);
   left:50%;
   top:50%;
   transform:translate(-50%,-50%);
 }
 
-.cursor-word{
+.cursor-label{
   position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  font:6px "DM Mono",monospace;
-  letter-spacing:.08em;
+  left:28px;
+  top:28px;
+  font:9px "DM Mono",monospace;
+  letter-spacing:.14em;
+  white-space:nowrap;
   opacity:0;
+  transition:opacity .3s;
 }
 
-.cursor.open .cursor-ring{
-  transform:scale(2);
-  background:rgba(255,255,255,.05);
+.cursor.hover .cursor-ring{
+  transform:scale(2.6);
+  border-color:var(--orange);
 }
 
-.cursor.open .cursor-core{
-  opacity:0;
-}
-
-.cursor.open .cursor-word{
+.cursor.hover .cursor-label{
   opacity:1;
 }
 
-/* =========================================================
-NAV
-========================================================= */
+.cursor.click .cursor-ring{
+  animation:cursorClick .5s var(--ease);
+}
+
+@keyframes cursorClick{
+  50%{transform:scale(4);opacity:.3}
+  100%{transform:scale(2.6);opacity:1}
+}
+
+.cursor-trail{
+  position:fixed;
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:var(--orange);
+  pointer-events:none;
+  z-index:9998;
+  opacity:.3;
+}
+
+/* =========================
+   NAV
+========================= */
 
 .nav{
   position:fixed;
-  z-index:500;
-  top:0;
+  z-index:9000;
   left:0;
-  width:100%;
-  padding:24px 28px;
+  right:0;
+  top:0;
+  padding:25px 34px;
   display:flex;
   justify-content:space-between;
   align-items:center;
   mix-blend-mode:difference;
 }
 
-.nav-logo{
-  font-size:10px;
-  font-weight:800;
-  letter-spacing:-.04em;
-}
-
-.nav-logo span{
-  color:#777;
+.brand{
+  font:500 11px "DM Mono",monospace;
+  letter-spacing:.13em;
 }
 
 .nav-right{
   display:flex;
-  gap:28px;
-  color:#aaa;
-  font:8px "DM Mono",monospace;
+  gap:30px;
+  font:10px "DM Mono",monospace;
   text-transform:uppercase;
+  letter-spacing:.12em;
 }
 
-/* =========================================================
-HERO
-========================================================= */
+.nav-right a{
+  position:relative;
+}
 
-.hero{
-  height:100svh;
-  min-height:700px;
+.nav-right a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-6px;
+  width:0;
+  height:1px;
+  background:#fff;
+  transition:.4s var(--ease);
+}
+
+.nav-right a:hover::after{
+  width:100%;
+}
+
+/* =========================
+   GENERAL
+========================= */
+
+section{
   position:relative;
   overflow:hidden;
+}
+
+.eyebrow{
+  font:10px "DM Mono",monospace;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:#777;
+}
+
+.orange{
+  color:var(--orange);
+}
+
+.line{
+  height:1px;
+  background:var(--line);
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  min-height:100svh;
   display:flex;
   align-items:center;
-  justify-content:center;
-  perspective:1200px;
+  padding:100px 5vw;
+  perspective:1400px;
+  background:
+    radial-gradient(circle at 70% 45%,rgba(255,77,0,.09),transparent 27%),
+    var(--black);
 }
 
-.hero-grid{
-  position:absolute;
-  inset:-20%;
-  opacity:.25;
-  background-image:
-    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
-  background-size:80px 80px;
-  transform:
-    perspective(900px)
-    rotateX(62deg)
-    translateY(22%);
-  transform-origin:center bottom;
-}
-
-.hero-glow{
-  position:absolute;
-  width:55vw;
-  height:55vw;
-  max-width:850px;
-  max-height:850px;
-  border-radius:50%;
-  background:radial-gradient(
-    circle,
-    rgba(100,115,140,.15),
-    transparent 65%
-  );
-  filter:blur(35px);
-  transform:translateZ(-200px);
-}
-
-.hero-copy{
-  position:relative;
-  z-index:5;
+.hero-camera{
   width:100%;
-  text-align:center;
+  transform-style:preserve-3d;
+  transition:transform .15s linear;
 }
 
-.hero-kicker{
-  font:8px "DM Mono",monospace;
-  color:#686a68;
-  letter-spacing:.18em;
-  margin-bottom:34px;
-  text-transform:uppercase;
+.hero-small{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  margin-bottom:45px;
+}
+
+.hero-small .right{
+  max-width:270px;
+  font:11px/1.7 "DM Mono",monospace;
+  color:#777;
 }
 
 .hero-title{
-  font-size:clamp(80px,15vw,230px);
-  line-height:.72;
-  letter-spacing:-.12em;
+  position:relative;
+  font-size:clamp(70px,15.2vw,245px);
+  line-height:.76;
   font-weight:900;
+  letter-spacing:-.09em;
+  text-transform:uppercase;
+  transform-style:preserve-3d;
 }
 
-.hero-title .italic{
-  font-family:"Playfair Display",serif;
-  font-weight:400;
-  letter-spacing:-.07em;
-}
-
-.hero-line{
-  width:1px;
-  height:100px;
-  background:linear-gradient(#555,transparent);
-  margin:45px auto 0;
-}
-
-.hero-note{
-  position:absolute;
-  bottom:28px;
-  left:50%;
-  transform:translateX(-50%);
-  color:#555;
-  font:8px "DM Mono",monospace;
-  letter-spacing:.12em;
-}
-
-/* =========================================================
-STATEMENT
-========================================================= */
-
-.statement{
-  min-height:120vh;
-  display:flex;
-  align-items:center;
-  padding:12vw 7vw;
-  background:#ebe9e3;
-  color:#080909;
+.hero-title .line-title{
+  display:block;
   overflow:hidden;
 }
 
-.statement-inner{
+.hero-title .inner{
+  display:block;
+  transform:translateY(105%);
+  animation:heroIn 1.3s 1.7s var(--ease) forwards;
+}
+
+.hero-title .second .inner{
+  color:transparent;
+  -webkit-text-stroke:1px rgba(244,241,233,.8);
+  animation-delay:1.82s;
+}
+
+.hero-title .third .inner{
+  animation-delay:1.94s;
+}
+
+@keyframes heroIn{
+  to{transform:translateY(0)}
+}
+
+.hero-bottom{
+  margin-top:75px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+}
+
+.scroll-cue{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  font:10px "DM Mono",monospace;
+  letter-spacing:.15em;
+}
+
+.scroll-cue i{
+  width:70px;
+  height:1px;
+  background:#555;
+  position:relative;
+}
+
+.scroll-cue i::after{
+  content:"";
+  position:absolute;
+  width:18px;
+  height:1px;
+  background:var(--orange);
+  animation:scan 1.5s infinite;
+}
+
+@keyframes scan{
+  0%{left:0}
+  100%{left:52px}
+}
+
+.hero-index{
+  font:10px "DM Mono",monospace;
+  color:#555;
+}
+
+/* =========================
+   MANIFESTO
+========================= */
+
+.manifesto{
+  min-height:120svh;
+  display:flex;
+  align-items:center;
+  padding:12vw 5vw;
+  background:var(--white);
+  color:var(--black);
+}
+
+.manifesto-wrap{
+  width:100%;
+}
+
+.manifesto-kicker{
+  margin-bottom:70px;
+  color:#777;
+}
+
+.manifesto-title{
+  font-size:clamp(48px,9vw,145px);
+  line-height:.84;
+  letter-spacing:-.075em;
+  font-weight:900;
   max-width:1400px;
 }
 
-.statement-small{
-  font:8px "DM Mono",monospace;
+.manifesto-title span{
+  display:block;
+  transform:translateX(var(--mx,0px));
+  transition:transform .15s linear;
+}
+
+.manifesto-title .outline{
+  color:transparent;
+  -webkit-text-stroke:1px #111;
+}
+
+.manifesto-footer{
+  display:flex;
+  justify-content:space-between;
+  margin-top:90px;
+  padding-top:25px;
+  border-top:1px solid #ccc;
+  font:10px "DM Mono",monospace;
   color:#777;
-  margin-bottom:55px;
-  letter-spacing:.12em;
 }
 
-.statement-big{
-  font-size:clamp(55px,10vw,155px);
-  line-height:.79;
-  letter-spacing:-.105em;
-  font-weight:800;
-}
-
-.statement-big .soft{
-  color:#a8a59d;
-}
-
-.statement-big em{
-  font-family:"Playfair Display",serif;
-  font-weight:400;
-}
-
-/* =========================================================
-WORK INTRO
-========================================================= */
+/* =========================
+   WORK INTRO
+========================= */
 
 .work-intro{
-  height:100svh;
-  min-height:700px;
-  position:relative;
+  min-height:70svh;
+  display:flex;
+  align-items:flex-end;
+  padding:9vw 5vw;
+}
+
+.work-intro-title{
+  font-size:clamp(70px,13vw,210px);
+  font-weight:900;
+  letter-spacing:-.09em;
+  line-height:.77;
+}
+
+.work-intro-title span{
+  color:var(--orange);
+}
+
+/* =========================
+   PROJECT WORLDS
+========================= */
+
+.world{
+  min-height:125svh;
+  padding:70px 5vw;
   display:flex;
   align-items:center;
-  padding:8vw;
-  overflow:hidden;
+  perspective:1800px;
+  isolation:isolate;
+  background:#090909;
 }
 
-.work-index{
+.world::before{
+  content:"";
   position:absolute;
-  top:30px;
-  left:30px;
-  color:#555;
-  font:8px "DM Mono",monospace;
+  inset:0;
+  background:
+    radial-gradient(
+      circle at calc(50% + var(--mouse-x,0px))
+      calc(50% + var(--mouse-y,0px)),
+      var(--project-glow),
+      transparent 32%
+    );
+  opacity:.55;
+  z-index:-2;
 }
 
-.work-heading{
-  font-size:clamp(65px,13vw,190px);
-  line-height:.72;
-  letter-spacing:-.11em;
-  font-weight:900;
-}
-
-.work-heading span{
-  color:#555;
-}
-
-.work-heading em{
-  font-family:"Playfair Display",serif;
-  font-weight:400;
-}
-
-/* =========================================================
-PROJECT WORLDS
-========================================================= */
-
-.projects{
-  position:relative;
-}
-
-.project{
-  height:115svh;
-  min-height:750px;
-  position:relative;
-  overflow:hidden;
-  background:#08090a;
-  border-top:1px solid rgba(255,255,255,.08);
-}
-
-.project:nth-child(even){
-  background:#0b0d10;
-}
-
-.project-number{
+.world-grid{
   position:absolute;
-  top:28px;
-  left:30px;
-  color:#555;
-  font:8px "DM Mono",monospace;
+  inset:-20%;
+  z-index:-3;
+  opacity:.16;
+  background-image:
+    linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);
+  background-size:80px 80px;
+  transform:
+    translate3d(
+      calc(var(--mouse-x) * -.08),
+      calc(var(--mouse-y) * -.08),
+      0
+    )
+    rotateX(62deg)
+    translateY(15%);
+  transform-origin:center;
 }
 
-.project-type{
-  position:absolute;
-  top:28px;
-  right:30px;
-  text-align:right;
-  color:#666;
-  font:8px/1.7 "DM Mono",monospace;
-}
-
-.project-word{
+.world-no{
   position:absolute;
   left:5vw;
-  top:47%;
-  z-index:4;
-  transform:translateY(-50%);
-  pointer-events:none;
+  top:8vh;
+  font:10px "DM Mono",monospace;
+  color:#555;
 }
 
-.project-word h2{
-  font-size:clamp(75px,14vw,220px);
-  line-height:.7;
-  letter-spacing:-.12em;
-  font-weight:900;
-}
-
-.project-word em{
-  font-family:"Playfair Display",serif;
-  font-weight:400;
-}
-
-.project-sub{
-  margin-top:45px;
-  max-width:320px;
+.world-meta{
+  position:absolute;
+  right:5vw;
+  top:8vh;
+  text-align:right;
+  font:10px/1.8 "DM Mono",monospace;
   color:#777;
-  font:8px/1.7 "DM Mono",monospace;
   text-transform:uppercase;
 }
 
-.project-frame{
-  position:absolute;
-  z-index:3;
-  width:48vw;
-  height:62vh;
-  right:6vw;
-  top:50%;
-  transform:
-    translateY(-50%)
-    rotate(5deg)
-    scale(.94);
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,.15);
-  background:#111;
-  box-shadow:
-    0 60px 160px rgba(0,0,0,.65);
-  transition:
-    transform 1.3s var(--ease);
-}
-
-.project-frame:before{
-  content:"";
-  position:absolute;
-  z-index:5;
-  inset:0;
-  pointer-events:none;
-  border:1px solid rgba(255,255,255,.06);
-}
-
-.project:hover .project-frame{
-  transform:
-    translateY(-50%)
-    rotate(0deg)
-    scale(1);
-}
-
-.project-frame iframe{
+.world-stage{
   width:100%;
-  height:100%;
-  border:0;
-  pointer-events:none;
-  transform:scale(1.01);
-}
-
-.project-enter{
-  position:absolute;
-  z-index:10;
-  right:30px;
-  bottom:30px;
-  border:1px solid #333;
-  padding:12px 18px;
-  color:#aaa;
-  font:8px "DM Mono",monospace;
-  transition:.4s;
-}
-
-.project:hover .project-enter{
-  border-color:#fff;
-  color:#fff;
-}
-
-/* =========================================================
-MAGIC SECTION
-========================================================= */
-
-.magic{
-  min-height:120svh;
+  height:80svh;
   position:relative;
-  overflow:hidden;
-  background:#050607;
   display:flex;
   align-items:center;
   justify-content:center;
+  transform-style:preserve-3d;
 }
 
-.magic-orbit{
-  position:absolute;
-  width:70vw;
-  height:70vw;
-  max-width:950px;
-  max-height:950px;
-  border:1px solid rgba(255,255,255,.07);
-  border-radius:50%;
-}
-
-.magic-orbit:nth-child(2){
-  width:50vw;
-  height:50vw;
-}
-
-.magic-orbit:nth-child(3){
-  width:30vw;
-  height:30vw;
-}
-
-.magic-copy{
+.world-frame{
   position:relative;
+  width:min(73vw,1050px);
+  height:min(67vh,690px);
+  transform:
+    translate3d(
+      calc(var(--frame-x,0px)),
+      calc(var(--frame-y,0px)),
+      var(--frame-z,0px)
+    )
+    rotateX(var(--frame-rx,0deg))
+    rotateY(var(--frame-ry,0deg))
+    rotateZ(var(--frame-rz,0deg))
+    scale(var(--frame-scale,1));
+  transform-style:preserve-3d;
+  transition:transform .08s linear;
+  will-change:transform;
+}
+
+.world-frame::before{
+  content:"";
+  position:absolute;
+  inset:-25px;
+  border:1px solid rgba(255,255,255,.08);
+  transform:translateZ(-30px);
+}
+
+.world-frame::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  box-shadow:
+    40px 60px 100px rgba(0,0,0,.55),
+    0 0 100px var(--project-glow);
+  pointer-events:none;
+}
+
+.project-iframe{
+  width:100%;
+  height:100%;
+  border:0;
+  background:#111;
+  display:block;
+}
+
+.project-title{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:110%;
   z-index:5;
+  transform:
+    translate(
+      calc(-50% + var(--title-x,0px)),
+      calc(-50% + var(--title-y,0px))
+    )
+    translateZ(100px);
+  pointer-events:none;
+  mix-blend-mode:difference;
   text-align:center;
 }
 
-.magic-small{
-  color:#666;
-  font:8px "DM Mono",monospace;
-  margin-bottom:35px;
-}
-
-.magic-title{
-  font-size:clamp(60px,12vw,180px);
-  line-height:.72;
-  letter-spacing:-.11em;
+.project-title h2{
+  font-size:clamp(58px,10vw,160px);
+  line-height:.8;
   font-weight:900;
+  letter-spacing:-.08em;
+  white-space:nowrap;
 }
 
-.magic-title em{
-  font-family:"Playfair Display",serif;
-  font-weight:400;
+.project-title p{
+  margin-top:25px;
+  font:10px "DM Mono",monospace;
+  letter-spacing:.2em;
 }
 
-.magic-caption{
-  max-width:400px;
-  margin:50px auto 0;
-  color:#666;
-  font:8px/1.8 "DM Mono",monospace;
-  text-transform:uppercase;
+.world-caption{
+  position:absolute;
+  bottom:8vh;
+  left:5vw;
+  right:5vw;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  font:10px/1.7 "DM Mono",monospace;
+  color:#777;
 }
 
-/* =========================================================
-IDENTITY
-========================================================= */
+.visit{
+  border:1px solid #333;
+  padding:13px 18px;
+  transition:.4s var(--ease);
+}
 
-.identity{
-  min-height:110svh;
-  background:#ebe9e3;
-  color:#080909;
-  padding:9vw 6vw;
+.visit:hover{
+  border-color:var(--orange);
+  color:var(--orange);
+}
+
+/* Project personalities */
+
+.savoro{
+  --project-glow:rgba(212,155,75,.16);
+  background:#0c0b09;
+}
+
+.nova{
+  --project-glow:rgba(110,150,255,.13);
+  background:#080b10;
+}
+
+.noire{
+  --project-glow:rgba(190,190,190,.11);
+  background:#090909;
+}
+
+.radhe{
+  --project-glow:rgba(255,70,0,.18);
+  background:#0d0806;
+}
+
+.event{
+  --project-glow:rgba(0,190,180,.14);
+  background:#07100f;
+}
+
+.casa{
+  --project-glow:rgba(235,194,130,.14);
+  background:#0c0a08;
+}
+
+.forma{
+  --project-glow:rgba(220,220,220,.1);
+  background:#090909;
+}
+
+/* =========================
+   UNIVERSE
+========================= */
+
+.universe{
+  min-height:150svh;
+  background:var(--white);
+  color:var(--black);
+  padding:12vw 5vw;
+  perspective:1800px;
+}
+
+.universe-head{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:100px;
+}
+
+.universe-title{
+  font-size:clamp(55px,10vw,150px);
+  font-weight:900;
+  letter-spacing:-.08em;
+  line-height:.8;
+}
+
+.universe-title span{
+  color:var(--orange);
+}
+
+.universe-stage{
+  height:85svh;
+  position:relative;
+  transform-style:preserve-3d;
+}
+
+.u-plane{
+  position:absolute;
+  width:38vw;
+  height:24vw;
+  min-width:280px;
+  min-height:180px;
+  border:1px solid #222;
+  overflow:hidden;
+  box-shadow:30px 40px 80px rgba(0,0,0,.18);
+  transform:
+    translate3d(
+      var(--x),
+      var(--y),
+      var(--z)
+    )
+    rotateZ(var(--r))
+    rotateY(var(--ry))
+    scale(var(--s));
+  transform-style:preserve-3d;
+  will-change:transform;
+}
+
+.u-plane img,
+.u-plane iframe{
+  width:100%;
+  height:100%;
+  border:0;
+  object-fit:cover;
+  background:#111;
+}
+
+.u-label{
+  position:absolute;
+  bottom:15px;
+  left:15px;
+  padding:7px 9px;
+  background:#000;
+  color:#fff;
+  font:9px "DM Mono",monospace;
+  letter-spacing:.12em;
+}
+
+.u1{--x:3%;--y:8%;--z:120px;--r:-5deg;--ry:8deg;--s:1}
+.u2{--x:54%;--y:3%;--z:20px;--r:5deg;--ry:-8deg;--s:.92}
+.u3{--x:28%;--y:25%;--z:-70px;--r:2deg;--ry:4deg;--s:.88}
+.u4{--x:-4%;--y:49%;--z:40px;--r:7deg;--ry:-5deg;--s:.85}
+.u5{--x:57%;--y:51%;--z:100px;--r:-7deg;--ry:8deg;--s:.9}
+.u6{--x:25%;--y:66%;--z:-100px;--r:-2deg;--ry:-4deg;--s:.75}
+
+/* =========================
+   CAPABILITIES
+========================= */
+
+.capabilities{
+  min-height:100svh;
+  padding:12vw 5vw;
+  background:#080808;
+}
+
+.cap-head{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:90px;
+}
+
+.cap-title{
+  font-size:clamp(55px,9vw,140px);
+  font-weight:900;
+  line-height:.8;
+  letter-spacing:-.08em;
+}
+
+.cap-list{
+  border-top:1px solid #222;
+}
+
+.cap-row{
+  min-height:125px;
+  border-bottom:1px solid #222;
   display:flex;
   align-items:center;
+  justify-content:space-between;
+  position:relative;
+  overflow:hidden;
+  transition:.5s var(--ease);
+}
+
+.cap-row::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:var(--orange);
+  transform:translateY(101%);
+  transition:.65s var(--ease);
+  z-index:0;
+}
+
+.cap-row:hover::before{
+  transform:translateY(0);
+}
+
+.cap-number,
+.cap-name,
+.cap-arrow{
+  position:relative;
+  z-index:1;
+}
+
+.cap-number{
+  font:10px "DM Mono",monospace;
+  color:#555;
+}
+
+.cap-name{
+  font-size:clamp(30px,5vw,70px);
+  font-weight:800;
+  letter-spacing:-.05em;
+  transition:.5s var(--ease);
+}
+
+.cap-arrow{
+  font-size:25px;
+  transition:.5s var(--ease);
+}
+
+.cap-row:hover .cap-name,
+.cap-row:hover .cap-number,
+.cap-row:hover .cap-arrow{
+  color:#000;
+}
+
+.cap-row:hover .cap-name{
+  transform:translateX(25px);
+}
+
+.cap-row:hover .cap-arrow{
+  transform:rotate(-45deg) scale(1.2);
+}
+
+/* =========================
+   IDENTITY
+========================= */
+
+.identity{
+  min-height:100svh;
+  display:flex;
+  align-items:center;
+  padding:10vw 5vw;
+  background:#111;
 }
 
 .identity-inner{
   width:100%;
 }
 
-.identity-small{
-  font:8px "DM Mono",monospace;
-  color:#777;
-  margin-bottom:60px;
+.identity-top{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:100px;
 }
 
 .identity-name{
-  font-size:clamp(75px,15vw,225px);
+  font-size:clamp(90px,17vw,260px);
   line-height:.7;
-  letter-spacing:-.12em;
   font-weight:900;
+  letter-spacing:-.1em;
+  overflow:hidden;
 }
 
 .identity-name span{
-  color:#a9a69f;
-}
-
-.identity-bottom{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-end;
-  margin-top:90px;
-}
-
-.identity-text{
-  max-width:430px;
-  color:#6d6b66;
-  font:9px/1.8 "DM Mono",monospace;
-  text-transform:uppercase;
-}
-
-.identity-data{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:60px;
-  color:#777;
-  font:8px/1.6 "DM Mono",monospace;
-}
-
-.identity-data strong{
-  display:block;
-  color:#111;
-  margin-bottom:6px;
-}
-
-/* =========================================================
-FINAL
-========================================================= */
-
-.final{
-  min-height:100svh;
-  background:#050607;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  padding:30px;
-}
-
-.final-top{
-  display:flex;
-  justify-content:space-between;
-  color:#555;
-  font:8px "DM Mono",monospace;
-}
-
-.final-center{
-  padding:7vw 0;
-}
-
-.final-small{
-  color:#666;
-  font:8px "DM Mono",monospace;
-  margin-bottom:45px;
-}
-
-.final-title{
-  font-size:clamp(70px,15vw,230px);
-  line-height:.68;
-  letter-spacing:-.12em;
-  font-weight:900;
-}
-
-.final-title a{
   display:inline-block;
-  transition:
-    transform .8s var(--ease),
-    color .4s;
+  transform:translateY(100%);
+  transition:transform 1.2s var(--ease);
 }
 
-.final-title a:hover{
-  transform:translateX(5vw);
-  color:var(--gold);
-}
-
-.final-mail{
-  margin-top:60px;
-  font:9px "DM Mono",monospace;
-  color:#888;
-}
-
-.final-mail a{
-  color:#eee;
-  border-bottom:1px solid #555;
-  padding-bottom:6px;
-}
-
-.footer{
-  border-top:1px solid rgba(255,255,255,.1);
-  padding-top:15px;
-  display:flex;
-  justify-content:space-between;
-  color:#555;
-  font:7px "DM Mono",monospace;
-}
-
-/* =========================================================
-REVEAL
-========================================================= */
-
-.reveal{
-  opacity:0;
-  transform:translateY(60px);
-  transition:
-    opacity 1.2s var(--ease),
-    transform 1.2s var(--ease);
-}
-
-.reveal.visible{
-  opacity:1;
+.identity.in-view .identity-name span{
   transform:translateY(0);
 }
 
-/* =========================================================
-MOBILE
-========================================================= */
+.identity-copy{
+  display:flex;
+  justify-content:flex-end;
+}
+
+.identity-copy p{
+  max-width:450px;
+  font:12px/2 "DM Mono",monospace;
+  color:#888;
+}
+
+.identity-copy strong{
+  color:#fff;
+  font-weight:400;
+}
+
+/* =========================
+   FINAL
+========================= */
+
+.final{
+  min-height:100svh;
+  background:var(--orange);
+  color:#080808;
+  padding:8vw 5vw 35px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.final-title{
+  font-size:clamp(70px,13vw,210px);
+  font-weight:900;
+  line-height:.74;
+  letter-spacing:-.09em;
+}
+
+.final-title .outline{
+  color:transparent;
+  -webkit-text-stroke:2px #080808;
+}
+
+.final-bottom{
+  border-top:1px solid rgba(0,0,0,.3);
+  padding-top:20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:30px;
+}
+
+.start{
+  font-size:clamp(25px,4vw,55px);
+  font-weight:800;
+  letter-spacing:-.05em;
+}
+
+.contact{
+  text-align:right;
+  font:10px/2 "DM Mono",monospace;
+}
+
+.contact a{
+  display:block;
+  transition:.3s;
+}
+
+.contact a:hover{
+  transform:translateX(-8px);
+}
+
+/* =========================
+   SCROLL PROGRESS
+========================= */
+
+.progress{
+  position:fixed;
+  z-index:9001;
+  right:20px;
+  top:50%;
+  width:1px;
+  height:90px;
+  background:#222;
+  transform:translateY(-50%);
+}
+
+.progress i{
+  display:block;
+  width:100%;
+  height:0;
+  background:var(--orange);
+}
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:800px){
 
-  body{
-    cursor:auto;
-  }
-
-  .cursor{
-    display:none;
-  }
-
   .nav{
-    padding:18px 16px;
+    padding:20px;
   }
 
   .nav-right{
-    gap:12px;
+    gap:14px;
   }
 
   .hero{
     min-height:100svh;
+    padding:100px 20px 50px;
+  }
+
+  .hero-small{
+    margin-bottom:55px;
+  }
+
+  .hero-small .right{
+    display:none;
   }
 
   .hero-title{
-    font-size:21vw;
-  }
-
-  .hero-grid{
-    background-size:50px 50px;
-  }
-
-  .statement{
-    min-height:100svh;
-    padding:18px;
-  }
-
-  .statement-big{
-    font-size:17vw;
-  }
-
-  .work-intro{
-    min-height:100svh;
-    padding:18px;
-  }
-
-  .work-heading{
     font-size:20vw;
+    line-height:.8;
   }
 
-  .project{
-    height:100svh;
-    min-height:700px;
-  }
-
-  .project-word{
-    left:18px;
-    top:27%;
-  }
-
-  .project-word h2{
-    font-size:19vw;
-  }
-
-  .project-sub{
-    margin-top:28px;
-    max-width:240px;
-    font-size:7px;
-  }
-
-  .project-frame{
-    width:88vw;
-    height:43vh;
-    right:6vw;
-    top:69%;
-    transform:
-      translateY(-50%)
-      rotate(2deg)
-      scale(.97);
-  }
-
-  .project:hover .project-frame{
-    transform:
-      translateY(-50%)
-      rotate(0)
-      scale(1);
-  }
-
-  .project-type{
-    right:18px;
-  }
-
-  .project-number{
-    left:18px;
-  }
-
-  .project-enter{
-    right:18px;
-    bottom:18px;
-  }
-
-  .magic{
-    min-height:100svh;
-  }
-
-  .magic-title{
-    font-size:19vw;
-  }
-
-  .magic-orbit{
-    width:120vw;
-    height:120vw;
-  }
-
-  .magic-orbit:nth-child(2){
-    width:90vw;
-    height:90vw;
-  }
-
-  .magic-orbit:nth-child(3){
-    width:60vw;
-    height:60vw;
-  }
-
-  .identity{
-    min-height:100svh;
-    padding:18px;
-  }
-
-  .identity-name{
-    font-size:20vw;
-  }
-
-  .identity-bottom{
-    display:block;
+  .hero-bottom{
     margin-top:60px;
   }
 
-  .identity-data{
-    margin-top:45px;
-    gap:20px;
+  .manifesto{
+    min-height:90svh;
+    padding:100px 20px;
+  }
+
+  .manifesto-title{
+    font-size:15vw;
+  }
+
+  .manifesto-footer{
+    margin-top:60px;
+  }
+
+  .work-intro{
+    min-height:60svh;
+    padding:90px 20px;
+  }
+
+  .work-intro-title{
+    font-size:19vw;
+  }
+
+  .world{
+    min-height:100svh;
+    padding:80px 20px;
+  }
+
+  .world-stage{
+    height:65svh;
+  }
+
+  .world-frame{
+    width:94vw;
+    height:55vh;
+  }
+
+  .project-title{
+    width:130%;
+  }
+
+  .project-title h2{
+    font-size:16vw;
+  }
+
+  .world-caption{
+    bottom:35px;
+    left:20px;
+    right:20px;
+  }
+
+  .world-meta{
+    right:20px;
+  }
+
+  .universe{
+    min-height:130svh;
+    padding:90px 20px;
+  }
+
+  .universe-head{
+    margin-bottom:50px;
+  }
+
+  .universe-stage{
+    height:90svh;
+  }
+
+  .u-plane{
+    width:65vw;
+    height:43vw;
+    min-width:210px;
+    min-height:140px;
+  }
+
+  .u1{--x:-2%;--y:8%;--z:100px}
+  .u2{--x:40%;--y:12%;--z:30px}
+  .u3{--x:10%;--y:32%;--z:-40px}
+  .u4{--x:-4%;--y:53%;--z:30px}
+  .u5{--x:40%;--y:57%;--z:90px}
+  .u6{--x:10%;--y:76%;--z:-60px}
+
+  .capabilities{
+    padding:90px 20px;
+  }
+
+  .cap-head{
+    margin-bottom:60px;
+  }
+
+  .cap-row{
+    min-height:100px;
+  }
+
+  .cap-name{
+    font-size:8vw;
+  }
+
+  .identity{
+    padding:100px 20px;
+  }
+
+  .identity-top{
+    margin-bottom:80px;
+  }
+
+  .identity-name{
+    font-size:22vw;
+  }
+
+  .identity-copy{
+    justify-content:flex-start;
+  }
+
+  .identity-copy p{
+    max-width:100%;
   }
 
   .final{
-    min-height:100svh;
-    padding:20px 18px;
+    padding:80px 20px 25px;
   }
 
   .final-title{
-    font-size:21vw;
+    font-size:18vw;
   }
 
-  .footer{
-    flex-wrap:wrap;
-    gap:12px;
+  .final-bottom{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .contact{
+    text-align:left;
+  }
+
+  .progress{
+    display:none;
+  }
+
+  .cursor,
+  .cursor-trail{
+    display:none;
   }
 }
 
-/* =========================================================
-REDUCED MOTION
-========================================================= */
-
-@media(prefers-reduced-motion:reduce){
-
-  *,
-  *::before,
-  *::after{
-    animation:none!important;
-    transition:none!important;
-    scroll-behavior:auto!important;
+@media(pointer:fine){
+  body{
+    cursor:none;
   }
-
 }
 </style>
 </head>
 
 <body>
 
-<!-- =====================================================
-LOADER
-===================================================== -->
-
+<!-- LOADER -->
 <div class="loader" id="loader">
-
   <div class="loader-inner">
-
     <div class="loader-top">
-      <span>KAUSTUBH × AI VISION</span>
-      <span>001 / 001</span>
+      <span>AI VISION STUDIO®</span>
+      <span>AHMEDABAD / INDIA</span>
     </div>
 
     <div class="loader-name">
-      KAUSTUBH<br>
-      <i>× AI VISION</i>
+      <span>KAUSTUBH</span>
+      <span>× AI VISION</span>
     </div>
 
-    <div class="loader-bottom">
-      <span>INITIALIZING A DIGITAL POINT OF VIEW</span>
-      <span id="percent">00</span>
+    <div class="loader-line">
+      <i></i>
     </div>
-
-    <div class="loader-bar">
-      <div class="loader-fill"></div>
-    </div>
-
   </div>
-
 </div>
-
 
 <div class="grain"></div>
 
-
-<!-- =====================================================
-CURSOR
-===================================================== -->
-
+<!-- CURSOR -->
 <div class="cursor" id="cursor">
   <div class="cursor-ring"></div>
   <div class="cursor-core"></div>
-  <div class="cursor-word">OPEN</div>
+  <div class="cursor-label">VIEW</div>
 </div>
 
-
-<!-- =====================================================
-NAV
-===================================================== -->
-
+<!-- NAV -->
 <nav class="nav">
-
-  <div class="nav-logo">
-    KAUSTUBH <span>× AI VISION</span>
-  </div>
+  <a href="#" class="brand magnetic">AI VISION STUDIO®</a>
 
   <div class="nav-right">
-    <span>AHMEDABAD</span>
-    <span>2026</span>
+    <a href="#work" class="magnetic">WORK</a>
+    <a href="#capabilities" class="magnetic">CAPABILITIES</a>
+    <a href="#contact" class="magnetic">START</a>
   </div>
-
 </nav>
 
+<div class="progress">
+  <i id="progress"></i>
+</div>
 
-<main>
+<!-- HERO -->
+<section class="hero" id="top">
 
+  <div class="hero-camera" id="heroCamera">
 
-<!-- =====================================================
-HERO
-===================================================== -->
+    <div class="hero-small">
+      <div class="eyebrow">
+        DIGITAL EXPERIENCES / 2026
+      </div>
 
-<section class="hero">
-
-  <div class="hero-grid" id="heroGrid"></div>
-
-  <div class="hero-glow" id="heroGlow"></div>
-
-  <div class="hero-copy reveal">
-
-    <div class="hero-kicker">
-      INDEPENDENT DIGITAL STUDIO
+      <div class="right">
+        We create websites and digital identities
+        designed to make people stop scrolling.
+      </div>
     </div>
 
     <h1 class="hero-title">
-      NOT<br>
-      <span class="italic">ANOTHER</span><br>
-      STUDIO.
+
+      <span class="line-title">
+        <span class="inner">NOT</span>
+      </span>
+
+      <span class="line-title second">
+        <span class="inner">ANOTHER</span>
+      </span>
+
+      <span class="line-title">
+        <span class="inner">STUDIO.</span>
+      </span>
+
     </h1>
 
-    <div class="hero-line"></div>
+    <div class="hero-bottom">
+      <div class="scroll-cue">
+        SCROLL TO ENTER
+        <i></i>
+      </div>
 
-  </div>
-
-  <div class="hero-note">
-    SCROLL / EXPERIENCE / EXPLORE
-  </div>
-
-</section>
-
-
-<!-- =====================================================
-STATEMENT
-===================================================== -->
-
-<section class="statement">
-
-  <div class="statement-inner reveal">
-
-    <div class="statement-small">
-      001 — THE APPROACH
-    </div>
-
-    <div class="statement-big">
-      WE DON'T<br>
-      <span class="soft">DESIGN</span><br>
-      <em>WE CREATE</em><br>
-      PRESENCE.
+      <div class="hero-index">
+        00 / 07
+      </div>
     </div>
 
   </div>
-
 </section>
 
+<!-- MANIFESTO -->
+<section class="manifesto">
 
-<!-- =====================================================
-WORK INTRO
-===================================================== -->
+  <div class="manifesto-wrap">
 
-<section class="work-intro">
+    <div class="eyebrow manifesto-kicker">
+      OUR POSITION / 001
+    </div>
 
-  <div class="work-index">
-    002 — SELECTED WORK
-  </div>
-
-  <div class="work-heading reveal">
-    SEVEN<br>
-    <span>DIFFERENT</span><br>
-    <em>WORLDS.</em>
-  </div>
-
-</section>
-
-
-<!-- =====================================================
-PROJECTS
-===================================================== -->
-
-<section class="projects">
-
-
-<!-- EVENTBUDGET -->
-
-<article class="project">
-
-  <div class="project-number">01 / 07</div>
-
-  <div class="project-type">
-    DIGITAL PRODUCT<br>
-    SYSTEM / EXPERIENCE
-  </div>
-
-  <div class="project-word reveal">
-
-    <h2>
-      EVENT<br>
-      <em>BUDGET</em>
+    <h2 class="manifesto-title">
+      <span>WE DON'T</span>
+      <span class="outline">DESIGN.</span>
+      <span>WE CREATE</span>
+      <span class="outline">PRESENCE.</span>
     </h2>
 
-    <div class="project-sub">
-      Turning event planning into
-      an experience instead of
-      another spreadsheet.
+    <div class="manifesto-footer">
+      <span>BRAND × DIGITAL × MOTION</span>
+      <span>MOVE DIFFERENT.</span>
     </div>
 
   </div>
 
-  <div class="project-frame">
+</section>
 
-    <iframe
-      src="https://eventbudget-sooty.vercel.app/"
-      loading="lazy">
-    </iframe>
+<!-- WORK INTRO -->
+<section class="work-intro" id="work">
+
+  <h2 class="work-intro-title">
+    SEVEN<br>
+    <span>WORLDS.</span>
+  </h2>
+
+</section>
+
+<!-- PROJECT 01 -->
+<section class="world savoro" data-world>
+
+  <div class="world-grid"></div>
+
+  <div class="world-no">01 / 07</div>
+
+  <div class="world-meta">
+    FOOD / LUXURY<br>
+    DIGITAL EXPERIENCE
+  </div>
+
+  <div class="world-stage">
+
+    <div class="world-frame">
+
+      <iframe
+        class="project-iframe"
+        src="https://savoro-puce.vercel.app/#menu"
+        loading="lazy">
+      </iframe>
+
+      <div class="project-title">
+        <h2>SAVORO</h2>
+        <p>THE ART OF APPETITE</p>
+      </div>
+
+    </div>
 
   </div>
 
-  <a
-    class="project-enter"
-    href="https://eventbudget-sooty.vercel.app/"
-    target="_blank">
-    ENTER ↗
-  </a>
+  <div class="world-caption">
+    <span>CINEMATIC FOOD EXPERIENCE</span>
+    <a href="https://savoro-puce.vercel.app/#menu"
+       target="_blank"
+       class="visit magnetic"
+       data-cursor="OPEN">
+       OPEN ↗
+    </a>
+  </div>
 
-</article>
+</section>
 
+<!-- PROJECT 02 -->
+<section class="world nova" data-world>
 
-<!-- NOVA -->
+  <div class="world-grid"></div>
 
-<article class="project">
+  <div class="world-no">02 / 07</div>
 
-  <div class="project-number">02 / 07</div>
+  <div class="world-meta">
+    TECHNOLOGY / FUTURE<br>
+    DIGITAL PRODUCT
+  </div>
 
-  <div class="project-type">
-    DIGITAL EXPERIENCE<br>
+  <div class="world-stage">
+
+    <div class="world-frame">
+
+      <iframe
+        class="project-iframe"
+        src="https://nova-gilt-psi.vercel.app/"
+        loading="lazy">
+      </iframe>
+
+      <div class="project-title">
+        <h2>NOVA</h2>
+        <p>BUILT FOR WHAT'S NEXT</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="world-caption">
+    <span>FUTURE-FORWARD INTERFACE</span>
+    <a href="https://nova-gilt-psi.vercel.app/"
+       target="_blank"
+       class="visit magnetic"
+       data-cursor="OPEN">
+       OPEN ↗
+    </a>
+  </div>
+
+</section>
+
+<!-- PROJECT 03 -->
+<section class="world noire" data-world>
+
+  <div class="world-grid"></div>
+
+  <div class="world-no">03 / 07</div>
+
+  <div class="world-meta">
+    EDITORIAL / LUXURY<br>
     ART DIRECTION
   </div>
 
-  <div class="project-word reveal">
-
-    <h2>
-      <em>NOVA</em>
-    </h2>
-
-    <div class="project-sub">
-      A digital environment built
-      around precision, atmosphere
-      and movement.
-    </div>
-
-  </div>
-
-  <div class="project-frame">
-
-    <iframe
-      src="https://nova-gilt-psi.vercel.app/"
-      loading="lazy">
-    </iframe>
-
-  </div>
-
-  <a
-    class="project-enter"
-    href="https://nova-gilt-psi.vercel.app/"
-    target="_blank">
-    ENTER ↗
-  </a>
-
-</article>
-
-
-<!-- NOIRE -->
-
-<article class="project">
-
-  <div class="project-number">03 / 07</div>
-
-  <div class="project-type">
-    EDITORIAL<br>
-    DIGITAL IDENTITY
-  </div>
-
-  <div class="project-word reveal">
-
-    <h2>
-      <em>NOIRÉ</em>
-    </h2>
-
-    <div class="project-sub">
-      Typography, darkness and
-      restraint transformed into
-      a digital identity.
-    </div>
-
-  </div>
-
-  <div class="project-frame">
-
-    <iframe
-      src="https://noire-five-blond.vercel.app/"
-      loading="lazy">
-    </iframe>
-
-  </div>
-
-  <a
-    class="project-enter"
-    href="https://noire-five-blond.vercel.app/"
-    target="_blank">
-    ENTER ↗
-  </a>
-
-</article>
-
-
-<!-- FORMA -->
-
-<article class="project">
-
-  <div class="project-number">04 / 07</div>
-
-  <div class="project-type">
-    DIGITAL BRAND<br>
-    ARCHITECTURE
-  </div>
-
-  <div class="project-word reveal">
-
-    <h2>
-      <em>FORMA</em>
-    </h2>
-
-    <div class="project-sub">
-      Digital architecture where
-      proportion becomes identity.
-    </div>
-
-  </div>
-
-  <div class="project-frame">
-
-    <iframe
-      src="https://forma-ochre-nine.vercel.app/"
-      loading="lazy">
-    </iframe>
-
-  </div>
-
-  <a
-    class="project-enter"
-    href="https://forma-ochre-nine.vercel.app/"
-    target="_blank">
-    ENTER ↗
-  </a>
-
-</article>
-
-
-<!-- SAVORO -->
-
-<article class="project">
-
-  <div class="project-number">05 / 07</div>
-
-  <div class="project-type">
-    HOSPITALITY<br>
-    DIGITAL EXPERIENCE
-  </div>
-
-  <div class="project-word reveal">
-
-    <h2>
-      <em>SAVORO</em>
-    </h2>
-
-    <div class="project-sub">
-      A restaurant experience
-      designed to make the screen
-      feel almost edible.
-    </div>
-
-  </div>
-
-  <div class="project-frame">
-
-    <iframe
-      src="https://savoro-puce.vercel.app/#menu"
-      loading="lazy">
-    </iframe>
-
-  </div>
-
-  <a
-    class="project-enter"
-    href="https://savoro-puce.vercel.app/#menu"
-    target="_blank">
-    ENTER ↗
-  </a>
-
-</article>
-
-
-<!-- RADHE -->
-
-<article class="project">
-
-  <div class="project-number">06 / 07</div>
-
-  <div class="project-type">
-    SPORTS<br>
-    DIGITAL EXPERIENCE
-  </div>
-
-  <div class="project-word reveal">
-
-    <h2>
-      RADHE<br>
-      <em>ARENA</em>
-    </h2>
-
-    <div class="project-sub">
-      Energy, movement and sport
-      translated into a digital
-      environment.
-    </div>
-
-  </div>
-
-  <div class="project-frame">
-
-    <iframe
-      src="https://radhearena.vercel.app/"
-      loading="lazy">
-    </iframe>
-
-  </div>
-
-  <a
-    class="project-enter"
-    href="https://radhearena.vercel.app/"
-    target="_blank">
-    ENTER ↗
-  </a>
-
-</article>
-
-
-<!-- CASA MIRA -->
-
-<article class="project">
-
-  <div class="project-number">07 / 07</div>
-
-  <div class="project-type">
-    HOSPITALITY<br>
-    DIGITAL IDENTITY
-  </div>
-
-  <div class="project-word reveal">
-
-    <h2>
-      CASA<br>
-      <em>MIRA</em>
-    </h2>
-
-    <div class="project-sub">
-      A quieter digital world
-      built around hospitality,
-      space and mood.
-    </div>
-
-  </div>
-
-  <div class="project-frame">
-
-    <iframe
-      src="https://casa-mira-inky.vercel.app/"
-      loading="lazy">
-    </iframe>
-
-  </div>
-
-  <a
-    class="project-enter"
-    href="https://casa-mira-inky.vercel.app/"
-    target="_blank">
-    ENTER ↗
-  </a>
-
-</article>
-
-</section>
-
-
-<!-- =====================================================
-MAGIC
-===================================================== -->
-
-<section class="magic">
-
-  <div class="magic-orbit"></div>
-  <div class="magic-orbit"></div>
-  <div class="magic-orbit"></div>
-
-  <div class="magic-copy reveal">
-
-    <div class="magic-small">
-      003 — THE BELIEF
-    </div>
-
-    <div class="magic-title">
-      GOOD<br>
-      <em>IS</em><br>
-      BORING.
-    </div>
-
-    <div class="magic-caption">
-      The internet already has enough
-      beautiful websites. We want to make
-      the ones people remember.
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =====================================================
-IDENTITY
-===================================================== -->
-
-<section class="identity">
-
-  <div class="identity-inner reveal">
-
-    <div class="identity-small">
-      004 — THE PERSON BEHIND THE WORK
-    </div>
-
-    <div class="identity-name">
-      KAU<span>STUBH.</span>
-    </div>
-
-    <div class="identity-bottom">
-
-      <div class="identity-text">
-        A young designer, builder and
-        experimenter from Ahmedabad.
-        Creating digital experiences
-        where design and technology
-        stop feeling separate.
-      </div>
-
-      <div class="identity-data">
-
-        <div>
-          <strong>BASED</strong>
-          AHMEDABAD
-        </div>
-
-        <div>
-          <strong>FOCUS</strong>
-          DESIGN / CODE
-        </div>
-
-        <div>
-          <strong>STUDIO</strong>
-          AI VISION
-        </div>
-
+  <div class="world-stage">
+
+    <div class="world-frame">
+
+      <iframe
+        class="project-iframe"
+        src="https://noire-five-blond.vercel.app/"
+        loading="lazy">
+      </iframe>
+
+      <div class="project-title">
+        <h2>NOIRÉ</h2>
+        <p>LESS. BUT LOUDER.</p>
       </div>
 
     </div>
 
   </div>
 
-</section>
-
-
-<!-- =====================================================
-FINAL
-===================================================== -->
-
-<section class="final">
-
-  <div class="final-top">
-    <span>005 — BEGIN SOMETHING</span>
-    <span>KAUSTUBH × AI VISION</span>
+  <div class="world-caption">
+    <span>EDITORIAL DIGITAL IDENTITY</span>
+    <a href="https://noire-five-blond.vercel.app/"
+       target="_blank"
+       class="visit magnetic"
+       data-cursor="OPEN">
+       OPEN ↗
+    </a>
   </div>
 
-  <div class="final-center reveal">
+</section>
 
-    <div class="final-small">
-      YOUR BUSINESS COULD LOOK DIFFERENT.
+<!-- PROJECT 04 -->
+<section class="world radhe" data-world>
+
+  <div class="world-grid"></div>
+
+  <div class="world-no">04 / 07</div>
+
+  <div class="world-meta">
+    SPORTS / ENERGY<br>
+    EXPERIENCE DESIGN
+  </div>
+
+  <div class="world-stage">
+
+    <div class="world-frame">
+
+      <iframe
+        class="project-iframe"
+        src="https://radhearena.vercel.app/"
+        loading="lazy">
+      </iframe>
+
+      <div class="project-title">
+        <h2>RADHE</h2>
+        <p>PLAY WITH ATTITUDE</p>
+      </div>
+
     </div>
 
-    <div class="final-title">
+  </div>
 
-      <a href="mailto:aivisionstudio2821@gmail.com">
-        LET'S
-      </a>
+  <div class="world-caption">
+    <span>SPORTS EXPERIENCE SYSTEM</span>
+    <a href="https://radhearena.vercel.app/"
+       target="_blank"
+       class="visit magnetic"
+       data-cursor="OPEN">
+       OPEN ↗
+    </a>
+  </div>
 
-      <br>
+</section>
 
-      <a href="mailto:aivisionstudio2821@gmail.com">
-        MAKE IT.
-      </a>
+<!-- PROJECT 05 -->
+<section class="world event" data-world>
+
+  <div class="world-grid"></div>
+
+  <div class="world-no">05 / 07</div>
+
+  <div class="world-meta">
+    PRODUCT / SYSTEM<br>
+    EVENTBUDGET
+  </div>
+
+  <div class="world-stage">
+
+    <div class="world-frame">
+
+      <iframe
+        class="project-iframe"
+        src="https://eventbudget-sooty.vercel.app/"
+        loading="lazy">
+      </iframe>
+
+      <div class="project-title">
+        <h2>EVENTBUDGET</h2>
+        <p>PLAN. SIMULATE. CELEBRATE.</p>
+      </div>
 
     </div>
 
-    <div class="final-mail">
+  </div>
 
-      <a href="mailto:aivisionstudio2821@gmail.com">
+  <div class="world-caption">
+    <span>INTERACTIVE EVENT PLATFORM</span>
+    <a href="https://eventbudget-sooty.vercel.app/"
+       target="_blank"
+       class="visit magnetic"
+       data-cursor="OPEN">
+       OPEN ↗
+    </a>
+  </div>
+
+</section>
+
+<!-- PROJECT 06 -->
+<section class="world casa" data-world>
+
+  <div class="world-grid"></div>
+
+  <div class="world-no">06 / 07</div>
+
+  <div class="world-meta">
+    HOSPITALITY / SPACE<br>
+    DIGITAL PRESENCE
+  </div>
+
+  <div class="world-stage">
+
+    <div class="world-frame">
+
+      <iframe
+        class="project-iframe"
+        src="https://casa-mira-inky.vercel.app/"
+        loading="lazy">
+      </iframe>
+
+      <div class="project-title">
+        <h2>CASA MIRA</h2>
+        <p>STAY SOMEWHERE BEAUTIFUL</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="world-caption">
+    <span>HOSPITALITY EXPERIENCE</span>
+    <a href="https://casa-mira-inky.vercel.app/"
+       target="_blank"
+       class="visit magnetic"
+       data-cursor="OPEN">
+       OPEN ↗
+    </a>
+  </div>
+
+</section>
+
+<!-- PROJECT 07 -->
+<section class="world forma" data-world>
+
+  <div class="world-grid"></div>
+
+  <div class="world-no">07 / 07</div>
+
+  <div class="world-meta">
+    ARCHITECTURE / FORM<br>
+    VISUAL SYSTEM
+  </div>
+
+  <div class="world-stage">
+
+    <div class="world-frame">
+
+      <iframe
+        class="project-iframe"
+        src="https://forma-ochre-nine.vercel.app/"
+        loading="lazy">
+      </iframe>
+
+      <div class="project-title">
+        <h2>FORMA</h2>
+        <p>FORM FOLLOWS FEELING</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="world-caption">
+    <span>ARCHITECTURAL DIGITAL WORLD</span>
+    <a href="https://forma-ochre-nine.vercel.app/"
+       target="_blank"
+       class="visit magnetic"
+       data-cursor="OPEN">
+       OPEN ↗
+    </a>
+  </div>
+
+</section>
+
+<!-- UNIVERSE -->
+<section class="universe">
+
+  <div class="universe-head">
+
+    <div class="eyebrow">
+      PROJECT UNIVERSE / 002
+    </div>
+
+    <div class="eyebrow">
+      MOVE YOUR MOUSE
+    </div>
+
+  </div>
+
+  <h2 class="universe-title">
+    ONE STUDIO.<br>
+    <span>MANY WORLDS.</span>
+  </h2>
+
+  <div class="universe-stage" id="universeStage">
+
+    <div class="u-plane u1">
+      <iframe src="https://savoro-puce.vercel.app/#menu" loading="lazy"></iframe>
+      <div class="u-label">SAVORO</div>
+    </div>
+
+    <div class="u-plane u2">
+      <iframe src="https://nova-gilt-psi.vercel.app/" loading="lazy"></iframe>
+      <div class="u-label">NOVA</div>
+    </div>
+
+    <div class="u-plane u3">
+      <iframe src="https://noire-five-blond.vercel.app/" loading="lazy"></iframe>
+      <div class="u-label">NOIRÉ</div>
+    </div>
+
+    <div class="u-plane u4">
+      <iframe src="https://radhearena.vercel.app/" loading="lazy"></iframe>
+      <div class="u-label">RADHE</div>
+    </div>
+
+    <div class="u-plane u5">
+      <iframe src="https://eventbudget-sooty.vercel.app/" loading="lazy"></iframe>
+      <div class="u-label">EVENTBUDGET</div>
+    </div>
+
+    <div class="u-plane u6">
+      <iframe src="https://forma-ochre-nine.vercel.app/" loading="lazy"></iframe>
+      <div class="u-label">FORMA</div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- CAPABILITIES -->
+<section class="capabilities" id="capabilities">
+
+  <div class="cap-head">
+
+    <div class="eyebrow">
+      WHAT WE DO / 003
+    </div>
+
+    <div class="eyebrow">
+      NO TEMPLATE. NO COPY.
+    </div>
+
+  </div>
+
+  <h2 class="cap-title">
+    WE BUILD<br>
+    <span class="orange">ATTENTION.</span>
+  </h2>
+
+  <div class="cap-list">
+
+    <div class="cap-row magnetic">
+      <span class="cap-number">01</span>
+      <span class="cap-name">WEB EXPERIENCES</span>
+      <span class="cap-arrow">↗</span>
+    </div>
+
+    <div class="cap-row magnetic">
+      <span class="cap-number">02</span>
+      <span class="cap-name">BRAND SYSTEMS</span>
+      <span class="cap-arrow">↗</span>
+    </div>
+
+    <div class="cap-row magnetic">
+      <span class="cap-number">03</span>
+      <span class="cap-name">MOTION & INTERACTION</span>
+      <span class="cap-arrow">↗</span>
+    </div>
+
+    <div class="cap-row magnetic">
+      <span class="cap-number">04</span>
+      <span class="cap-name">AI-POWERED DESIGN</span>
+      <span class="cap-arrow">↗</span>
+    </div>
+
+    <div class="cap-row magnetic">
+      <span class="cap-number">05</span>
+      <span class="cap-name">DIGITAL PRESENCE</span>
+      <span class="cap-arrow">↗</span>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- IDENTITY -->
+<section class="identity" id="about">
+
+  <div class="identity-inner">
+
+    <div class="identity-top">
+
+      <div class="eyebrow">
+        THE PERSON BEHIND IT / 004
+      </div>
+
+      <div class="eyebrow">
+        AHMEDABAD — INDIA
+      </div>
+
+    </div>
+
+    <h2 class="identity-name">
+      <span>KAUSTUBH.</span>
+    </h2>
+
+    <div class="identity-copy">
+
+      <p>
+        <strong>
+          AI Vision Studio is an independent digital studio led by
+          Kaustubh Shukla.
+        </strong>
+        <br><br>
+        We don't believe every business needs another website.
+        It needs a digital presence people remember.
+        <br><br>
+        Strategy, design, motion, code and AI —
+        combined into experiences that feel bigger than the screen.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- FINAL -->
+<section class="final" id="contact">
+
+  <div>
+
+    <div class="eyebrow" style="color:#5e1c00;margin-bottom:55px;">
+      HAVE A BUSINESS / IDEA / BRAND?
+    </div>
+
+    <h2 class="final-title">
+      YOUR BUSINESS<br>
+      COULD LOOK<br>
+      <span class="outline">LIKE THIS.</span>
+    </h2>
+
+  </div>
+
+  <div class="final-bottom">
+
+    <a
+      class="start magnetic"
+      href="mailto:aivisionstudio2821@gmail.com"
+      data-cursor="EMAIL">
+      START A PROJECT ↗
+    </a>
+
+    <div class="contact">
+
+      <a href="tel:+919925054448" class="magnetic">
+        +91 99250 54448
+      </a>
+
+      <a
+        href="mailto:aivisionstudio2821@gmail.com"
+        class="magnetic">
         aivisionstudio2821@gmail.com
       </a>
 
-      &nbsp;&nbsp; / &nbsp;&nbsp;
-
-      <a href="https://instagram.com/aivisionstudioahmedabad_" target="_blank">
-        INSTAGRAM ↗
+      <a
+        href="https://instagram.com/aivisionstudioahmedabad_"
+        target="_blank"
+        class="magnetic">
+        @AIVISIONSTUDIOAHMEDABAD_
       </a>
 
     </div>
 
   </div>
 
-  <footer class="footer">
-
-    <span>KAUSTUBH × AI VISION</span>
-    <span>AHMEDABAD / INDIA</span>
-    <span>© 2026</span>
-
-  </footer>
-
 </section>
-
-
-</main>
-
 
 <script>
 
-/* =========================================================
-LOADER
-========================================================= */
+/* =====================================================
+   BASIC
+===================================================== */
 
-const loader = document.getElementById("loader");
-const percent = document.getElementById("percent");
+const clamp = (v,min,max) =>
+  Math.max(min,Math.min(max,v));
 
-let p = 0;
-
-const loadTimer = setInterval(() => {
-
-  p += Math.floor(Math.random() * 5) + 1;
-
-  if(p > 100) p = 100;
-
-  percent.textContent =
-    String(p).padStart(2,"0");
-
-  if(p >= 100){
-    clearInterval(loadTimer);
-
-    setTimeout(() => {
-      loader.classList.add("done");
-    },500);
-  }
-
-},35);
+const lerp = (a,b,t) =>
+  a+(b-a)*t;
 
 
-/* =========================================================
-CURSOR
-========================================================= */
+/* =====================================================
+   LOADER
+===================================================== */
 
-const cursor = document.getElementById("cursor");
+window.addEventListener("load",()=>{
 
-let mouseX = innerWidth / 2;
-let mouseY = innerHeight / 2;
-
-let cursorX = mouseX;
-let cursorY = mouseY;
-
-window.addEventListener("mousemove",(e)=>{
-
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-
-  cursor.classList.add("show");
+  setTimeout(()=>{
+    document.getElementById("loader")
+      .classList.add("hide");
+  },2300);
 
 });
 
 
+/* =====================================================
+   CURSOR
+===================================================== */
+
+const cursor = document.getElementById("cursor");
+
+let mouseX = innerWidth/2;
+let mouseY = innerHeight/2;
+
+let cursorX = mouseX;
+let cursorY = mouseY;
+
+let prevX = mouseX;
+let prevY = mouseY;
+
+document.addEventListener("mousemove",e=>{
+
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+
+});
+
 function cursorLoop(){
 
-  cursorX += (mouseX - cursorX) * .12;
-  cursorY += (mouseY - cursorY) * .12;
+  cursorX = lerp(cursorX,mouseX,.18);
+  cursorY = lerp(cursorY,mouseY,.18);
 
-  cursor.style.left = cursorX + "px";
-  cursor.style.top = cursorY + "px";
+  cursor.style.left = cursorX+"px";
+  cursor.style.top = cursorY+"px";
+  cursor.style.opacity = "1";
 
   requestAnimationFrame(cursorLoop);
-
 }
 
 cursorLoop();
 
 
-document.querySelectorAll("a,.project").forEach(el=>{
+/* =====================================================
+   CURSOR TRAIL
+===================================================== */
+
+let trailTimer = 0;
+
+document.addEventListener("mousemove",()=>{
+
+  trailTimer++;
+
+  if(trailTimer % 3 !== 0) return;
+
+  const dot = document.createElement("div");
+
+  dot.className="cursor-trail";
+
+  dot.style.left = mouseX+"px";
+  dot.style.top = mouseY+"px";
+
+  document.body.appendChild(dot);
+
+  setTimeout(()=>{
+    dot.style.transform="scale(0)";
+    dot.style.opacity="0";
+  },20);
+
+  setTimeout(()=>{
+    dot.remove();
+  },400);
+
+});
+
+
+/* =====================================================
+   MAGNETIC ELEMENTS
+===================================================== */
+
+document.querySelectorAll(".magnetic").forEach(el=>{
 
   el.addEventListener("mouseenter",()=>{
-    cursor.classList.add("open");
+
+    cursor.classList.add("hover");
+
+    const label =
+      el.dataset.cursor || "VIEW";
+
+    cursor.querySelector(".cursor-label")
+      .textContent=label;
+
   });
 
   el.addEventListener("mouseleave",()=>{
-    cursor.classList.remove("open");
+
+    cursor.classList.remove("hover");
+
+    el.style.transform="";
+
+  });
+
+  el.addEventListener("mousemove",e=>{
+
+    if(innerWidth<800) return;
+
+    const r=el.getBoundingClientRect();
+
+    const dx=e.clientX-(r.left+r.width/2);
+    const dy=e.clientY-(r.top+r.height/2);
+
+    el.style.transform=
+      `translate(${dx*.12}px,${dy*.12}px)`;
+
   });
 
 });
 
 
-/* =========================================================
-HERO PARALLAX
-========================================================= */
+/* =====================================================
+   CLICK
+===================================================== */
 
-const hero = document.querySelector(".hero");
-const heroGrid = document.getElementById("heroGrid");
-const heroGlow = document.getElementById("heroGlow");
+document.addEventListener("mousedown",()=>{
+  cursor.classList.add("click");
 
-window.addEventListener("mousemove",(e)=>{
-
-  if(!hero) return;
-
-  const x =
-    e.clientX / innerWidth - .5;
-
-  const y =
-    e.clientY / innerHeight - .5;
-
-  heroGrid.style.transform =
-    `perspective(900px)
-     rotateX(${62 + y * 4}deg)
-     rotateY(${x * 4}deg)
-     translateY(22%)`;
-
-  heroGlow.style.transform =
-    `translate3d(${x*45}px,${y*45}px,-200px)`;
-
+  setTimeout(()=>{
+    cursor.classList.remove("click");
+  },500);
 });
 
 
-/* =========================================================
-SCROLL REVEALS
-========================================================= */
+/* =====================================================
+   HERO CAMERA
+===================================================== */
 
-const revealObserver =
+const heroCamera =
+  document.getElementById("heroCamera");
+
+let scrollY=0;
+
+function updateHero(){
+
+  const y =
+    clamp(scrollY / innerHeight,0,1);
+
+  const rx = y * -8;
+  const ry = y * 12;
+  const z = y * -120;
+
+  heroCamera.style.transform =
+    `rotateX(${rx}deg)
+     rotateY(${ry}deg)
+     translateZ(${z}px)
+     scale(${1-y*.08})`;
+
+}
+
+
+/* =====================================================
+   MANIFESTO PARALLAX
+===================================================== */
+
+const manifesto =
+  document.querySelector(".manifesto");
+
+function updateManifesto(){
+
+  const r=manifesto.getBoundingClientRect();
+
+  const p=
+    clamp(
+      (innerHeight-r.top) /
+      (innerHeight+r.height),
+      0,
+      1
+    );
+
+  const lines=
+    manifesto.querySelectorAll(
+      ".manifesto-title span"
+    );
+
+  lines.forEach((line,i)=>{
+
+    const amount =
+      (p-.5)*120*(i%2 ? -1 : 1);
+
+    line.style.setProperty(
+      "--mx",
+      amount+"px"
+    );
+
+  });
+
+}
+
+
+/* =====================================================
+   PROJECT WORLDS
+===================================================== */
+
+const worlds =
+  document.querySelectorAll("[data-world]");
+
+function updateWorlds(){
+
+  worlds.forEach((world,index)=>{
+
+    const r=world.getBoundingClientRect();
+
+    const center =
+      r.top + r.height/2;
+
+    const distance =
+      center-innerHeight/2;
+
+    const normalized =
+      clamp(
+        distance/(innerHeight*.8),
+        -1,
+        1
+      );
+
+    const p =
+      -normalized;
+
+    const frameX =
+      p * 80;
+
+    const frameY =
+      Math.abs(p)*-35;
+
+    const frameZ =
+      p*180;
+
+    const frameRX =
+      p*-5;
+
+    const frameRY =
+      p*9;
+
+    const frameRZ =
+      p*2;
+
+    const scale =
+      1-Math.abs(p)*.08;
+
+    const titleX =
+      p*-130;
+
+    const titleY =
+      p*45;
+
+    world.style.setProperty(
+      "--frame-x",
+      frameX+"px"
+    );
+
+    world.style.setProperty(
+      "--frame-y",
+      frameY+"px"
+    );
+
+    world.style.setProperty(
+      "--frame-z",
+      frameZ+"px"
+    );
+
+    world.style.setProperty(
+      "--frame-rx",
+      frameRX+"deg"
+    );
+
+    world.style.setProperty(
+      "--frame-ry",
+      frameRY+"deg"
+    );
+
+    world.style.setProperty(
+      "--frame-rz",
+      frameRZ+"deg"
+    );
+
+    world.style.setProperty(
+      "--frame-scale",
+      scale
+    );
+
+    world.style.setProperty(
+      "--title-x",
+      titleX+"px"
+    );
+
+    world.style.setProperty(
+      "--title-y",
+      titleY+"px"
+    );
+
+  });
+
+}
+
+
+/* =====================================================
+   UNIVERSE PARALLAX
+===================================================== */
+
+const universe =
+  document.querySelector(".universe");
+
+const planes =
+  document.querySelectorAll(".u-plane");
+
+function updateUniverse(){
+
+  const r=universe.getBoundingClientRect();
+
+  const p=
+    clamp(
+      (innerHeight-r.top) /
+      (innerHeight+r.height),
+      0,
+      1
+    );
+
+  planes.forEach((plane,i)=>{
+
+    const depth =
+      Math.sin(p*Math.PI+i)*25;
+
+    const rot =
+      Math.sin(p*Math.PI*2+i)*2;
+
+    plane.style.filter =
+      `brightness(${.7+p*.3})
+       saturate(${.8+p*.2})`;
+
+    plane.style.transform += "";
+
+  });
+
+}
+
+
+/* =====================================================
+   IDENTITY REVEAL
+===================================================== */
+
+const identity =
+  document.querySelector(".identity");
+
+const identityObserver =
   new IntersectionObserver(
-    (entries)=>{
+    entries=>{
 
       entries.forEach(entry=>{
 
         if(entry.isIntersecting){
-
-          entry.target.classList.add("visible");
-
+          identity.classList.add("in-view");
         }
 
       });
 
     },
-    {
-      threshold:.12
-    }
+    {threshold:.25}
   );
 
-
-document.querySelectorAll(".reveal")
-  .forEach(el=>{
-    revealObserver.observe(el);
-  });
+identityObserver.observe(identity);
 
 
-/* =========================================================
-PROJECT MOUSE DEPTH
-========================================================= */
+/* =====================================================
+   MOUSE CAMERA
+===================================================== */
 
-document.querySelectorAll(".project")
-.forEach(project=>{
+let targetMouseX=0;
+let targetMouseY=0;
 
-  const frame =
-    project.querySelector(".project-frame");
+let smoothMouseX=0;
+let smoothMouseY=0;
 
-  const word =
-    project.querySelector(".project-word");
+document.addEventListener("mousemove",e=>{
 
-  project.addEventListener("mousemove",(e)=>{
+  targetMouseX =
+    (e.clientX-innerWidth/2)/innerWidth;
 
-    const r =
-      project.getBoundingClientRect();
-
-    const x =
-      (e.clientX-r.left)/r.width-.5;
-
-    const y =
-      (e.clientY-r.top)/r.height-.5;
-
-    frame.style.transform =
-      `translate(
-        ${x*22}px,
-        calc(-50% + ${y*18}px)
-      )
-      rotate(${x*2.2}deg)
-      scale(1)`;
-
-    word.style.transform =
-      `translate(
-        ${x*-10}px,
-        calc(-50% + ${y*-7}px)
-      )`;
-
-  });
-
-  project.addEventListener("mouseleave",()=>{
-
-    frame.style.transform =
-      "translateY(-50%) rotate(5deg) scale(.94)";
-
-    word.style.transform =
-      "translateY(-50%)";
-
-  });
+  targetMouseY =
+    (e.clientY-innerHeight/2)/innerHeight;
 
 });
 
+function cameraLoop(){
 
-/* =========================================================
-MAGIC ORBITS
-========================================================= */
+  smoothMouseX =
+    lerp(smoothMouseX,targetMouseX,.06);
 
-const magic =
-  document.querySelector(".magic");
+  smoothMouseY =
+    lerp(smoothMouseY,targetMouseY,.06);
 
-const orbits =
-  document.querySelectorAll(".magic-orbit");
+  document.documentElement
+    .style.setProperty(
+      "--mouse-x",
+      smoothMouseX*100+"px"
+    );
+
+  document.documentElement
+    .style.setProperty(
+      "--mouse-y",
+      smoothMouseY*100+"px"
+    );
+
+  worlds.forEach(world=>{
+
+    world.style.setProperty(
+      "--mouse-x",
+      smoothMouseX*120+"px"
+    );
+
+    world.style.setProperty(
+      "--mouse-y",
+      smoothMouseY*120+"px"
+    );
+
+  });
+
+  requestAnimationFrame(cameraLoop);
+
+}
+
+cameraLoop();
+
+
+/* =====================================================
+   SCROLL ENGINE
+===================================================== */
+
+let ticking=false;
+
+function updateScroll(){
+
+  scrollY=window.scrollY;
+
+  updateHero();
+  updateManifesto();
+  updateWorlds();
+  updateUniverse();
+
+  const max =
+    document.documentElement.scrollHeight-innerHeight;
+
+  const progress =
+    max>0 ? scrollY/max : 0;
+
+  document.getElementById("progress")
+    .style.height =
+    progress*100+"%";
+
+  ticking=false;
+
+}
 
 window.addEventListener("scroll",()=>{
 
-  if(!magic) return;
+  if(!ticking){
 
-  const rect =
-    magic.getBoundingClientRect();
+    requestAnimationFrame(updateScroll);
 
-  const progress =
-    -rect.top / magic.offsetHeight;
+    ticking=true;
 
-  orbits.forEach((orbit,i)=>{
+  }
 
-    orbit.style.transform =
-      `rotate(${progress*(35+i*25)}deg)
-       scale(${1+progress*(.08+i*.03)})`;
-
-  });
-
-});
+},{passive:true});
 
 
-/* =========================================================
-MAGNETIC FINAL LINKS
-========================================================= */
+/* =====================================================
+   INITIAL
+===================================================== */
 
-document.querySelectorAll(".final-title a")
-.forEach(link=>{
+updateScroll();
 
-  link.addEventListener("mousemove",(e)=>{
 
-    const r =
-      link.getBoundingClientRect();
+/* =====================================================
+   MOBILE IFRAME OPTIMIZATION
+===================================================== */
 
-    const x =
-      e.clientX-r.left-r.width/2;
+if(innerWidth<800){
 
-    const y =
-      e.clientY-r.top-r.height/2;
+  document.querySelectorAll(".project-iframe")
+    .forEach(frame=>{
+      frame.setAttribute("loading","lazy");
+    });
 
-    link.style.transform =
-      `translate(${x*.08}px,${y*.08}px)`;
+}
 
-  });
 
-  link.addEventListener("mouseleave",()=>{
+/* =====================================================
+   RESIZE
+===================================================== */
 
-    link.style.transform="translate(0,0)";
+window.addEventListener("resize",()=>{
 
-  });
+  updateScroll();
 
 });
 
 
-/* =========================================================
-ESC
-========================================================= */
+/* =====================================================
+   KEYBOARD SHORTCUT
+===================================================== */
 
-window.addEventListener("keydown",(e)=>{
+document.addEventListener("keydown",e=>{
 
-  if(e.key === "Escape"){
-
+  if(e.key==="Escape"){
     window.scrollTo({
       top:0,
       behavior:"smooth"
     });
-
   }
 
 });
-
-
-/* =========================================================
-MOBILE
-========================================================= */
-
-if(
-  window.matchMedia("(pointer:coarse)").matches
-){
-
-  document.body.style.cursor="auto";
-
-}
 
 </script>
 
