@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Kaustubh — Designer / Builder</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f2f1ed;
+      --ink: #11110f;
+      --muted: #77766f;
+      --line: #d4d2cb;
+      --accent: #ff5a1f;
+      --dark: #11110f;
+      --white: #f7f6f1;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "DM Sans", sans-serif;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    /* CURSOR */
+
+    .cursor {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 1px solid #111;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition:
+        width .25s ease,
+        height .25s ease,
+        background .25s ease,
+        color .25s ease;
+      mix-blend-mode: difference;
+    }
+
+    .cursor.big {
+      width: 90px;
+      height: 90px;
+      background: white;
+      border-color: white;
+    }
+
+    /* NAV */
+
+    nav {
+      height: 82px;
+      width: 100%;
+      padding: 0 4vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--ink);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      background: rgba(242,241,237,.9);
+      backdrop-filter: blur(12px);
+    }
+
+    .logo {
+      font-family: "Space Grotesk";
+      font-weight: 700;
+      font-size: 21px;
+      letter-spacing: -.07em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      font-size: 11px;
+      letter-spacing: .12em;
+    }
+
+    .nav-links a {
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--ink);
+      transition: .3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      background: var(--ink);
+      color: white;
+      padding: 13px 19px;
+      font-size: 10px;
+      letter-spacing: .13em;
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 100vh;
+      padding: 140px 4vw 50px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .eyebrow {
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+
+    .hero-location {
+      text-align: right;
+      font-size: 10px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    .hero-title {
+      font-family: "Space Grotesk";
+      font-weight: 700;
+      font-size: clamp(75px, 16vw, 230px);
+      line-height: .76;
+      letter-spacing: -.1em;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-title div:last-child {
+      padding-left: 11vw;
+    }
+
+    .orange {
+      color: var(--accent);
+    }
+
+    .hero-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      font-size: 11px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .hero-intro {
+      max-width: 300px;
+      line-height: 1.5;
+    }
+
+    .hero-scroll {
+      writing-mode: vertical-rl;
+      text-transform: uppercase;
+      letter-spacing: .2em;
+      font-size: 9px;
+    }
+
+    .hero-mark {
+      position: absolute;
+      width: 18vw;
+      height: 18vw;
+      min-width: 150px;
+      min-height: 150px;
+      max-width: 300px;
+      max-height: 300px;
+      border: 1px solid var(--ink);
+      border-radius: 50%;
+      right: 8vw;
+      top: 34%;
+      animation: spin 22s linear infinite;
+    }
+
+    .hero-mark::before {
+      content: "K • DESIGN • BUILD • EXPERIMENT • ";
+      position: absolute;
+      inset: 8px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 8px;
+      letter-spacing: .15em;
+      text-align: center;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* MARQUEE */
+
+    .marquee {
+      overflow: hidden;
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+      padding: 22px 0;
+      white-space: nowrap;
+    }
+
+    .marquee-track {
+      display: inline-block;
+      font-family: "Space Grotesk";
+      font-size: clamp(45px, 6vw, 90px);
+      font-weight: 600;
+      letter-spacing: -.07em;
+      animation: marquee 18s linear infinite;
+    }
+
+    .marquee-track span {
+      margin-right: 70px;
+    }
+
+    @keyframes marquee {
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* INTRO */
+
+    .intro-section {
+      min-height: 90vh;
+      padding: 150px 4vw;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 8vw;
+      align-items: center;
+    }
+
+    .section-label {
+      font-size: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .intro-copy {
+      font-family: "Space Grotesk";
+      font-size: clamp(42px, 6vw, 90px);
+      line-height: .92;
+      letter-spacing: -.07em;
+      max-width: 1000px;
+    }
+
+    .intro-copy span {
+      color: var(--accent);
+    }
+
+    /* WORK */
+
+    .work-section {
+      background: var(--dark);
+      color: var(--white);
+      padding: 140px 0 0;
+      overflow: hidden;
+    }
+
+    .work-heading {
+      padding: 0 4vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 80px;
+    }
+
+    .work-heading h2 {
+      font-family: "Space Grotesk";
+      font-size: clamp(65px, 11vw, 170px);
+      line-height: .78;
+      letter-spacing: -.09em;
+    }
+
+    .outline {
+      color: transparent;
+      -webkit-text-stroke: 1px var(--white);
+    }
+
+    .work-count {
+      font-size: 11px;
+      color: #777;
+    }
+
+    /* SLIDER */
+
+    .slider-wrap {
+      position: relative;
+    }
+
+    .slider {
+      display: flex;
+      gap: 35px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 20px 4vw 100px;
+      cursor: grab;
+      scrollbar-width: none;
+      scroll-snap-type: x mandatory;
+    }
+
+    .slider::-webkit-scrollbar {
+      display: none;
+    }
+
+    .slider.dragging {
+      cursor: grabbing;
+      scroll-snap-type: none;
+    }
+
+    .project {
+      flex: 0 0 min(82vw, 1050px);
+      scroll-snap-align: center;
+      position: relative;
+    }
+
+    .project-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+      font-size: 10px;
+      letter-spacing: .12em;
+      color: #888;
+    }
+
+    .project-name {
+      font-family: "Space Grotesk";
+      font-size: clamp(50px, 7vw, 100px);
+      line-height: .85;
+      letter-spacing: -.075em;
+      margin-bottom: 25px;
+    }
+
+    .project-name span {
+      color: var(--accent);
+    }
+
+    .preview {
+      height: min(65vh, 650px);
+      min-height: 400px;
+      background: #252522;
+      border: 1px solid #333;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .preview iframe {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: white;
+      transform-origin: center;
+    }
+
+    .preview-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(
+        180deg,
+        rgba(0,0,0,.03),
+        transparent 50%,
+        rgba(0,0,0,.15)
+      );
+    }
+
+    .project-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 30px;
+      margin-top: 18px;
+    }
+
+    .project-description {
+      max-width: 450px;
+      color: #8e8e88;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .visit {
+      border: 1px solid #555;
+      padding: 13px 18px;
+      font-size: 10px;
+      letter-spacing: .1em;
+      white-space: nowrap;
+      transition: .3s;
+    }
+
+    .visit:hover {
+      background: white;
+      color: black;
+    }
+
+    /* CONTROLS */
+
+    .slider-controls {
+      padding: 0 4vw 35px;
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .arrow-btn {
+      width: 50px;
+      height: 50px;
+      border: 1px solid #444;
+      background: transparent;
+      color: white;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: .25s;
+    }
+
+    .arrow-btn:hover {
+      background: white;
+      color: black;
+    }
+
+    .progress {
+      flex: 1;
+      height: 1px;
+      background: #333;
+      position: relative;
+    }
+
+    .progress-bar {
+      height: 2px;
+      width: 14.28%;
+      background: var(--accent);
+      transition: width .4s ease;
+    }
+
+    /* EXPERIMENTS */
+
+    .experiments {
+      padding: 150px 4vw;
+      overflow: hidden;
+    }
+
+    .experiments-heading {
+      font-family: "Space Grotesk";
+      font-size: clamp(55px, 9vw, 140px);
+      line-height: .8;
+      letter-spacing: -.08em;
+      margin-bottom: 90px;
+    }
+
+    .experiment-row {
+      border-top: 1px solid var(--ink);
+      padding: 28px 0;
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      align-items: center;
+      transition: padding .3s;
+    }
+
+    .experiment-row:hover {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .experiment-title {
+      font-family: "Space Grotesk";
+      font-size: clamp(25px, 4vw, 55px);
+      letter-spacing: -.05em;
+    }
+
+    .experiment-type {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* ABOUT */
+
+    .about {
+      background: #e5e3dc;
+      padding: 150px 4vw;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 10vw;
+      align-items: start;
+    }
+
+    .about-copy {
+      font-family: "Space Grotesk";
+      font-size: clamp(40px, 5vw, 75px);
+      line-height: .92;
+      letter-spacing: -.07em;
+    }
+
+    .about-copy span {
+      color: var(--accent);
+    }
+
+    .facts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 1px solid var(--ink);
+    }
+
+    .fact {
+      padding: 25px 0;
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .fact strong {
+      font-family: "Space Grotesk";
+      font-size: 55px;
+      font-weight: 500;
+    }
+
+    .fact small {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      margin-top: 5px;
+    }
+
+    /* CONTACT */
+
+    .contact {
+      min-height: 90vh;
+      padding: 140px 4vw 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .contact h2 {
+      font-family: "Space Grotesk";
+      font-size: clamp(70px, 14vw, 210px);
+      line-height: .75;
+      letter-spacing: -.1em;
+    }
+
+    .contact h2 span {
+      color: var(--accent);
+    }
+
+    .contact-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-top: 1px solid var(--ink);
+      padding-top: 25px;
+    }
+
+    .email {
+      font-size: clamp(17px, 2vw, 25px);
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 6px;
+    }
+
+    footer {
+      border-top: 1px solid var(--ink);
+      padding: 25px 4vw;
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      letter-spacing: .1em;
+    }
+
+    /* REVEAL */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: opacity .9s ease, transform .9s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* MOBILE */
+
+    @media(max-width: 800px) {
+
+      nav {
+        height: 70px;
+        padding: 0 5vw;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding: 120px 5vw 35px;
+        min-height: 92svh;
+      }
+
+      .hero-title {
+        font-size: 20vw;
+        margin-top: 70px;
+      }
+
+      .hero-title div:last-child {
+        padding-left: 0;
+      }
+
+      .hero-mark {
+        right: 5vw;
+        top: 45%;
+        opacity: .35;
+      }
+
+      .hero-bottom {
+        gap: 20px;
+      }
+
+      .hero-scroll {
+        display: none;
+      }
+
+      .intro-section {
+        display: block;
+        padding: 100px 5vw;
+      }
+
+      .intro-copy {
+        margin-top: 50px;
+      }
+
+      .work-section {
+        padding-top: 100px;
+      }
+
+      .work-heading {
+        padding: 0 5vw;
+        margin-bottom: 50px;
+      }
+
+      .slider {
+        padding-left: 5vw;
+        padding-right: 5vw;
+      }
+
+      .project {
+        flex-basis: 88vw;
+      }
+
+      .preview {
+        height: 55vh;
+        min-height: 350px;
+      }
+
+      .project-info {
+        display: block;
+      }
+
+      .visit {
+        display: inline-block;
+        margin-top: 20px;
+      }
+
+      .experiments,
+      .about,
+      .contact {
+        padding: 100px 5vw;
+      }
+
+      .about-grid {
+        display: block;
+      }
+
+      .facts {
+        margin-top: 80px;
+      }
+
+      .experiment-row {
+        grid-template-columns: 45px 1fr;
+      }
+
+      .experiment-type {
+        display: none;
+      }
+
+      .contact {
+        min-height: 75svh;
+      }
+
+      .contact-bottom {
+        display: block;
+      }
+
+      .email {
+        display: inline-block;
+        margin-top: 25px;
+      }
+
+      footer {
+        padding: 22px 5vw;
+        gap: 20px;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="cursor"></div>
+
+<!-- NAV -->
+
+<nav>
+  <a class="logo" href="#">K/S</a>
+
+  <div class="nav-links">
+    <a href="#work">WORK</a>
+    <a href="#experiments">EXPERIMENTS</a>
+    <a href="#about">ABOUT</a>
+    <a href="#contact">CONTACT</a>
+  </div>
+
+  <a class="nav-cta" href="mailto:aivisionstudio2821@gmail.com">
+    LET'S TALK ↗
+  </a>
+</nav>
+
+
+<!-- HERO -->
+
+<header class="hero">
+
+  <div class="hero-top">
+
+    <div class="eyebrow">
+      Designer / Builder / Creative Technologist
+    </div>
+
+    <div class="hero-location">
+      AHMEDABAD, INDIA<br>
+      2026
+    </div>
+
+  </div>
+
+  <div class="hero-title reveal">
+    <div>KAUSTUBH</div>
+    <div>SHUKLA<span class="orange">.</span></div>
+  </div>
+
+  <div class="hero-mark"></div>
+
+  <div class="hero-bottom">
+
+    <div class="hero-intro">
+      I BUILD DIGITAL EXPERIENCES,
+      PRODUCTS &amp; EXPERIMENTS
+      FROM IDEAS THAT SHOULDN'T
+      STAY JUST IDEAS.
+    </div>
+
+    <div class="hero-scroll">
+      Scroll to explore ↓
+    </div>
+
+    <div>
+      CURRENTLY<br>
+      BUILDING
+    </div>
+
+  </div>
+
+</header>
+
+
+<!-- MARQUEE -->
+
+<div class="marquee">
+
+  <div class="marquee-track">
+    <span>DESIGN</span>
+    <span>BUILD</span>
+    <span>EXPERIMENT</span>
+    <span>DESIGN</span>
+    <span>BUILD</span>
+    <span>EXPERIMENT</span>
+  </div>
+
+</div>
+
+
+<!-- INTRO -->
+
+<section class="intro-section">
+
+  <div class="section-label">
+    00 / INTRO
+  </div>
+
+  <div class="intro-copy reveal">
+    I DON'T JUST MAKE
+    <span>WEBSITES.</span><br>
+    I MAKE DIGITAL
+    EXPERIENCES PEOPLE
+    CAN ACTUALLY USE.
+  </div>
+
+</section>
+
+
+<!-- WORK -->
+
+<section class="work-section" id="work">
+
+  <div class="work-heading">
+
+    <h2>
+      SELECTED<br>
+      <span class="outline">WORK.</span>
+    </h2>
+
+    <div class="work-count">
+      07 PROJECTS<br>
+      DRAG / SCROLL →
+    </div>
+
+  </div>
+
+
+  <div class="slider-wrap">
+
+    <div class="slider" id="projectSlider">
+
+
+      <!-- 01 -->
+
+      <article class="project">
+
+        <div class="project-top">
+          <span>01 / DIGITAL PRODUCT</span>
+          <span>2026</span>
+        </div>
+
+        <div class="project-name">
+          EVENTBUDGET<span>.</span>
+        </div>
+
+        <div class="preview">
+
+          <iframe
+            src="https://eventbudget-sooty.vercel.app/"
+            loading="lazy"
+            title="EventBudget">
+          </iframe>
+
+          <div class="preview-overlay"></div>
+
+        </div>
+
+        <div class="project-info">
+
+          <div class="project-description">
+            A digital experience for planning celebrations,
+            managing budgets, guests and vendors.
+          </div>
+
+          <a
+            class="visit"
+            href="https://eventbudget-sooty.vercel.app/"
+            target="_blank">
+            VISIT LIVE SITE ↗
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <!-- 02 -->
+
+      <article class="project">
+
+        <div class="project-top">
+          <span>02 / SPORTS EXPERIENCE</span>
+          <span>2026</span>
+        </div>
+
+        <div class="project-name">
+          RADHE<br>ARENA<span>.</span>
+        </div>
+
+        <div class="preview">
+
+          <iframe
+            src="https://radhearena.vercel.app/"
+            loading="lazy"
+            title="Radhe Arena">
+          </iframe>
+
+          <div class="preview-overlay"></div>
+
+        </div>
+
+        <div class="project-info">
+
+          <div class="project-description">
+            A modern digital experience for a sports
+            and arena booking concept.
+          </div>
+
+          <a
+            class="visit"
+            href="https://radhearena.vercel.app/"
+            target="_blank">
+            VISIT LIVE SITE ↗
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <!-- 03 -->
+
+      <article class="project">
+
+        <div class="project-top">
+          <span>03 / WEB EXPERIENCE</span>
+          <span>2026</span>
+        </div>
+
+        <div class="project-name">
+          NOVA<span>.</span>
+        </div>
+
+        <div class="preview">
+
+          <iframe
+            src="https://nova-gilt-psi.vercel.app/"
+            loading="lazy"
+            title="NOVA">
+          </iframe>
+
+          <div class="preview-overlay"></div>
+
+        </div>
+
+        <div class="project-info">
+
+          <div class="project-description">
+            A visual-first digital experience designed
+            around strong typography and interaction.
+          </div>
+
+          <a
+            class="visit"
+            href="https://nova-gilt-psi.vercel.app/"
+            target="_blank">
+            VISIT LIVE SITE ↗
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <!-- 04 -->
+
+      <article class="project">
+
+        <div class="project-top">
+          <span>04 / HOSPITALITY</span>
+          <span>2026</span>
+        </div>
+
+        <div class="project-name">
+          CASA<br>MIRA<span>.</span>
+        </div>
+
+        <div class="preview">
+
+          <iframe
+            src="https://casa-mira-inky.vercel.app/"
+            loading="lazy"
+            title="Casa Mira">
+          </iframe>
+
+          <div class="preview-overlay"></div>
+
+        </div>
+
+        <div class="project-info">
+
+          <div class="project-description">
+            A refined hospitality-inspired website
+            focused on atmosphere and visual storytelling.
+          </div>
+
+          <a
+            class="visit"
+            href="https://casa-mira-inky.vercel.app/"
+            target="_blank">
+            VISIT LIVE SITE ↗
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <!-- 05 -->
+
+      <article class="project">
+
+        <div class="project-top">
+          <span>05 / PREMIUM BRAND</span>
+          <span>2026</span>
+        </div>
+
+        <div class="project-name">
+          NOIRÉ<span>.</span>
+        </div>
+
+        <div class="preview">
+
+          <iframe
+            src="https://noire-five-blond.vercel.app/"
+            loading="lazy"
+            title="Noire">
+          </iframe>
+
+          <div class="preview-overlay"></div>
+
+        </div>
+
+        <div class="project-info">
+
+          <div class="project-description">
+            A dark premium brand experience built
+            around luxury visual language.
+          </div>
+
+          <a
+            class="visit"
+            href="https://noire-five-blond.vercel.app/"
+            target="_blank">
+            VISIT LIVE SITE ↗
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <!-- 06 -->
+
+      <article class="project">
+
+        <div class="project-top">
+          <span>06 / CREATIVE WEB</span>
+          <span>2026</span>
+        </div>
+
+        <div class="project-name">
+          FORMA<span>.</span>
+        </div>
+
+        <div class="preview">
+
+          <iframe
+            src="https://forma-ochre-nine.vercel.app/"
+            loading="lazy"
+            title="Forma">
+          </iframe>
+
+          <div class="preview-overlay"></div>
+
+        </div>
+
+        <div class="project-info">
+
+          <div class="project-description">
+            A contemporary web concept exploring
+            form, typography and visual rhythm.
+          </div>
+
+          <a
+            class="visit"
+            href="https://forma-ochre-nine.vercel.app/"
+            target="_blank">
+            VISIT LIVE SITE ↗
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <!-- 07 -->
+
+      <article class="project">
+
+        <div class="project-top">
+          <span>07 / FOOD EXPERIENCE</span>
+          <span>2026</span>
+        </div>
+
+        <div class="project-name">
+          SAVORO<span>.</span>
+        </div>
+
+        <div class="preview">
+
+          <iframe
+            src="https://savoro-puce.vercel.app/#menu"
+            loading="lazy"
+            title="Savoro">
+          </iframe>
+
+          <div class="preview-overlay"></div>
+
+        </div>
+
+        <div class="project-info">
+
+          <div class="project-description">
+            A restaurant-focused digital experience
+            built around menu discovery and atmosphere.
+          </div>
+
+          <a
+            class="visit"
+            href="https://savoro-puce.vercel.app/#menu"
+            target="_blank">
+            VISIT LIVE SITE ↗
+          </a>
+
+        </div>
+
+      </article>
+
+    </div>
+
+
+    <!-- CONTROLS -->
+
+    <div class="slider-controls">
+
+      <button class="arrow-btn" id="prev">
+        ←
+      </button>
+
+      <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+
+      <button class="arrow-btn" id="next">
+        →
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- EXPERIMENTS -->
+
+<section class="experiments" id="experiments">
+
+  <div class="section-label">
+    03 / EXPERIMENTS
+  </div>
+
+  <div class="experiments-heading reveal">
+    ALWAYS<br>
+    <span class="outline">CURIOUS.</span>
+  </div>
+
+
+  <div class="experiment-row">
+    <span>01</span>
+    <div class="experiment-title">
+      AI + CREATIVE
+    </div>
+    <div class="experiment-type">
+      EXPERIMENT
+    </div>
+  </div>
+
+  <div class="experiment-row">
+    <span>02</span>
+    <div class="experiment-title">
+      COMPUTER VISION
+    </div>
+    <div class="experiment-type">
+      OPENCV
+    </div>
+  </div>
+
+  <div class="experiment-row">
+    <span>03</span>
+    <div class="experiment-title">
+      INTERACTIVE WEB
+    </div>
+    <div class="experiment-type">
+      WEB
+    </div>
+  </div>
+
+  <div class="experiment-row">
+    <span>04</span>
+    <div class="experiment-title">
+      AI + ROBOTICS
+    </div>
+    <div class="experiment-type">
+      BUILD
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section class="about" id="about">
+
+  <div class="section-label">
+    04 / ABOUT
+  </div>
+
+  <div class="about-grid">
+
+    <div class="about-copy reveal">
+      YOUNG.<br>
+      CURIOUS.<br>
+      <span>BUILDING.</span>
+    </div>
+
+    <div class="facts">
+
+      <div class="fact">
+        <strong>16</strong>
+        <small>YEARS OLD</small>
+      </div>
+
+      <div class="fact">
+        <strong>∞</strong>
+        <small>IDEAS</small>
+      </div>
+
+      <div class="fact">
+        <strong>07</strong>
+        <small>SELECTED PROJECTS</small>
+      </div>
+
+      <div class="fact">
+        <strong>01</strong>
+        <small>MISSION — BUILD</small>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section class="contact" id="contact">
+
+  <div class="section-label">
+    05 / CONTACT
+  </div>
+
+  <h2 class="reveal">
+    LET'S MAKE<br>
+    SOMETHING<br>
+    <span>UNEXPECTED.</span>
+  </h2>
+
+  <div class="contact-bottom">
+
+    <div>
+      <div style="font-size:10px;color:#777;margin-bottom:12px;">
+        HAVE AN IDEA?
+      </div>
+
+      <a
+        class="email"
+        href="mailto:aivisionstudio2821@gmail.com">
+        aivisionstudio2821@gmail.com ↗
+      </a>
+    </div>
+
+    <div>
+      AHMEDABAD, INDIA<br>
+      2026
+    </div>
+
+  </div>
+
+</section>
+
+
+<footer>
+
+  <span>KAUSTUBH SHUKLA</span>
+
+  <span>
+    DESIGN / BUILD / EXPERIMENT
+  </span>
+
+</footer>
+
+
+<script>
+
+  /* CURSOR */
+
+  const cursor = document.querySelector(".cursor");
+
+  window.addEventListener("mousemove", e => {
+
+    cursor.style.left = e.clientX + "px";
+    cursor.style.top = e.clientY + "px";
+
+  });
+
+  document.querySelectorAll("a,button").forEach(el => {
+
+    el.addEventListener("mouseenter", () => {
+      cursor.classList.add("big");
+    });
+
+    el.addEventListener("mouseleave", () => {
+      cursor.classList.remove("big");
+    });
+
+  });
+
+
+  /* REVEAL */
+
+  const observer = new IntersectionObserver(
+    entries => {
+
+      entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+
+      });
+
+    },
+    {
+      threshold: .12
+    }
+  );
+
+  document
+    .querySelectorAll(".reveal")
+    .forEach(el => observer.observe(el));
+
+
+  /* PROJECT SLIDER */
+
+  const slider = document.getElementById("projectSlider");
+  const projects = document.querySelectorAll(".project");
+  const next = document.getElementById("next");
+  const prev = document.getElementById("prev");
+  const progressBar = document.getElementById("progressBar");
+
+  let current = 0;
+
+  function goToProject(index) {
+
+    current = Math.max(
+      0,
+      Math.min(index, projects.length - 1)
+    );
+
+    projects[current].scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center"
+    });
+
+    updateProgress();
+
+  }
+
+  function updateProgress() {
+
+    const percentage =
+      ((current + 1) / projects.length) * 100;
+
+    progressBar.style.width = percentage + "%";
+
+  }
+
+  next.addEventListener("click", () => {
+    goToProject(current + 1);
+  });
+
+  prev.addEventListener("click", () => {
+    goToProject(current - 1);
+  });
+
+
+  /* MOUSE DRAG */
+
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+
+  slider.addEventListener("mousedown", e => {
+
+    isDown = true;
+
+    slider.classList.add("dragging");
+
+    startX = e.pageX - slider.offsetLeft;
+
+    scrollLeft = slider.scrollLeft;
+
+  });
+
+  slider.addEventListener("mouseleave", () => {
+
+    isDown = false;
+
+    slider.classList.remove("dragging");
+
+  });
+
+  slider.addEventListener("mouseup", () => {
+
+    isDown = false;
+
+    slider.classList.remove("dragging");
+
+  });
+
+  slider.addEventListener("mousemove", e => {
+
+    if (!isDown) return;
+
+    e.preventDefault();
+
+    const x = e.pageX - slider.offsetLeft;
+
+    const walk = (x - startX) * 1.7;
+
+    slider.scrollLeft = scrollLeft - walk;
+
+  });
+
+
+  /* WHEEL -> HORIZONTAL */
+
+  slider.addEventListener("wheel", e => {
+
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+
+      e.preventDefault();
+
+      slider.scrollLeft += e.deltaY * 1.3;
+
+    }
+
+  }, { passive: false });
+
+
+  /* UPDATE ACTIVE PROJECT */
+
+  slider.addEventListener("scroll", () => {
+
+    const center =
+      slider.scrollLeft + slider.clientWidth / 2;
+
+    let closest = 0;
+    let distance = Infinity;
+
+    projects.forEach((project, index) => {
+
+      const projectCenter =
+        project.offsetLeft +
+        project.offsetWidth / 2;
+
+      const difference =
+        Math.abs(center - projectCenter);
+
+      if (difference < distance) {
+
+        distance = difference;
+        closest = index;
+
+      }
+
+    });
+
+    current = closest;
+
+    updateProgress();
+
+  });
+
+
+  /* KEYBOARD */
+
+  window.addEventListener("keydown", e => {
+
+    if (e.key === "ArrowRight") {
+      goToProject(current + 1);
+    }
+
+    if (e.key === "ArrowLeft") {
+      goToProject(current - 1);
+    }
+
+  });
+
+</script>
+
+</body>
+</html>
