@@ -2,23 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0a0a0a">
-
-<title>AI VISION — KAUSTUBH</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AI Vision — Kaustubh Shukla</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800;900&display=swap');
+
 :root{
-  --black:#090909;
-  --white:#f2efe7;
+  --black:#080808;
+  --white:#f4f1e9;
   --orange:#ff4d00;
-  --grey:#777;
-  --line:rgba(242,239,231,.14);
-  --ease:cubic-bezier(.16,1,.3,1);
+  --grey:#858585;
 }
 
 *{
@@ -28,14 +22,14 @@
 }
 
 html{
-  background:var(--black);
   scroll-behavior:smooth;
+  background:var(--black);
 }
 
 body{
   background:var(--black);
   color:var(--white);
-  font-family:Inter,sans-serif;
+  font-family:Inter,Arial,sans-serif;
   overflow-x:hidden;
 }
 
@@ -46,837 +40,809 @@ a{
 
 ::selection{
   background:var(--orange);
-  color:#fff;
+  color:#000;
 }
 
-/* =========================
-   INTRO
-========================= */
+/* ================= CURSOR ================= */
 
-.intro{
+.cursor{
   position:fixed;
-  inset:0;
-  background:#090909;
+  width:18px;
+  height:18px;
+  border:1px solid rgba(255,255,255,.8);
+  border-radius:50%;
+  pointer-events:none;
   z-index:9999;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition:opacity .8s ease,visibility .8s;
+  transform:translate(-50%,-50%);
+  transition:
+    width .25s ease,
+    height .25s ease,
+    background .25s ease,
+    border-color .25s ease;
 }
 
-.intro.done{
-  opacity:0;
-  visibility:hidden;
-}
-
-.intro-wrap{
-  width:min(92%,1100px);
-}
-
-.intro-top{
-  display:flex;
-  justify-content:space-between;
-  font:10px "DM Mono",monospace;
-  color:#666;
-  letter-spacing:.15em;
-  margin-bottom:30px;
-}
-
-.intro-big{
-  font-size:clamp(55px,12vw,170px);
-  font-weight:900;
-  line-height:.78;
-  letter-spacing:-.09em;
-  overflow:hidden;
-}
-
-.intro-big span{
-  display:block;
-  transform:translateY(105%);
-  animation:introIn 1s var(--ease) forwards;
-}
-
-.intro-big span:nth-child(2){
-  color:var(--orange);
-  animation-delay:.1s;
-}
-
-.intro-rule{
-  height:1px;
-  background:#222;
-  margin-top:40px;
-  overflow:hidden;
-}
-
-.intro-rule i{
-  display:block;
-  width:0;
-  height:100%;
+.cursor.big{
+  width:70px;
+  height:70px;
   background:var(--orange);
-  animation:introLoad 1.8s var(--ease) forwards;
+  border-color:var(--orange);
+  mix-blend-mode:difference;
 }
 
-@keyframes introIn{
-  to{transform:translateY(0)}
-}
-
-@keyframes introLoad{
-  to{width:100%}
-}
-
-/* =========================
-   HEADER
-========================= */
+/* ================= HEADER ================= */
 
 header{
   position:fixed;
   top:0;
   left:0;
-  right:0;
-  z-index:5000;
-  padding:25px 30px;
+  width:100%;
+  height:76px;
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
+  padding:0 34px;
+  z-index:1000;
   mix-blend-mode:difference;
 }
 
 .logo{
-  font:500 11px "DM Mono",monospace;
-  letter-spacing:.13em;
+  font-family:"DM Mono",monospace;
+  font-size:13px;
+  letter-spacing:.05em;
 }
 
-.menu{
+.nav{
   display:flex;
-  gap:28px;
+  gap:30px;
+  font-family:"DM Mono",monospace;
+  font-size:11px;
+  text-transform:uppercase;
 }
 
-.menu a{
-  font:10px "DM Mono",monospace;
-  letter-spacing:.12em;
-  opacity:.8;
+.nav a{
+  opacity:.65;
+  transition:.25s;
 }
 
-.menu a:hover{
+.nav a:hover{
   opacity:1;
 }
 
-/* =========================
-   CURSOR
-========================= */
-
-.cursor{
-  position:fixed;
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:var(--orange);
-  z-index:10000;
-  pointer-events:none;
-  transform:translate(-50%,-50%);
-  opacity:0;
-}
-
-.cursor:after{
-  content:"";
-  position:absolute;
-  width:28px;
-  height:28px;
-  border:1px solid rgba(255,255,255,.55);
-  border-radius:50%;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  transition:.35s var(--ease);
-}
-
-.cursor.big:after{
-  width:65px;
-  height:65px;
-  border-color:var(--orange);
-}
-
-.cursor-label{
-  position:absolute;
-  left:38px;
-  top:38px;
-  white-space:nowrap;
-  font:8px "DM Mono",monospace;
-  opacity:0;
-}
-
-.cursor.big .cursor-label{
-  opacity:1;
-}
-
-@media(pointer:fine){
-  body{cursor:none}
-}
-
-@media(pointer:coarse){
-  .cursor{display:none}
-}
-
-/* =========================
-   HERO
-========================= */
+/* ================= HERO ================= */
 
 .hero{
   min-height:100svh;
   position:relative;
   display:flex;
   align-items:center;
-  padding:100px 5vw;
+  padding:100px 5vw 60px;
   overflow:hidden;
 }
 
-.hero-light{
+.hero-grid{
   position:absolute;
-  width:450px;
-  height:450px;
-  border-radius:50%;
-  background:radial-gradient(
-    circle,
-    rgba(255,77,0,.13),
-    transparent 68%
-  );
-  transform:translate(-50%,-50%);
-  pointer-events:none;
-  left:50%;
-  top:50%;
-  transition:left .2s ease-out,top .2s ease-out;
+  inset:0;
+  opacity:.12;
+  background-image:
+    linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px);
+  background-size:80px 80px;
+  mask-image:linear-gradient(to bottom,black,transparent);
 }
 
-.hero-inner{
+.hero-orb{
+  position:absolute;
+  width:520px;
+  height:520px;
+  right:7%;
+  top:18%;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:50%;
+  animation:spin 22s linear infinite;
+}
+
+.hero-orb:before,
+.hero-orb:after{
+  content:"";
+  position:absolute;
+  inset:50px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:50%;
+}
+
+.hero-orb:after{
+  inset:120px;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
   width:100%;
 }
 
-.hero-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  margin-bottom:70px;
-}
-
-.mono{
-  font:10px "DM Mono",monospace;
+.kicker{
+  font-family:"DM Mono",monospace;
+  color:var(--orange);
+  font-size:11px;
   letter-spacing:.14em;
-  text-transform:uppercase;
-  color:#666;
+  margin-bottom:28px;
 }
 
-.hero-copy{
-  max-width:260px;
-  font:11px/1.7 "DM Mono",monospace;
-  color:#666;
-}
-
-.hero-title{
-  font-size:clamp(70px,16vw,245px);
+.hero h1{
+  font-size:clamp(70px,13vw,190px);
+  line-height:.78;
+  letter-spacing:-.075em;
   font-weight:900;
-  line-height:.72;
-  letter-spacing:-.095em;
-  text-transform:uppercase;
+  max-width:1100px;
 }
 
-.hero-line{
-  overflow:hidden;
-}
-
-.hero-line span{
+.hero h1 span{
   display:block;
-  transform:translateY(110%);
-  animation:heroIn 1.2s var(--ease) forwards;
 }
 
-.hero-line:nth-child(2) span{
-  animation-delay:.1s;
+.hero h1 .outline{
   color:transparent;
   -webkit-text-stroke:1px var(--white);
 }
 
-.hero-line:nth-child(3) span{
-  animation-delay:.2s;
-}
-
-@keyframes heroIn{
-  to{transform:translateY(0)}
-}
-
 .hero-bottom{
-  margin-top:80px;
+  margin-top:70px;
   display:flex;
   justify-content:space-between;
-  align-items:center;
+  align-items:end;
+  max-width:1000px;
 }
 
-.scroll-label{
+.hero-copy{
+  max-width:350px;
+  font-size:14px;
+  line-height:1.65;
+  color:#aaa;
+}
+
+.scroll{
+  font-family:"DM Mono",monospace;
+  font-size:10px;
+  letter-spacing:.12em;
+  writing-mode:vertical-rl;
+  color:#777;
+}
+
+/* ================= TICKER ================= */
+
+.ticker{
+  border-top:1px solid #292929;
+  border-bottom:1px solid #292929;
+  overflow:hidden;
+  white-space:nowrap;
+  padding:22px 0;
+}
+
+.ticker-track{
+  display:inline-block;
+  animation:ticker 22s linear infinite;
+}
+
+.ticker span{
+  font-size:42px;
+  font-weight:800;
+  letter-spacing:-.04em;
+  margin-right:60px;
+}
+
+.ticker span:nth-child(even){
+  color:transparent;
+  -webkit-text-stroke:1px #666;
+}
+
+@keyframes ticker{
+  to{transform:translateX(-50%)}
+}
+
+/* ================= INTRO ================= */
+
+.intro{
+  min-height:80vh;
   display:flex;
   align-items:center;
-  gap:14px;
-  font:9px "DM Mono",monospace;
-  letter-spacing:.14em;
-}
-
-.scroll-line{
-  width:60px;
-  height:1px;
-  background:#444;
-}
-
-.hero-count{
-  font:10px "DM Mono",monospace;
-  color:#555;
-}
-
-/* =========================
-   STATEMENT
-========================= */
-
-.statement{
-  min-height:100svh;
+  padding:100px 8vw;
   background:var(--white);
   color:#090909;
-  display:flex;
-  align-items:center;
-  padding:10vw 5vw;
 }
 
-.statement-inner{
-  width:100%;
+.intro-inner{
+  max-width:1100px;
 }
 
-.statement-small{
-  font:10px "DM Mono",monospace;
-  color:#777;
-  letter-spacing:.14em;
+.intro-small{
+  font-family:"DM Mono",monospace;
+  font-size:11px;
+  margin-bottom:45px;
 }
 
-.statement-title{
-  margin-top:60px;
-  font-size:clamp(50px,9vw,145px);
-  font-weight:900;
-  line-height:.82;
-  letter-spacing:-.08em;
+.intro h2{
+  font-size:clamp(45px,8vw,115px);
+  line-height:.9;
+  letter-spacing:-.065em;
 }
 
-.statement-title .shift{
-  display:block;
-  transform:translateX(var(--shift,0px));
-  transition:transform .12s linear;
-}
-
-.statement-title .outline{
-  color:transparent;
-  -webkit-text-stroke:1px #111;
-}
-
-.statement-footer{
-  margin-top:80px;
-  border-top:1px solid #ccc;
-  padding-top:20px;
-  display:flex;
-  justify-content:space-between;
-  font:10px "DM Mono",monospace;
-  color:#777;
-}
-
-/* =========================
-   GALLERY INTRO
-========================= */
-
-.gallery-intro{
-  min-height:70svh;
-  display:flex;
-  align-items:flex-end;
-  padding:10vw 5vw;
-}
-
-.gallery-intro h2{
-  font-size:clamp(75px,14vw,210px);
-  line-height:.73;
-  letter-spacing:-.09em;
-  font-weight:900;
-}
-
-.gallery-intro h2 span{
+.intro h2 span{
   color:var(--orange);
 }
 
-/* =========================
-   GALLERY PROJECT
-========================= */
+/* ================= LAB ================= */
 
-.art{
-  min-height:105svh;
-  position:relative;
-  display:flex;
-  align-items:center;
-  padding:100px 5vw;
-  overflow:hidden;
+.lab{
+  padding:130px 5vw;
+  background:#0b0b0b;
 }
 
-.art-number{
-  position:absolute;
-  top:55px;
-  left:5vw;
-  font:10px "DM Mono",monospace;
-  color:#555;
-}
-
-.art-category{
-  position:absolute;
-  top:55px;
-  right:5vw;
-  text-align:right;
-  font:10px/1.7 "DM Mono",monospace;
-  color:#666;
-}
-
-.art-center{
-  width:100%;
-  position:relative;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-
-.art-window{
-  width:min(70vw,1000px);
-  aspect-ratio:16/10;
-  position:relative;
-  background:#111;
-  box-shadow:
-    25px 35px 80px rgba(0,0,0,.5);
-  transform:
-    translateY(var(--move,0px))
-    rotate(var(--rotate,0deg))
-    scale(var(--scale,1));
-  will-change:transform;
-}
-
-.art-window:before{
-  content:"";
-  position:absolute;
-  inset:-12px;
-  border:1px solid rgba(255,255,255,.08);
-  pointer-events:none;
-}
-
-.art-window:after{
-  content:"";
-  position:absolute;
-  inset:0;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.15);
-  pointer-events:none;
-}
-
-.art-placeholder{
-  position:absolute;
-  inset:0;
-  overflow:hidden;
-}
-
-.art-placeholder iframe{
-  width:100%;
-  height:100%;
-  border:0;
-  display:block;
-}
-
-.art-name{
-  position:absolute;
-  z-index:5;
-  left:50%;
-  top:50%;
-  transform:
-    translate(
-      calc(-50% + var(--name-x,0px)),
-      calc(-50% + var(--name-y,0px))
-    );
-  pointer-events:none;
-  mix-blend-mode:difference;
-  text-align:center;
-}
-
-.art-name h3{
-  font-size:clamp(55px,9vw,145px);
-  line-height:.8;
-  letter-spacing:-.08em;
-  font-weight:900;
-  white-space:nowrap;
-}
-
-.art-name p{
-  margin-top:18px;
-  font:9px "DM Mono",monospace;
-  letter-spacing:.18em;
-}
-
-.art-footer{
-  position:absolute;
-  bottom:45px;
-  left:5vw;
-  right:5vw;
+.section-head{
   display:flex;
   justify-content:space-between;
-  align-items:center;
-  font:10px "DM Mono",monospace;
-  color:#666;
+  align-items:end;
+  border-bottom:1px solid #292929;
+  padding-bottom:25px;
+  margin-bottom:100px;
 }
 
-.view{
-  border:1px solid #333;
-  padding:11px 16px;
+.section-head h2{
+  font-size:clamp(45px,8vw,110px);
+  letter-spacing:-.07em;
+  line-height:.8;
+}
+
+.section-head p{
+  font-family:"DM Mono",monospace;
+  color:#666;
+  font-size:11px;
+}
+
+/* ================= PROJECT ================= */
+
+.project{
+  position:relative;
+  min-height:620px;
+  border-top:1px solid #292929;
+  display:grid;
+  grid-template-columns:90px 1fr 1fr;
+  gap:30px;
+  align-items:center;
+  overflow:hidden;
+  transition:.5s;
+}
+
+.project:last-child{
+  border-bottom:1px solid #292929;
+}
+
+.project:hover{
+  background:#101010;
+}
+
+.project-number{
+  font-family:"DM Mono",monospace;
+  font-size:11px;
+  color:#555;
+  align-self:start;
+  padding-top:40px;
+}
+
+.project-info{
+  position:relative;
+  z-index:3;
+}
+
+.project-type{
+  font-family:"DM Mono",monospace;
+  color:var(--orange);
+  font-size:10px;
+  letter-spacing:.15em;
+  margin-bottom:22px;
+}
+
+.project h3{
+  font-size:clamp(55px,8vw,115px);
+  line-height:.78;
+  letter-spacing:-.07em;
+  font-weight:900;
+}
+
+.project-desc{
+  margin-top:35px;
+  max-width:310px;
+  color:#888;
+  font-size:13px;
+  line-height:1.6;
+}
+
+.open{
+  display:inline-flex;
+  margin-top:30px;
+  border:1px solid #444;
+  padding:13px 18px;
+  font-family:"DM Mono",monospace;
+  font-size:10px;
   transition:.3s;
 }
 
-.view:hover{
-  color:var(--orange);
+.open:hover{
+  background:var(--orange);
   border-color:var(--orange);
+  color:#000;
 }
 
-/* different art backgrounds */
+/* ================= ART ================= */
 
-.a1{
-  background:#0c0a08;
+.project-art{
+  position:relative;
+  height:440px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  perspective:900px;
 }
 
-.a2{
-  background:#080b11;
+.art-box{
+  width:75%;
+  height:75%;
+  position:relative;
+  transform:rotate(-5deg) rotateX(4deg);
+  transition:.7s cubic-bezier(.2,.8,.2,1);
 }
 
-.a3{
-  background:#0a0a0a;
+.project:hover .art-box{
+  transform:rotate(0deg) rotateX(0deg) scale(1.04);
 }
 
-.a4{
-  background:#0d0805;
+.art-box:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.12),transparent 35%),
+    #161616;
+  border:1px solid #3a3a3a;
+  box-shadow:25px 25px 0 rgba(255,255,255,.03);
 }
 
-.a5{
-  background:#07100f;
+.art-lines{
+  position:absolute;
+  inset:12%;
+  border:1px solid #444;
 }
 
-.a6{
-  background:#0d0a08;
+.art-title{
+  position:absolute;
+  left:10%;
+  bottom:12%;
+  font-size:clamp(35px,5vw,70px);
+  line-height:.8;
+  letter-spacing:-.07em;
+  font-weight:900;
 }
 
-.a7{
-  background:#090909;
+/* unique worlds */
+
+.savoro .art-box{
+  background:linear-gradient(135deg,#28180f,#111);
 }
 
-/* =========================
-   INTERLUDE
-========================= */
+.savoro .art-title{
+  color:#e6b36b;
+}
+
+.nova .art-box{
+  background:
+    radial-gradient(circle at 60% 40%,#fff 0 2%,transparent 3%),
+    linear-gradient(135deg,#202020,#050505);
+}
+
+.nova .art-title{
+  color:#fff;
+}
+
+.noire .art-box{
+  background:#dedbd1;
+}
+
+.noire .art-title{
+  color:#111;
+}
+
+.noire .art-lines{
+  border-color:#222;
+}
+
+.radhe .art-box{
+  background:
+    repeating-linear-gradient(
+      135deg,
+      #ff4d00 0 12px,
+      #171717 12px 24px
+    );
+}
+
+.radhe .art-title{
+  color:#fff;
+  text-shadow:5px 5px #000;
+}
+
+.event .art-box{
+  background:
+    linear-gradient(90deg,transparent 48%,#ff4d00 49% 51%,transparent 52%),
+    linear-gradient(0deg,transparent 48%,#444 49% 51%,transparent 52%),
+    #111;
+  background-size:50px 50px;
+}
+
+.event .art-title{
+  color:#ff4d00;
+}
+
+.casa .art-box{
+  background:
+    linear-gradient(135deg,#d8c8aa,#81745f);
+}
+
+.casa .art-title{
+  color:#211c15;
+}
+
+.forma .art-box{
+  background:
+    linear-gradient(125deg,transparent 35%,#d8d4cb 36% 64%,transparent 65%),
+    #161616;
+}
+
+.forma .art-title{
+  color:#eee;
+}
+
+/* ================= INTERLUDE ================= */
 
 .interlude{
-  min-height:100svh;
+  min-height:70vh;
   display:flex;
   align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:80px 30px;
+  background:var(--orange);
+  color:#050505;
   overflow:hidden;
-  background:#111;
 }
 
-.marquee{
-  white-space:nowrap;
-  font-size:clamp(90px,18vw,280px);
-  font-weight:900;
-  letter-spacing:-.1em;
-  line-height:.75;
-  color:transparent;
-  -webkit-text-stroke:1px #555;
-  transform:translateX(var(--marquee,-20%));
-  will-change:transform;
+.interlude h2{
+  font-size:clamp(55px,11vw,170px);
+  line-height:.78;
+  letter-spacing:-.08em;
 }
 
-.marquee span{
-  color:var(--orange);
+/* ================= CAPABILITIES ================= */
+
+.cap{
+  padding:140px 5vw;
 }
 
-/* =========================
-   MANIFESTO 2
-========================= */
-
-.why{
-  min-height:100svh;
-  padding:12vw 5vw;
-  background:var(--white);
-  color:#090909;
+.cap h2{
+  font-size:clamp(55px,10vw,145px);
+  letter-spacing:-.08em;
+  line-height:.8;
+  margin-bottom:100px;
 }
 
-.why-top{
+.cap-row{
+  border-top:1px solid #292929;
+  padding:28px 0;
   display:flex;
   justify-content:space-between;
-}
-
-.why-title{
-  margin-top:90px;
-  font-size:clamp(55px,10vw,150px);
-  font-weight:900;
-  letter-spacing:-.08em;
-  line-height:.78;
-}
-
-.why-title span{
-  color:var(--orange);
-}
-
-.reasons{
-  margin-top:90px;
-  border-top:1px solid #bbb;
-}
-
-.reason{
-  min-height:120px;
-  border-bottom:1px solid #bbb;
-  display:grid;
-  grid-template-columns:70px 1fr 1fr;
   align-items:center;
-  transition:.4s var(--ease);
+  transition:.3s;
 }
 
-.reason:hover{
+.cap-row:last-child{
+  border-bottom:1px solid #292929;
+}
+
+.cap-row:hover{
   padding-left:25px;
-  background:#e9e6de;
+  padding-right:25px;
+  background:#101010;
 }
 
-.reason-no{
-  font:10px "DM Mono",monospace;
-  color:#888;
-}
-
-.reason-name{
+.cap-row strong{
   font-size:clamp(25px,4vw,55px);
-  font-weight:800;
   letter-spacing:-.05em;
 }
 
-.reason-text{
-  max-width:330px;
-  font:10px/1.7 "DM Mono",monospace;
-  color:#777;
+.cap-row span{
+  font-family:"DM Mono",monospace;
+  font-size:10px;
+  color:#666;
 }
 
-/* =========================
-   SIGNATURE
-========================= */
+/* ================= IDENTITY ================= */
 
-.signature{
-  min-height:100svh;
-  padding:10vw 5vw;
+.identity{
+  min-height:100vh;
+  padding:120px 5vw;
   display:flex;
   flex-direction:column;
   justify-content:center;
+  background:#eeeae1;
+  color:#080808;
 }
 
-.signature-top{
+.identity-label{
+  font-family:"DM Mono",monospace;
+  font-size:11px;
+  margin-bottom:35px;
+}
+
+.identity h2{
+  font-size:clamp(80px,17vw,250px);
+  line-height:.7;
+  letter-spacing:-.1em;
+}
+
+.identity h2 span{
+  color:var(--orange);
+}
+
+.identity-bottom{
+  margin-top:100px;
   display:flex;
   justify-content:space-between;
+  gap:40px;
 }
 
-.signature-name{
-  margin-top:90px;
-  font-size:clamp(90px,18vw,280px);
-  line-height:.68;
-  font-weight:900;
-  letter-spacing:-.11em;
+.identity-bottom p{
+  max-width:420px;
+  line-height:1.6;
+  font-size:14px;
 }
 
-.signature-line{
-  margin-top:80px;
-  display:flex;
-  justify-content:flex-end;
-}
-
-.signature-copy{
-  max-width:430px;
-  font:12px/2 "DM Mono",monospace;
-  color:#777;
-}
-
-.signature-copy strong{
-  color:#fff;
-  font-weight:400;
-}
-
-/* =========================
-   FINAL
-========================= */
-
-.final{
-  min-height:100svh;
-  background:var(--orange);
-  color:#090909;
-  padding:9vw 5vw 30px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-}
-
-.final h2{
-  font-size:clamp(70px,14vw,215px);
-  font-weight:900;
-  line-height:.72;
-  letter-spacing:-.095em;
-}
-
-.final h2 .stroke{
-  color:transparent;
-  -webkit-text-stroke:2px #090909;
-}
-
-.final-bottom{
-  border-top:1px solid rgba(0,0,0,.25);
-  padding-top:20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-end;
-}
+/* ================= CTA ================= */
 
 .cta{
-  font-size:clamp(25px,4vw,55px);
-  font-weight:800;
-  letter-spacing:-.05em;
+  min-height:90vh;
+  padding:100px 5vw;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
 }
 
-.details{
-  text-align:right;
-  font:10px/2 "DM Mono",monospace;
+.cta:after{
+  content:"";
+  position:absolute;
+  width:650px;
+  height:650px;
+  border:1px solid #292929;
+  border-radius:50%;
+  right:-180px;
+  bottom:-250px;
 }
 
-/* =========================
-   MOBILE
-========================= */
+.cta h2{
+  font-size:clamp(65px,12vw,180px);
+  line-height:.76;
+  letter-spacing:-.09em;
+  max-width:1100px;
+  position:relative;
+  z-index:2;
+}
+
+.cta h2 span{
+  color:var(--orange);
+}
+
+.cta-link{
+  display:inline-flex;
+  margin-top:70px;
+  font-family:"DM Mono",monospace;
+  font-size:13px;
+  color:var(--orange);
+  position:relative;
+  z-index:3;
+}
+
+footer{
+  padding:30px 5vw;
+  border-top:1px solid #292929;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  font-family:"DM Mono",monospace;
+  font-size:10px;
+  color:#666;
+}
+
+footer a:hover{
+  color:#fff;
+}
+
+/* ================= REVEAL ================= */
+
+.reveal{
+  opacity:0;
+  transform:translateY(45px);
+  transition:
+    opacity .8s ease,
+    transform .8s cubic-bezier(.2,.7,.2,1);
+}
+
+.reveal.show{
+  opacity:1;
+  transform:none;
+}
+
+/* ================= MOBILE ================= */
 
 @media(max-width:800px){
 
   header{
-    padding:20px;
+    height:65px;
+    padding:0 18px;
   }
 
-  .menu{
-    gap:14px;
+  .nav{
+    gap:13px;
+    font-size:9px;
   }
 
   .hero{
     padding:100px 20px 50px;
   }
 
-  .hero-copy{
+  .hero-orb{
+    width:300px;
+    height:300px;
+    right:-100px;
+    top:30%;
+    opacity:.45;
+  }
+
+  .hero h1{
+    font-size:clamp(62px,19vw,110px);
+  }
+
+  .hero-bottom{
+    margin-top:55px;
+    display:block;
+  }
+
+  .scroll{
     display:none;
   }
 
-  .hero-title{
-    font-size:19vw;
+  .ticker span{
+    font-size:28px;
   }
 
-  .hero-top{
-    margin-bottom:60px;
-  }
-
-  .statement{
-    padding:100px 20px;
-  }
-
-  .statement-title{
-    font-size:14vw;
-  }
-
-  .gallery-intro{
+  .intro{
+    min-height:70vh;
     padding:90px 20px;
   }
 
-  .gallery-intro h2{
-    font-size:19vw;
+  .intro h2{
+    font-size:clamp(48px,13vw,80px);
   }
 
-  .art{
-    min-height:90svh;
-    padding:80px 20px;
-  }
-
-  .art-number{
-    top:30px;
-    left:20px;
-  }
-
-  .art-category{
-    top:30px;
-    right:20px;
-  }
-
-  .art-window{
-    width:94vw;
-    aspect-ratio:4/3;
-  }
-
-  .art-name{
-    width:130%;
-  }
-
-  .art-name h3{
-    font-size:14vw;
-  }
-
-  .art-footer{
-    bottom:25px;
-    left:20px;
-    right:20px;
-  }
-
-  .interlude{
-    min-height:65svh;
-  }
-
-  .marquee{
-    font-size:25vw;
-  }
-
-  .why{
+  .lab{
     padding:90px 20px;
   }
 
-  .why-title{
-    font-size:15vw;
-    margin-top:65px;
+  .section-head{
+    margin-bottom:50px;
   }
 
-  .reason{
-    min-height:125px;
-    grid-template-columns:35px 1fr;
+  .section-head p{
+    display:none;
   }
 
-  .reason-text{
-    grid-column:2;
-    margin-bottom:20px;
-  }
-
-  .signature{
-    padding:100px 20px;
-  }
-
-  .signature-name{
-    font-size:23vw;
-    margin-top:70px;
-  }
-
-  .final{
-    padding:80px 20px 25px;
-  }
-
-  .final h2{
-    font-size:18vw;
-  }
-
-  .final-bottom{
+  .project{
+    min-height:auto;
+    padding:65px 0;
+    display:flex;
     flex-direction:column;
-    align-items:flex-start;
+    align-items:stretch;
     gap:35px;
   }
 
-  .details{
-    text-align:left;
+  .project-number{
+    padding:0;
+  }
+
+  .project h3{
+    font-size:clamp(58px,18vw,100px);
+  }
+
+  .project-art{
+    height:300px;
+    order:2;
+  }
+
+  .art-box{
+    width:90%;
+    height:85%;
+  }
+
+  .project-desc{
+    margin-top:25px;
+  }
+
+  .interlude{
+    min-height:55vh;
+  }
+
+  .cap{
+    padding:90px 20px;
+  }
+
+  .cap h2{
+    margin-bottom:60px;
+    font-size:clamp(60px,18vw,100px);
+  }
+
+  .cap-row{
+    padding:23px 0;
+  }
+
+  .cap-row strong{
+    font-size:25px;
+  }
+
+  .identity{
+    min-height:80vh;
+    padding:90px 20px;
+  }
+
+  .identity h2{
+    font-size:clamp(80px,25vw,160px);
+  }
+
+  .identity-bottom{
+    margin-top:70px;
+    display:block;
+  }
+
+  .identity-bottom p{
+    margin-top:25px;
+  }
+
+  .cta{
+    min-height:80vh;
+    padding:90px 20px;
+  }
+
+  .cta h2{
+    font-size:clamp(65px,19vw,110px);
+  }
+
+  footer{
+    padding:25px 20px;
+    flex-direction:column;
+  }
+
+  .cursor{
+    display:none;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,
+  *:before,
+  *:after{
+    animation:none!important;
+    transition:none!important;
+    scroll-behavior:auto!important;
   }
 }
 </style>
@@ -884,946 +850,574 @@ header{
 
 <body>
 
-<!-- INTRO -->
-<div class="intro" id="intro">
+<div class="cursor"></div>
 
-  <div class="intro-wrap">
-
-    <div class="intro-top">
-      <span>AI VISION STUDIO®</span>
-      <span>001 / DIGITAL GALLERY</span>
-    </div>
-
-    <div class="intro-big">
-      <span>KAUSTUBH</span>
-      <span>× AI VISION</span>
-    </div>
-
-    <div class="intro-rule">
-      <i></i>
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- HEADER -->
 <header>
+  <div class="logo">AI VISION STUDIO®</div>
 
-  <a href="#home" class="logo hover">
-    AI VISION STUDIO®
-  </a>
-
-  <nav class="menu">
-    <a href="#gallery" class="hover">WORK</a>
-    <a href="#why" class="hover">WHY</a>
-    <a href="#contact" class="hover">CONTACT</a>
+  <nav class="nav">
+    <a href="#work">Work</a>
+    <a href="#capabilities">Capabilities</a>
+    <a href="#contact">Contact</a>
   </nav>
-
 </header>
 
 
-<!-- CURSOR -->
-<div class="cursor" id="cursor">
-  <div class="cursor-label">VIEW</div>
+<!-- HERO -->
+
+<section class="hero">
+
+  <div class="hero-grid"></div>
+  <div class="hero-orb"></div>
+
+  <div class="hero-content">
+
+    <div class="kicker reveal">KAUSTUBH SHUKLA / CREATIVE TECHNOLOGY</div>
+
+    <h1 class="reveal">
+      <span>MAKE</span>
+      <span class="outline">THEM</span>
+      <span>LOOK.</span>
+    </h1>
+
+    <div class="hero-bottom reveal">
+
+      <p class="hero-copy">
+        Websites, identities and digital experiences
+        built to make people stop scrolling.
+        Not templates. Not ordinary.
+      </p>
+
+      <div class="scroll">
+        SCROLL TO ENTER →
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- TICKER -->
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span>WEB DESIGN</span>
+    <span>CREATIVE DEVELOPMENT</span>
+    <span>BRAND EXPERIENCE</span>
+    <span>WEB DESIGN</span>
+    <span>CREATIVE DEVELOPMENT</span>
+    <span>BRAND EXPERIENCE</span>
+  </div>
 </div>
 
 
-<!-- HERO -->
-<section class="hero" id="home">
+<!-- INTRO -->
 
-  <div class="hero-light" id="heroLight"></div>
+<section class="intro">
 
-  <div class="hero-inner">
+  <div class="intro-inner reveal">
 
-    <div class="hero-top">
-
-      <div class="mono">
-        INDEPENDENT DIGITAL STUDIO
-      </div>
-
-      <div class="hero-copy">
-        We build digital experiences
-        that turn ordinary businesses
-        into memorable brands.
-      </div>
-
-    </div>
-
-    <h1 class="hero-title">
-
-      <div class="hero-line">
-        <span>MAKE</span>
-      </div>
-
-      <div class="hero-line">
-        <span>THEM</span>
-      </div>
-
-      <div class="hero-line">
-        <span>LOOK.</span>
-      </div>
-
-    </h1>
-
-    <div class="hero-bottom">
-
-      <div class="scroll-label">
-        ENTER THE WORK
-        <span class="scroll-line"></span>
-      </div>
-
-      <div class="hero-count">
-        AHMEDABAD / INDIA
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- STATEMENT -->
-<section class="statement">
-
-  <div class="statement-inner">
-
-    <div class="statement-small">
-      01 — THE IDEA
-    </div>
-
-    <div class="statement-title">
-
-      <div class="shift">
-        YOUR WEBSITE
-      </div>
-
-      <div class="shift outline">
-        IS NOT
-      </div>
-
-      <div class="shift">
-        YOUR BRAND.
-      </div>
-
-      <div class="shift outline">
-        IT'S THE
-      </div>
-
-      <div class="shift">
-        FIRST IMPRESSION.
-      </div>
-
-    </div>
-
-    <div class="statement-footer">
-      <span>DESIGN / CODE / MOTION</span>
-      <span>FIRST IMPRESSIONS MATTER.</span>
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- GALLERY INTRO -->
-<section class="gallery-intro" id="gallery">
-
-  <h2>
-    THE<br>
-    <span>ARCHIVE.</span>
-  </h2>
-
-</section>
-
-
-<!-- PROJECT 01 -->
-<section class="art a1" data-art>
-
-  <div class="art-number">01 — 07</div>
-
-  <div class="art-category">
-    FOOD<br>
-    LUXURY EXPERIENCE
-  </div>
-
-  <div class="art-center">
-
-    <div class="art-window">
-
-      <div class="art-placeholder">
-        <iframe
-          src="https://savoro-puce.vercel.app/#menu"
-          loading="lazy">
-        </iframe>
-      </div>
-
-      <div class="art-name">
-        <h3>SAVORO</h3>
-        <p>THE ART OF APPETITE</p>
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="art-footer">
-    <span>CINEMATIC DIGITAL EXPERIENCE</span>
-
-    <a
-      href="https://savoro-puce.vercel.app/#menu"
-      target="_blank"
-      class="view hover"
-      data-label="OPEN">
-      OPEN ↗
-    </a>
-  </div>
-
-</section>
-
-
-<!-- PROJECT 02 -->
-<section class="art a2" data-art>
-
-  <div class="art-number">02 — 07</div>
-
-  <div class="art-category">
-    TECHNOLOGY<br>
-    FUTURE INTERFACE
-  </div>
-
-  <div class="art-center">
-
-    <div class="art-window">
-
-      <div class="art-placeholder">
-        <iframe
-          src="https://nova-gilt-psi.vercel.app/"
-          loading="lazy">
-        </iframe>
-      </div>
-
-      <div class="art-name">
-        <h3>NOVA</h3>
-        <p>BUILT FOR WHAT'S NEXT</p>
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="art-footer">
-    <span>FUTURE DIGITAL PRODUCT</span>
-
-    <a
-      href="https://nova-gilt-psi.vercel.app/"
-      target="_blank"
-      class="view hover"
-      data-label="OPEN">
-      OPEN ↗
-    </a>
-  </div>
-
-</section>
-
-
-<!-- PROJECT 03 -->
-<section class="art a3" data-art>
-
-  <div class="art-number">03 — 07</div>
-
-  <div class="art-category">
-    EDITORIAL<br>
-    LUXURY IDENTITY
-  </div>
-
-  <div class="art-center">
-
-    <div class="art-window">
-
-      <div class="art-placeholder">
-        <iframe
-          src="https://noire-five-blond.vercel.app/"
-          loading="lazy">
-        </iframe>
-      </div>
-
-      <div class="art-name">
-        <h3>NOIRÉ</h3>
-        <p>LESS. BUT LOUDER.</p>
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="art-footer">
-    <span>EDITORIAL DIGITAL WORLD</span>
-
-    <a
-      href="https://noire-five-blond.vercel.app/"
-      target="_blank"
-      class="view hover"
-      data-label="OPEN">
-      OPEN ↗
-    </a>
-  </div>
-
-</section>
-
-
-<!-- PROJECT 04 -->
-<section class="art a4" data-art>
-
-  <div class="art-number">04 — 07</div>
-
-  <div class="art-category">
-    SPORTS<br>
-    EXPERIENCE SYSTEM
-  </div>
-
-  <div class="art-center">
-
-    <div class="art-window">
-
-      <div class="art-placeholder">
-        <iframe
-          src="https://radhearena.vercel.app/"
-          loading="lazy">
-        </iframe>
-      </div>
-
-      <div class="art-name">
-        <h3>RADHE</h3>
-        <p>PLAY WITH ATTITUDE</p>
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="art-footer">
-    <span>SPORTS DIGITAL EXPERIENCE</span>
-
-    <a
-      href="https://radhearena.vercel.app/"
-      target="_blank"
-      class="view hover"
-      data-label="OPEN">
-      OPEN ↗
-    </a>
-  </div>
-
-</section>
-
-
-<!-- PROJECT 05 -->
-<section class="art a5" data-art>
-
-  <div class="art-number">05 — 07</div>
-
-  <div class="art-category">
-    PRODUCT<br>
-    EVENT SYSTEM
-  </div>
-
-  <div class="art-center">
-
-    <div class="art-window">
-
-      <div class="art-placeholder">
-        <iframe
-          src="https://eventbudget-sooty.vercel.app/"
-          loading="lazy">
-        </iframe>
-      </div>
-
-      <div class="art-name">
-        <h3>EVENTBUDGET</h3>
-        <p>PLAN. SIMULATE. CELEBRATE.</p>
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="art-footer">
-    <span>INTERACTIVE EVENT PLATFORM</span>
-
-    <a
-      href="https://eventbudget-sooty.vercel.app/"
-      target="_blank"
-      class="view hover"
-      data-label="OPEN">
-      OPEN ↗
-    </a>
-  </div>
-
-</section>
-
-
-<!-- PROJECT 06 -->
-<section class="art a6" data-art>
-
-  <div class="art-number">06 — 07</div>
-
-  <div class="art-category">
-    HOSPITALITY<br>
-    DIGITAL PRESENCE
-  </div>
-
-  <div class="art-center">
-
-    <div class="art-window">
-
-      <div class="art-placeholder">
-        <iframe
-          src="https://casa-mira-inky.vercel.app/"
-          loading="lazy">
-        </iframe>
-      </div>
-
-      <div class="art-name">
-        <h3>CASA MIRA</h3>
-        <p>STAY SOMEWHERE BEAUTIFUL</p>
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="art-footer">
-    <span>HOSPITALITY EXPERIENCE</span>
-
-    <a
-      href="https://casa-mira-inky.vercel.app/"
-      target="_blank"
-      class="view hover"
-      data-label="OPEN">
-      OPEN ↗
-    </a>
-  </div>
-
-</section>
-
-
-<!-- PROJECT 07 -->
-<section class="art a7" data-art>
-
-  <div class="art-number">07 — 07</div>
-
-  <div class="art-category">
-    ARCHITECTURE<br>
-    VISUAL SYSTEM
-  </div>
-
-  <div class="art-center">
-
-    <div class="art-window">
-
-      <div class="art-placeholder">
-        <iframe
-          src="https://forma-ochre-nine.vercel.app/"
-          loading="lazy">
-        </iframe>
-      </div>
-
-      <div class="art-name">
-        <h3>FORMA</h3>
-        <p>FORM FOLLOWS FEELING</p>
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="art-footer">
-    <span>ARCHITECTURAL DIGITAL WORLD</span>
-
-    <a
-      href="https://forma-ochre-nine.vercel.app/"
-      target="_blank"
-      class="view hover"
-      data-label="OPEN">
-      OPEN ↗
-    </a>
-  </div>
-
-</section>
-
-
-<!-- INTERLUDE -->
-<section class="interlude">
-
-  <div class="marquee" id="marquee">
-    DESIGN IS <span>ATTENTION.</span>
-    DESIGN IS <span>ATTENTION.</span>
-  </div>
-
-</section>
-
-
-<!-- WHY -->
-<section class="why" id="why">
-
-  <div class="why-top">
-
-    <div class="mono">
-      02 — WHY AI VISION
-    </div>
-
-    <div class="mono">
-      NO GENERIC AGENCY ENERGY
-    </div>
-
-  </div>
-
-  <h2 class="why-title">
-    WE MAKE<br>
-    <span>ORDINARY</span><br>
-    FEEL RARE.
-  </h2>
-
-  <div class="reasons">
-
-    <div class="reason">
-
-      <span class="reason-no">01</span>
-
-      <span class="reason-name">
-        ORIGINAL
-      </span>
-
-      <span class="reason-text">
-        No recycled templates.
-        Every experience gets its own visual language.
-      </span>
-
-    </div>
-
-    <div class="reason">
-
-      <span class="reason-no">02</span>
-
-      <span class="reason-name">
-        FAST
-      </span>
-
-      <span class="reason-text">
-        Motion and interaction without turning
-        the website into a loading screen.
-      </span>
-
-    </div>
-
-    <div class="reason">
-
-      <span class="reason-no">03</span>
-
-      <span class="reason-name">
-        USEFUL
-      </span>
-
-      <span class="reason-text">
-        Pretty is not enough.
-        The experience has to help the business.
-      </span>
-
-    </div>
-
-    <div class="reason">
-
-      <span class="reason-no">04</span>
-
-      <span class="reason-name">
-        MEMORABLE
-      </span>
-
-      <span class="reason-text">
-        The goal isn't just a visitor.
-        The goal is the reaction after they leave.
-      </span>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- SIGNATURE -->
-<section class="signature">
-
-  <div class="signature-top">
-
-    <div class="mono">
-      03 — THE PERSON
-    </div>
-
-    <div class="mono">
-      AHMEDABAD / INDIA
-    </div>
-
-  </div>
-
-  <div class="signature-name">
-    KAUSTUBH.
-  </div>
-
-  <div class="signature-line">
-
-    <div class="signature-copy">
-
-      <strong>
-        AI Vision Studio is led by Kaustubh Shukla.
-      </strong>
-
-      <br><br>
-
-      A young independent creator building
-      websites, digital identities and interactive
-      experiences for businesses that want to
-      look different.
-
-      <br><br>
-
-      Design × code × AI.
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- FINAL -->
-<section class="final" id="contact">
-
-  <div>
-
-    <div
-      class="mono"
-      style="color:#642000;margin-bottom:55px;">
-      READY WHEN YOU ARE.
+    <div class="intro-small">
+      001 / THE IDEA
     </div>
 
     <h2>
-      MAKE YOUR<br>
-      <span class="stroke">MOVE.</span>
+      YOUR BUSINESS<br>
+      DESERVES MORE<br>
+      THAN A <span>WEBSITE.</span>
     </h2>
 
   </div>
 
-  <div class="final-bottom">
+</section>
 
-    <a
-      class="cta hover"
-      href="mailto:aivisionstudio2821@gmail.com"
-      data-label="EMAIL">
-      START A PROJECT ↗
-    </a>
 
-    <div class="details">
+<!-- PROJECT LAB -->
 
-      <a href="tel:+919925054448">
-        +91 99250 54448
-      </a>
+<section class="lab" id="work">
 
-      <a href="mailto:aivisionstudio2821@gmail.com">
-        aivisionstudio2821@gmail.com
-      </a>
+  <div class="section-head reveal">
+    <h2>THE WORK.</h2>
+    <p>SELECTED DIGITAL WORLDS / 2026</p>
+  </div>
 
-      <a
-        href="https://instagram.com/aivisionstudioahmedabad_"
-        target="_blank">
-        @AIVISIONSTUDIOAHMEDABAD_
+
+  <!-- 01 -->
+
+  <article class="project savoro reveal">
+
+    <div class="project-number">01</div>
+
+    <div class="project-info">
+
+      <div class="project-type">
+        RESTAURANT / DIGITAL EXPERIENCE
+      </div>
+
+      <h3>SAVORO</h3>
+
+      <p class="project-desc">
+        A cinematic food experience designed to
+        make a restaurant feel like a premium brand.
+      </p>
+
+      <a class="open"
+         href="https://savoro-puce.vercel.app/#menu"
+         target="_blank">
+         OPEN LIVE ↗
       </a>
 
     </div>
+
+    <div class="project-art">
+      <div class="art-box">
+        <div class="art-lines"></div>
+        <div class="art-title">SAVORO</div>
+      </div>
+    </div>
+
+  </article>
+
+
+  <!-- 02 -->
+
+  <article class="project nova reveal">
+
+    <div class="project-number">02</div>
+
+    <div class="project-info">
+
+      <div class="project-type">
+        DIGITAL / FUTURE
+      </div>
+
+      <h3>NOVA</h3>
+
+      <p class="project-desc">
+        Minimal, futuristic digital direction
+        built around clarity and visual confidence.
+      </p>
+
+      <a class="open"
+         href="https://nova-gilt-psi.vercel.app/"
+         target="_blank">
+         OPEN LIVE ↗
+      </a>
+
+    </div>
+
+    <div class="project-art">
+      <div class="art-box">
+        <div class="art-lines"></div>
+        <div class="art-title">NOVA</div>
+      </div>
+    </div>
+
+  </article>
+
+
+  <!-- 03 -->
+
+  <article class="project noire reveal">
+
+    <div class="project-number">03</div>
+
+    <div class="project-info">
+
+      <div class="project-type">
+        EDITORIAL / LUXURY
+      </div>
+
+      <h3>NOIRÉ</h3>
+
+      <p class="project-desc">
+        An editorial visual system where typography
+        becomes the main character.
+      </p>
+
+      <a class="open"
+         href="https://noire-five-blond.vercel.app/"
+         target="_blank">
+         OPEN LIVE ↗
+      </a>
+
+    </div>
+
+    <div class="project-art">
+      <div class="art-box">
+        <div class="art-lines"></div>
+        <div class="art-title">NOIRÉ</div>
+      </div>
+    </div>
+
+  </article>
+
+
+  <!-- 04 -->
+
+  <article class="project radhe reveal">
+
+    <div class="project-number">04</div>
+
+    <div class="project-info">
+
+      <div class="project-type">
+        SPORTS / EXPERIENCE
+      </div>
+
+      <h3>RADHE</h3>
+
+      <p class="project-desc">
+        High-energy digital identity for a modern
+        cricket arena.
+      </p>
+
+      <a class="open"
+         href="https://radhearena.vercel.app/"
+         target="_blank">
+         OPEN LIVE ↗
+      </a>
+
+    </div>
+
+    <div class="project-art">
+      <div class="art-box">
+        <div class="art-lines"></div>
+        <div class="art-title">RADHE</div>
+      </div>
+    </div>
+
+  </article>
+
+
+  <!-- 05 -->
+
+  <article class="project event reveal">
+
+    <div class="project-number">05</div>
+
+    <div class="project-info">
+
+      <div class="project-type">
+        PRODUCT / EVENT TECH
+      </div>
+
+      <h3>EVENT<br>BUDGET</h3>
+
+      <p class="project-desc">
+        A planning product turned into a visual,
+        interactive digital system.
+      </p>
+
+      <a class="open"
+         href="https://eventbudget-sooty.vercel.app/"
+         target="_blank">
+         OPEN LIVE ↗
+      </a>
+
+    </div>
+
+    <div class="project-art">
+      <div class="art-box">
+        <div class="art-lines"></div>
+        <div class="art-title">EB</div>
+      </div>
+    </div>
+
+  </article>
+
+
+  <!-- 06 -->
+
+  <article class="project casa reveal">
+
+    <div class="project-number">06</div>
+
+    <div class="project-info">
+
+      <div class="project-type">
+        HOSPITALITY / EXPERIENCE
+      </div>
+
+      <h3>CASA<br>MIRA</h3>
+
+      <p class="project-desc">
+        Warm, architectural digital direction for
+        a premium hospitality concept.
+      </p>
+
+      <a class="open"
+         href="https://casa-mira-inky.vercel.app/"
+         target="_blank">
+         OPEN LIVE ↗
+      </a>
+
+    </div>
+
+    <div class="project-art">
+      <div class="art-box">
+        <div class="art-lines"></div>
+        <div class="art-title">CASA</div>
+      </div>
+    </div>
+
+  </article>
+
+
+  <!-- 07 -->
+
+  <article class="project forma reveal">
+
+    <div class="project-number">07</div>
+
+    <div class="project-info">
+
+      <div class="project-type">
+        ARCHITECTURE / DIGITAL
+      </div>
+
+      <h3>FORMA</h3>
+
+      <p class="project-desc">
+        A clean architectural interface built
+        around structure, space and form.
+      </p>
+
+      <a class="open"
+         href="https://forma-ochre-nine.vercel.app/"
+         target="_blank">
+         OPEN LIVE ↗
+      </a>
+
+    </div>
+
+    <div class="project-art">
+      <div class="art-box">
+        <div class="art-lines"></div>
+        <div class="art-title">FORMA</div>
+      </div>
+    </div>
+
+  </article>
+
+</section>
+
+
+<!-- BIG STATEMENT -->
+
+<section class="interlude">
+
+  <h2 class="reveal">
+    GOOD<br>
+    IS<br>
+    BORING.
+  </h2>
+
+</section>
+
+
+<!-- CAPABILITIES -->
+
+<section class="cap" id="capabilities">
+
+  <h2 class="reveal">
+    WHAT WE<br>
+    <span style="color:#ff4d00">BUILD.</span>
+  </h2>
+
+  <div class="cap-row reveal">
+    <strong>Web Experiences</strong>
+    <span>01 / DIGITAL</span>
+  </div>
+
+  <div class="cap-row reveal">
+    <strong>Brand Systems</strong>
+    <span>02 / IDENTITY</span>
+  </div>
+
+  <div class="cap-row reveal">
+    <strong>Creative Development</strong>
+    <span>03 / CODE</span>
+  </div>
+
+  <div class="cap-row reveal">
+    <strong>AI + Design</strong>
+    <span>04 / EXPERIMENT</span>
+  </div>
+
+</section>
+
+
+<!-- IDENTITY -->
+
+<section class="identity">
+
+  <div class="identity-label reveal">
+    002 / THE PERSON BEHIND THE MACHINE
+  </div>
+
+  <h2 class="reveal">
+    KAU<span>S</span><br>
+    TUBH.
+  </h2>
+
+  <div class="identity-bottom reveal">
+
+    <p>
+      I’m Kaustubh — the person behind AI Vision Studio.
+      I build digital experiences where design,
+      technology and attention meet.
+    </p>
+
+    <p>
+      Based in Ahmedabad.<br>
+      Building for businesses that want
+      to look different.
+    </p>
 
   </div>
 
 </section>
 
 
+<!-- CTA -->
+
+<section class="cta" id="contact">
+
+  <h2 class="reveal">
+    YOUR BUSINESS<br>
+    COULD LOOK<br>
+    <span>LIKE THIS.</span>
+  </h2>
+
+  <a class="cta-link"
+     href="mailto:aivisionstudio2821@gmail.com">
+     START A PROJECT ↗
+  </a>
+
+</section>
+
+
+<footer>
+
+  <div>
+    AI VISION STUDIO® — KAUSTUBH SHUKLA
+  </div>
+
+  <div>
+    <a href="tel:9925054448">9925054448</a>
+    &nbsp;&nbsp; / &nbsp;&nbsp;
+    <a href="https://instagram.com/aivisionstudioahmedabad_"
+       target="_blank">
+       INSTAGRAM
+    </a>
+  </div>
+
+</footer>
+
+
 <script>
 
-/* =========================
-   INTRO
-========================= */
+/* ================= CURSOR ================= */
 
-window.addEventListener("load",()=>{
+const cursor = document.querySelector(".cursor");
 
-  setTimeout(()=>{
-    document
-      .getElementById("intro")
-      .classList.add("done");
-  },2100);
+if(window.matchMedia("(pointer:fine)").matches){
 
+  window.addEventListener("mousemove",e=>{
+    cursor.style.left=e.clientX+"px";
+    cursor.style.top=e.clientY+"px";
+  });
+
+  document.querySelectorAll("a,.project,.cap-row").forEach(el=>{
+
+    el.addEventListener("mouseenter",()=>{
+      cursor.classList.add("big");
+    });
+
+    el.addEventListener("mouseleave",()=>{
+      cursor.classList.remove("big");
+    });
+
+  });
+
+}
+
+
+/* ================= REVEAL ================= */
+
+const observer = new IntersectionObserver(
+(entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("show");
+      observer.unobserve(entry.target);
+    }
+  });
+},
+{
+  threshold:.12,
+  rootMargin:"0px 0px -50px 0px"
+}
+);
+
+document.querySelectorAll(".reveal").forEach(el=>{
+  observer.observe(el);
 });
 
 
-/* =========================
-   CURSOR
-========================= */
+/* ================= PROJECT PARALLAX ================= */
 
-const cursor=
-  document.getElementById("cursor");
+if(window.matchMedia("(pointer:fine)").matches){
 
-let mouseX=innerWidth/2;
-let mouseY=innerHeight/2;
+  document.querySelectorAll(".project").forEach(project=>{
 
-let curX=mouseX;
-let curY=mouseY;
+    const art=project.querySelector(".art-box");
 
-if(matchMedia("(pointer:fine)").matches){
+    project.addEventListener("mousemove",e=>{
 
-  document.addEventListener("mousemove",e=>{
+      const r=project.getBoundingClientRect();
 
-    mouseX=e.clientX;
-    mouseY=e.clientY;
+      const x=(e.clientX-r.left)/r.width-.5;
+      const y=(e.clientY-r.top)/r.height-.5;
 
-    const light=
-      document.getElementById("heroLight");
+      art.style.transform=
+        `rotateY(${x*8}deg)
+         rotateX(${y*-6}deg)
+         rotateZ(${x*-2}deg)
+         scale(1.03)`;
 
-    light.style.left=
-      e.clientX+"px";
+    });
 
-    light.style.top=
-      e.clientY+"px";
-
-  });
-
-  function cursorMove(){
-
-    curX+=(mouseX-curX)*.16;
-    curY+=(mouseY-curY)*.16;
-
-    cursor.style.left=curX+"px";
-    cursor.style.top=curY+"px";
-    cursor.style.opacity="1";
-
-    requestAnimationFrame(cursorMove);
-
-  }
-
-  cursorMove();
-
-}
-
-
-/* =========================
-   HOVER
-========================= */
-
-document
-  .querySelectorAll(".hover")
-  .forEach(el=>{
-
-    el.addEventListener(
-      "mouseenter",
-      ()=>{
-
-        cursor.classList.add("big");
-
-        cursor
-          .querySelector(".cursor-label")
-          .textContent=
-          el.dataset.label || "VIEW";
-
-      }
-    );
-
-    el.addEventListener(
-      "mouseleave",
-      ()=>{
-
-        cursor.classList.remove("big");
-
-      }
-    );
-
-  });
-
-
-/* =========================
-   STATEMENT MOTION
-========================= */
-
-const statement=
-  document.querySelector(".statement");
-
-const shifts=
-  document.querySelectorAll(
-    ".statement-title .shift"
-  );
-
-function statementMotion(){
-
-  const r=
-    statement.getBoundingClientRect();
-
-  const progress=
-    (innerHeight-r.top)/
-    (innerHeight+r.height);
-
-  const value=
-    Math.max(-1,Math.min(1,progress-.5));
-
-  shifts.forEach((el,i)=>{
-
-    const amount=
-      value*55*(i%2 ? -1 : 1);
-
-    el.style.setProperty(
-      "--shift",
-      amount+"px"
-    );
+    project.addEventListener("mouseleave",()=>{
+      art.style.transform=
+        "rotate(-5deg) rotateX(4deg)";
+    });
 
   });
 
 }
 
 
-/* =========================
-   ART MOTION
-========================= */
+/* ================= HERO PARALLAX ================= */
 
-const arts=
-  document.querySelectorAll("[data-art]");
+if(window.matchMedia("(pointer:fine)").matches){
 
-function artMotion(){
+  const hero=document.querySelector(".hero");
+  const orb=document.querySelector(".hero-orb");
 
-  arts.forEach((art,i)=>{
+  hero.addEventListener("mousemove",e=>{
 
-    const r=
-      art.getBoundingClientRect();
+    const x=(e.clientX/window.innerWidth-.5);
+    const y=(e.clientY/window.innerHeight-.5);
 
-    const center=
-      r.top+r.height/2;
-
-    const p=
-      Math.max(
-        -1,
-        Math.min(
-          1,
-          (center-innerHeight/2)/
-          (innerHeight*.85)
-        )
-      );
-
-    const windowEl=
-      art.querySelector(".art-window");
-
-    const name=
-      art.querySelector(".art-name");
-
-    windowEl.style.setProperty(
-      "--move",
-      `${p*-35}px`
-    );
-
-    windowEl.style.setProperty(
-      "--rotate",
-      `${p*1.8}deg`
-    );
-
-    windowEl.style.setProperty(
-      "--scale",
-      `${1-Math.abs(p)*.025}`
-    );
-
-    name.style.setProperty(
-      "--name-x",
-      `${p*55}px`
-    );
-
-    name.style.setProperty(
-      "--name-y",
-      `${p*-18}px`
-    );
+    orb.style.transform=
+      `translate(${x*35}px,${y*35}px) rotate(${x*30}deg)`;
 
   });
 
 }
-
-
-/* =========================
-   MARQUEE
-========================= */
-
-const marquee=
-  document.getElementById("marquee");
-
-function marqueeMotion(){
-
-  const r=
-    document
-      .querySelector(".interlude")
-      .getBoundingClientRect();
-
-  const p=
-    (innerHeight-r.top)/
-    (innerHeight+r.height);
-
-  const x=
-    -35+(p*70);
-
-  marquee.style.setProperty(
-    "--marquee",
-    x+"%"
-  );
-
-}
-
-
-/* =========================
-   SINGLE SCROLL LOOP
-========================= */
-
-let ticking=false;
-
-function update(){
-
-  statementMotion();
-  artMotion();
-  marqueeMotion();
-
-  ticking=false;
-
-}
-
-function requestUpdate(){
-
-  if(!ticking){
-
-    requestAnimationFrame(update);
-
-    ticking=true;
-
-  }
-
-}
-
-window.addEventListener(
-  "scroll",
-  requestUpdate,
-  {passive:true}
-);
-
-requestUpdate();
-
-
-/* =========================
-   RESIZE
-========================= */
-
-window.addEventListener(
-  "resize",
-  requestUpdate
-);
 
 </script>
 
