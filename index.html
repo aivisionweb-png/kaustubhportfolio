@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>AI Vision — Kaustubh Shukla</title>
+<title>AI Vision — Kaustubh & Krish</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
@@ -18,9 +18,15 @@
   --dark:#181817;
 }
 
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-html{scroll-behavior:smooth}
+html{
+  scroll-behavior:smooth;
+}
 
 body{
   background:var(--paper);
@@ -39,7 +45,7 @@ a{
   color:#111;
 }
 
-/* ---------- GRAIN ---------- */
+/* ================= GRAIN ================= */
 
 body:before{
   content:"";
@@ -51,7 +57,7 @@ body:before{
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
 }
 
-/* ---------- HEADER ---------- */
+/* ================= HEADER ================= */
 
 header{
   position:fixed;
@@ -89,13 +95,14 @@ nav{
 
 nav a{
   color:#555;
+  transition:.25s;
 }
 
 nav a:hover{
   color:#111;
 }
 
-/* ---------- HERO ---------- */
+/* ================= HERO ================= */
 
 .hero{
   min-height:100svh;
@@ -123,6 +130,7 @@ nav a:hover{
   font-family:"DM Mono",monospace;
   font-size:10px;
   color:#777;
+  text-align:right;
 }
 
 .hero-title{
@@ -186,7 +194,7 @@ nav a:hover{
   box-shadow:0 0 0 5px rgba(201,255,69,.15);
 }
 
-/* ---------- INTRO ---------- */
+/* ================= INTRO ================= */
 
 .intro{
   min-height:85vh;
@@ -223,7 +231,7 @@ nav a:hover{
   color:var(--acid);
 }
 
-/* ---------- WORK ---------- */
+/* ================= WORK ================= */
 
 .work{
   padding:130px 4vw;
@@ -250,7 +258,7 @@ nav a:hover{
   color:#777;
 }
 
-/* ---------- PROJECT ---------- */
+/* ================= PROJECT ================= */
 
 .project{
   margin-bottom:150px;
@@ -267,6 +275,7 @@ nav a:hover{
   font-family:"DM Mono",monospace;
   font-size:10px;
   color:#777;
+  margin-bottom:8px;
 }
 
 .project-name{
@@ -284,7 +293,7 @@ nav a:hover{
   line-height:1.6;
 }
 
-/* browser window */
+/* ================= BROWSER ================= */
 
 .browser{
   width:100%;
@@ -295,16 +304,21 @@ nav a:hover{
   border-radius:8px;
   overflow:hidden;
   position:relative;
+
   box-shadow:
     0 35px 80px rgba(0,0,0,.13),
     0 3px 8px rgba(0,0,0,.08);
+
   transform:translateY(0);
-  transition:transform .7s cubic-bezier(.2,.8,.2,1),
-             box-shadow .7s ease;
+
+  transition:
+    transform .7s cubic-bezier(.2,.8,.2,1),
+    box-shadow .7s ease;
 }
 
 .browser:hover{
   transform:translateY(-10px);
+
   box-shadow:
     0 55px 110px rgba(0,0,0,.18),
     0 5px 12px rgba(0,0,0,.1);
@@ -345,7 +359,7 @@ nav a:hover{
   color:#777;
 }
 
-/* ---------- WEBSITE PREVIEWS ---------- */
+/* ================= PREVIEW ================= */
 
 .preview{
   position:absolute;
@@ -361,11 +375,6 @@ nav a:hover{
   background:#fff;
 }
 
-/*
-  The iframe is NOT loaded until user clicks.
-  This keeps the portfolio fast.
-*/
-
 .preview-placeholder{
   position:absolute;
   inset:0;
@@ -374,15 +383,22 @@ nav a:hover{
   justify-content:center;
   cursor:pointer;
   overflow:hidden;
+  transition:transform .7s ease;
+}
+
+.preview-placeholder:hover{
+  transform:scale(1.015);
 }
 
 .placeholder-grid{
   position:absolute;
   inset:0;
   opacity:.15;
+
   background-image:
     linear-gradient(currentColor 1px,transparent 1px),
     linear-gradient(90deg,currentColor 1px,transparent 1px);
+
   background-size:50px 50px;
 }
 
@@ -419,7 +435,7 @@ nav a:hover{
   color:var(--paper);
 }
 
-/* individual previews */
+/* ================= PROJECT WORLDS ================= */
 
 .p-savoro{
   background:#17120e;
@@ -490,7 +506,7 @@ nav a:hover{
   opacity:.18;
 }
 
-/* ---------- BETWEEN ---------- */
+/* ================= STATEMENT ================= */
 
 .statement{
   min-height:75vh;
@@ -512,7 +528,7 @@ nav a:hover{
   color:#999;
 }
 
-/* ---------- SERVICES ---------- */
+/* ================= SERVICES ================= */
 
 .services{
   padding:140px 5vw;
@@ -573,7 +589,7 @@ nav a:hover{
   line-height:1.6;
 }
 
-/* ---------- ABOUT ---------- */
+/* ================= ABOUT ================= */
 
 .about{
   background:#111;
@@ -614,13 +630,17 @@ nav a:hover{
   color:#aaa;
 }
 
+.about-copy strong{
+  color:#fff;
+}
+
 .signature{
   margin-top:80px;
   font-size:clamp(30px,5vw,70px);
   letter-spacing:-.06em;
 }
 
-/* ---------- CTA ---------- */
+/* ================= CTA ================= */
 
 .cta{
   padding:160px 5vw 80px;
@@ -669,11 +689,12 @@ nav a:hover{
   color:#777;
 }
 
-/* ---------- REVEAL ---------- */
+/* ================= REVEAL ================= */
 
 .reveal{
   opacity:0;
   transform:translateY(40px);
+
   transition:
     opacity .9s ease,
     transform .9s cubic-bezier(.2,.8,.2,1);
@@ -684,7 +705,7 @@ nav a:hover{
   transform:none;
 }
 
-/* ---------- MOBILE ---------- */
+/* ================= MOBILE ================= */
 
 @media(max-width:800px){
 
@@ -700,6 +721,10 @@ nav a:hover{
 
   .hero{
     padding:115px 20px 35px;
+  }
+
+  .hero-top{
+    gap:20px;
   }
 
   .hero-title{
@@ -724,6 +749,10 @@ nav a:hover{
 
   .intro-meta{
     margin-bottom:50px;
+  }
+
+  .intro-meta span:last-child{
+    display:none;
   }
 
   .work{
@@ -820,6 +849,10 @@ nav a:hover{
     margin-top:80px;
   }
 
+  .about-copy p{
+    font-size:14px;
+  }
+
   .signature{
     margin-top:60px;
   }
@@ -840,20 +873,25 @@ nav a:hover{
 }
 
 @media(prefers-reduced-motion:reduce){
+
   *{
     scroll-behavior:auto!important;
     animation:none!important;
     transition:none!important;
   }
+
 }
 </style>
 </head>
 
 <body>
 
+<!-- ================= HEADER ================= -->
+
 <header>
+
   <div class="logo">
-    AI VISION <span>/</span> KAUSTUBH
+    AI VISION <span>/</span> KAUSTUBH + KRISH
   </div>
 
   <nav>
@@ -861,14 +899,16 @@ nav a:hover{
     <a href="#services">Capabilities</a>
     <a href="#contact">Contact</a>
   </nav>
+
 </header>
 
 
-<!-- HERO -->
+<!-- ================= HERO ================= -->
 
 <section class="hero">
 
   <div class="hero-top">
+
     <div class="eyebrow">
       INDEPENDENT DIGITAL STUDIO
     </div>
@@ -877,7 +917,9 @@ nav a:hover{
       AHMEDABAD / INDIA<br>
       2026
     </div>
+
   </div>
+
 
   <div class="hero-title reveal">
 
@@ -889,14 +931,17 @@ nav a:hover{
     </h1>
 
     <div class="hero-description">
+
       <p>
         AI Vision Studio creates websites and digital
         identities for businesses that refuse to look
         ordinary.
       </p>
+
     </div>
 
   </div>
+
 
   <div class="hero-bottom">
 
@@ -914,7 +959,7 @@ nav a:hover{
 </section>
 
 
-<!-- INTRO -->
+<!-- ================= INTRO ================= -->
 
 <section class="intro">
 
@@ -936,13 +981,16 @@ nav a:hover{
 </section>
 
 
-<!-- WORK -->
+<!-- ================= WORK ================= -->
 
 <section class="work" id="work">
 
   <div class="work-head reveal">
 
-    <h2>SELECTED<br>WORK.</h2>
+    <h2>
+      SELECTED<br>
+      WORK.
+    </h2>
 
     <p>
       Seven worlds.<br>
@@ -954,7 +1002,7 @@ nav a:hover{
   </div>
 
 
-  <!-- SAVORO -->
+  <!-- 01 SAVORO -->
 
   <article class="project reveal">
 
@@ -975,25 +1023,44 @@ nav a:hover{
     <div class="browser">
 
       <div class="browser-bar">
+
         <span class="dot"></span>
         <span class="dot"></span>
         <span class="dot"></span>
-        <div class="address">savoro-puce.vercel.app</div>
+
+        <div class="address">
+          savoro-puce.vercel.app
+        </div>
+
       </div>
 
       <div class="preview">
 
-        <div class="preview-placeholder p-savoro"
-             data-url="https://savoro-puce.vercel.app/#menu">
+        <div
+          class="preview-placeholder p-savoro"
+          data-url="https://savoro-puce.vercel.app/#menu"
+        >
 
           <div class="placeholder-grid"></div>
+
           <div class="preview-shape"></div>
+
           <div class="preview-lines"></div>
 
           <div class="placeholder-content">
-            <small>RESTAURANT / 01</small>
-            <strong>SAVORO</strong>
-            <span class="launch">ENTER EXPERIENCE ↗</span>
+
+            <small>
+              RESTAURANT / 01
+            </small>
+
+            <strong>
+              SAVORO
+            </strong>
+
+            <span class="launch">
+              ENTER EXPERIENCE ↗
+            </span>
+
           </div>
 
         </div>
@@ -1005,7 +1072,7 @@ nav a:hover{
   </article>
 
 
-  <!-- NOVA -->
+  <!-- 02 NOVA -->
 
   <article class="project reveal">
 
@@ -1026,25 +1093,42 @@ nav a:hover{
     <div class="browser">
 
       <div class="browser-bar">
+
         <span class="dot"></span>
         <span class="dot"></span>
         <span class="dot"></span>
-        <div class="address">nova-gilt-psi.vercel.app</div>
+
+        <div class="address">
+          nova-gilt-psi.vercel.app
+        </div>
+
       </div>
 
       <div class="preview">
 
-        <div class="preview-placeholder p-nova"
-             data-url="https://nova-gilt-psi.vercel.app/">
+        <div
+          class="preview-placeholder p-nova"
+          data-url="https://nova-gilt-psi.vercel.app/"
+        >
 
           <div class="placeholder-grid"></div>
           <div class="preview-shape"></div>
           <div class="preview-lines"></div>
 
           <div class="placeholder-content">
-            <small>DIGITAL / 02</small>
-            <strong>NOVA</strong>
-            <span class="launch">ENTER EXPERIENCE ↗</span>
+
+            <small>
+              DIGITAL / 02
+            </small>
+
+            <strong>
+              NOVA
+            </strong>
+
+            <span class="launch">
+              ENTER EXPERIENCE ↗
+            </span>
+
           </div>
 
         </div>
@@ -1056,7 +1140,7 @@ nav a:hover{
   </article>
 
 
-  <!-- NOIRE -->
+  <!-- 03 NOIRE -->
 
   <article class="project reveal">
 
@@ -1077,25 +1161,42 @@ nav a:hover{
     <div class="browser">
 
       <div class="browser-bar">
+
         <span class="dot"></span>
         <span class="dot"></span>
         <span class="dot"></span>
-        <div class="address">noire-five-blond.vercel.app</div>
+
+        <div class="address">
+          noire-five-blond.vercel.app
+        </div>
+
       </div>
 
       <div class="preview">
 
-        <div class="preview-placeholder p-noire"
-             data-url="https://noire-five-blond.vercel.app/">
+        <div
+          class="preview-placeholder p-noire"
+          data-url="https://noire-five-blond.vercel.app/"
+        >
 
           <div class="placeholder-grid"></div>
           <div class="preview-shape"></div>
           <div class="preview-lines"></div>
 
           <div class="placeholder-content">
-            <small>EDITORIAL / 03</small>
-            <strong>NOIRÉ</strong>
-            <span class="launch">ENTER EXPERIENCE ↗</span>
+
+            <small>
+              EDITORIAL / 03
+            </small>
+
+            <strong>
+              NOIRÉ
+            </strong>
+
+            <span class="launch">
+              ENTER EXPERIENCE ↗
+            </span>
+
           </div>
 
         </div>
@@ -1107,7 +1208,7 @@ nav a:hover{
   </article>
 
 
-  <!-- RADHE -->
+  <!-- 04 RADHE -->
 
   <article class="project reveal">
 
@@ -1128,25 +1229,42 @@ nav a:hover{
     <div class="browser">
 
       <div class="browser-bar">
+
         <span class="dot"></span>
         <span class="dot"></span>
         <span class="dot"></span>
-        <div class="address">radhearena.vercel.app</div>
+
+        <div class="address">
+          radhearena.vercel.app
+        </div>
+
       </div>
 
       <div class="preview">
 
-        <div class="preview-placeholder p-radhe"
-             data-url="https://radhearena.vercel.app/">
+        <div
+          class="preview-placeholder p-radhe"
+          data-url="https://radhearena.vercel.app/"
+        >
 
           <div class="placeholder-grid"></div>
           <div class="preview-shape"></div>
           <div class="preview-lines"></div>
 
           <div class="placeholder-content">
-            <small>SPORTS / 04</small>
-            <strong>RADHE</strong>
-            <span class="launch">ENTER EXPERIENCE ↗</span>
+
+            <small>
+              SPORTS / 04
+            </small>
+
+            <strong>
+              RADHE
+            </strong>
+
+            <span class="launch">
+              ENTER EXPERIENCE ↗
+            </span>
+
           </div>
 
         </div>
@@ -1158,7 +1276,7 @@ nav a:hover{
   </article>
 
 
-  <!-- EVENTBUDGET -->
+  <!-- 05 EVENTBUDGET -->
 
   <article class="project reveal">
 
@@ -1179,25 +1297,42 @@ nav a:hover{
     <div class="browser">
 
       <div class="browser-bar">
+
         <span class="dot"></span>
         <span class="dot"></span>
         <span class="dot"></span>
-        <div class="address">eventbudget-sooty.vercel.app</div>
+
+        <div class="address">
+          eventbudget-sooty.vercel.app
+        </div>
+
       </div>
 
       <div class="preview">
 
-        <div class="preview-placeholder p-event"
-             data-url="https://eventbudget-sooty.vercel.app/">
+        <div
+          class="preview-placeholder p-event"
+          data-url="https://eventbudget-sooty.vercel.app/"
+        >
 
           <div class="placeholder-grid"></div>
           <div class="preview-shape"></div>
           <div class="preview-lines"></div>
 
           <div class="placeholder-content">
-            <small>PRODUCT / 05</small>
-            <strong>EVENT<br>BUDGET</strong>
-            <span class="launch">ENTER EXPERIENCE ↗</span>
+
+            <small>
+              PRODUCT / 05
+            </small>
+
+            <strong>
+              EVENT<br>BUDGET
+            </strong>
+
+            <span class="launch">
+              ENTER EXPERIENCE ↗
+            </span>
+
           </div>
 
         </div>
@@ -1209,7 +1344,7 @@ nav a:hover{
   </article>
 
 
-  <!-- CASA -->
+  <!-- 06 CASA MIRA -->
 
   <article class="project reveal">
 
@@ -1230,25 +1365,42 @@ nav a:hover{
     <div class="browser">
 
       <div class="browser-bar">
+
         <span class="dot"></span>
         <span class="dot"></span>
         <span class="dot"></span>
-        <div class="address">casa-mira-inky.vercel.app</div>
+
+        <div class="address">
+          casa-mira-inky.vercel.app
+        </div>
+
       </div>
 
       <div class="preview">
 
-        <div class="preview-placeholder p-casa"
-             data-url="https://casa-mira-inky.vercel.app/">
+        <div
+          class="preview-placeholder p-casa"
+          data-url="https://casa-mira-inky.vercel.app/"
+        >
 
           <div class="placeholder-grid"></div>
           <div class="preview-shape"></div>
           <div class="preview-lines"></div>
 
           <div class="placeholder-content">
-            <small>HOSPITALITY / 06</small>
-            <strong>CASA</strong>
-            <span class="launch">ENTER EXPERIENCE ↗</span>
+
+            <small>
+              HOSPITALITY / 06
+            </small>
+
+            <strong>
+              CASA
+            </strong>
+
+            <span class="launch">
+              ENTER EXPERIENCE ↗
+            </span>
+
           </div>
 
         </div>
@@ -1260,7 +1412,7 @@ nav a:hover{
   </article>
 
 
-  <!-- FORMA -->
+  <!-- 07 FORMA -->
 
   <article class="project reveal">
 
@@ -1281,25 +1433,42 @@ nav a:hover{
     <div class="browser">
 
       <div class="browser-bar">
+
         <span class="dot"></span>
         <span class="dot"></span>
         <span class="dot"></span>
-        <div class="address">forma-ochre-nine.vercel.app</div>
+
+        <div class="address">
+          forma-ochre-nine.vercel.app
+        </div>
+
       </div>
 
       <div class="preview">
 
-        <div class="preview-placeholder p-forma"
-             data-url="https://forma-ochre-nine.vercel.app/">
+        <div
+          class="preview-placeholder p-forma"
+          data-url="https://forma-ochre-nine.vercel.app/"
+        >
 
           <div class="placeholder-grid"></div>
           <div class="preview-shape"></div>
           <div class="preview-lines"></div>
 
           <div class="placeholder-content">
-            <small>ARCHITECTURE / 07</small>
-            <strong>FORMA</strong>
-            <span class="launch">ENTER EXPERIENCE ↗</span>
+
+            <small>
+              ARCHITECTURE / 07
+            </small>
+
+            <strong>
+              FORMA
+            </strong>
+
+            <span class="launch">
+              ENTER EXPERIENCE ↗
+            </span>
+
           </div>
 
         </div>
@@ -1313,7 +1482,7 @@ nav a:hover{
 </section>
 
 
-<!-- STATEMENT -->
+<!-- ================= STATEMENT ================= -->
 
 <section class="statement reveal">
 
@@ -1326,13 +1495,16 @@ nav a:hover{
 </section>
 
 
-<!-- SERVICES -->
+<!-- ================= SERVICES ================= -->
 
 <section class="services" id="services">
 
   <div class="services-title reveal">
 
-    <h2>WE BUILD<br>ATTENTION.</h2>
+    <h2>
+      WE BUILD<br>
+      ATTENTION.
+    </h2>
 
     <p>
       WHAT WE DO<br>
@@ -1341,46 +1513,82 @@ nav a:hover{
 
   </div>
 
+
   <div class="service reveal">
-    <div class="service-no">01</div>
-    <div class="service-name">Digital Experiences</div>
+
+    <div class="service-no">
+      01
+    </div>
+
+    <div class="service-name">
+      Digital Experiences
+    </div>
+
     <div class="service-desc">
       Websites that feel like brands,
       not documents.
     </div>
+
   </div>
 
+
   <div class="service reveal">
-    <div class="service-no">02</div>
-    <div class="service-name">Creative Development</div>
+
+    <div class="service-no">
+      02
+    </div>
+
+    <div class="service-name">
+      Creative Development
+    </div>
+
     <div class="service-desc">
       Motion, interaction and code
       working as one system.
     </div>
+
   </div>
 
+
   <div class="service reveal">
-    <div class="service-no">03</div>
-    <div class="service-name">Brand Direction</div>
+
+    <div class="service-no">
+      03
+    </div>
+
+    <div class="service-name">
+      Brand Direction
+    </div>
+
     <div class="service-desc">
       Visual systems designed to make
       businesses instantly recognisable.
     </div>
+
   </div>
 
+
   <div class="service reveal">
-    <div class="service-no">04</div>
-    <div class="service-name">AI + Design</div>
+
+    <div class="service-no">
+      04
+    </div>
+
+    <div class="service-name">
+      AI + Design
+    </div>
+
     <div class="service-desc">
       New creative workflows where
       technology becomes part of the craft.
     </div>
+
   </div>
 
 </section>
 
 
-<!-- ABOUT -->
+<!-- ================= ABOUT ================= -->
 
 <section class="about">
 
@@ -1390,6 +1598,7 @@ nav a:hover{
       02 / THE STUDIO
     </div>
 
+
     <div>
 
       <h2 class="reveal">
@@ -1398,17 +1607,20 @@ nav a:hover{
         STUDIO.
       </h2>
 
+
       <div class="about-copy reveal">
 
         <p>
-          AI Vision Studio is built by Kaustubh Shukla —
-          creating digital experiences for businesses
-          that want something sharper, stranger and
-          more memorable than the usual template.
+          AI Vision Studio is built by
+          <strong>Kaustubh Shukla &amp; Krish</strong>
+          — creating digital experiences for businesses
+          that want something sharper, stranger and more
+          memorable than the usual template.
         </p>
 
+
         <div class="signature">
-          — Kaustubh
+          — Kaustubh &amp; Krish
         </div>
 
       </div>
@@ -1420,7 +1632,7 @@ nav a:hover{
 </section>
 
 
-<!-- CTA -->
+<!-- ================= CTA ================= -->
 
 <section class="cta" id="contact">
 
@@ -1428,22 +1640,30 @@ nav a:hover{
     03 / LET'S MAKE SOMETHING PEOPLE REMEMBER.
   </div>
 
+
   <h2 class="reveal">
     HAVE A<br>
     <span>BUSINESS?</span><br>
     LET'S BUILD.
   </h2>
 
+
   <div class="cta-bottom">
 
-    <a class="contact-link"
-       href="mailto:aivisionstudio2821@gmail.com">
-       aivisionstudio2821@gmail.com ↗
+    <a
+      class="contact-link"
+      href="mailto:aivisionstudio2821@gmail.com"
+    >
+      aivisionstudio2821@gmail.com ↗
     </a>
 
+
     <div class="contact-meta">
+
       9925054448<br>
+
       @aivisionstudioahmedabad_
+
     </div>
 
   </div>
@@ -1451,106 +1671,149 @@ nav a:hover{
 </section>
 
 
+<!-- ================= SCRIPT ================= -->
+
 <script>
 
-/* ---------- SCROLL REVEAL ---------- */
+/* =========================================
+   SCROLL REVEAL
+========================================= */
 
-const observer = new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add("show");
-      observer.unobserve(entry.target);
-    }
-  });
-},{
-  threshold:.12,
-  rootMargin:"0px 0px -60px 0px"
-});
+const observer = new IntersectionObserver(
 
-document.querySelectorAll(".reveal").forEach(el=>{
-  observer.observe(el);
-});
+  (entries)=>{
+
+    entries.forEach(entry=>{
+
+      if(entry.isIntersecting){
+
+        entry.target.classList.add("show");
+
+        observer.unobserve(entry.target);
+
+      }
+
+    });
+
+  },
+
+  {
+    threshold:.12,
+    rootMargin:"0px 0px -60px 0px"
+  }
+
+);
 
 
-/* ---------- LIVE PROJECT WINDOWS ---------- */
+document
+  .querySelectorAll(".reveal")
+  .forEach(el=>observer.observe(el));
 
-/*
-   IMPORTANT:
-   No iframe is loaded initially.
 
-   Click the project window →
-   actual website loads inside it.
+/* =========================================
+   LIVE PROJECT WINDOWS
 
+   Websites only load after clicking.
    This keeps the portfolio fast.
-*/
+========================================= */
 
-document.querySelectorAll(".preview-placeholder").forEach(box=>{
+document
+  .querySelectorAll(".preview-placeholder")
+  .forEach(box=>{
 
-  box.addEventListener("click",()=>{
+    box.addEventListener("click",()=>{
 
-    const url=box.dataset.url;
+      const url=box.dataset.url;
 
-    const iframe=document.createElement("iframe");
+      const iframe=document.createElement("iframe");
 
-    iframe.src=url;
-    iframe.loading="eager";
-    iframe.allow="fullscreen";
+      iframe.src=url;
 
-    box.parentElement.appendChild(iframe);
+      iframe.loading="eager";
 
-    box.remove();
+      iframe.allow="fullscreen";
 
-  });
+      iframe.referrerPolicy="no-referrer-when-downgrade";
 
-});
+      box.parentElement.appendChild(iframe);
 
-
-/* ---------- SUBTLE PROJECT MOVEMENT ---------- */
-
-if(window.matchMedia("(pointer:fine)").matches){
-
-  document.querySelectorAll(".browser").forEach(browser=>{
-
-    browser.addEventListener("mousemove",e=>{
-
-      const r=browser.getBoundingClientRect();
-
-      const x=(e.clientX-r.left)/r.width-.5;
-      const y=(e.clientY-r.top)/r.height-.5;
-
-      browser.style.transform=
-        `perspective(1200px)
-         rotateY(${x*2.2}deg)
-         rotateX(${y*-1.8}deg)
-         translateY(-6px)`;
-
-    });
-
-    browser.addEventListener("mouseleave",()=>{
-
-      browser.style.transform=
-        "perspective(1200px) rotateY(0deg) rotateX(0deg) translateY(0)";
+      box.remove();
 
     });
 
   });
+
+
+/* =========================================
+   SUBTLE 3D BROWSER MOVEMENT
+========================================= */
+
+if(
+  window.matchMedia("(pointer:fine)").matches
+){
+
+  document
+    .querySelectorAll(".browser")
+    .forEach(browser=>{
+
+      browser.addEventListener(
+        "mousemove",
+        e=>{
+
+          const rect=
+            browser.getBoundingClientRect();
+
+          const x=
+            (e.clientX-rect.left)/
+            rect.width-.5;
+
+          const y=
+            (e.clientY-rect.top)/
+            rect.height-.5;
+
+          browser.style.transform=
+            `perspective(1200px)
+             rotateY(${x*2.2}deg)
+             rotateX(${y*-1.8}deg)
+             translateY(-6px)`;
+
+        }
+      );
+
+
+      browser.addEventListener(
+        "mouseleave",
+        ()=>{
+
+          browser.style.transform=
+            "perspective(1200px) rotateY(0deg) rotateX(0deg) translateY(0)";
+
+        }
+      );
+
+    });
 
 }
 
 
-/* ---------- KEYBOARD PROJECT OPEN ---------- */
+/* =========================================
+   ESCAPE = REMOVE LOADED PREVIEWS
+========================================= */
 
-document.addEventListener("keydown",e=>{
+document.addEventListener(
+  "keydown",
+  e=>{
 
-  if(e.key==="Escape"){
+    if(e.key==="Escape"){
 
-    document.querySelectorAll(".preview iframe").forEach(frame=>{
-      frame.remove();
-    });
+      document
+        .querySelectorAll(".preview iframe")
+        .forEach(frame=>frame.remove());
+
+    }
 
   }
-
-});
+);
 
 </script>
 
