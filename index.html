@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-<title>AI Vision Studio — Kaustubh Shukla</title>
+<title>AI Vision Studio — Digital Experiences</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,13 +19,19 @@
 
 html{
   scroll-behavior:smooth;
+  background:#0a0a0a;
 }
 
 body{
-  background:#f3f1eb;
+  background:#f2f0e9;
   color:#0b0b0b;
   font-family:Inter,Arial,sans-serif;
   overflow-x:hidden;
+  width:100%;
+}
+
+body,
+a{
   cursor:none;
 }
 
@@ -34,76 +40,123 @@ body{
   color:#fff;
 }
 
-/* ================= CURSOR ================= */
+a{
+  color:inherit;
+}
+
+/* =====================================================
+   CURSOR
+===================================================== */
 
 .cursor{
   position:fixed;
-  width:18px;
-  height:18px;
+  left:0;
+  top:0;
+  width:14px;
+  height:14px;
   border:1px solid #111;
   border-radius:50%;
   pointer-events:none;
-  z-index:9999;
+  z-index:99999;
   transform:translate(-50%,-50%);
   transition:
-    width .25s ease,
-    height .25s ease,
-    background .25s ease,
-    border .25s ease;
+    width .3s cubic-bezier(.16,1,.3,1),
+    height .3s cubic-bezier(.16,1,.3,1),
+    background .3s,
+    border .3s;
   mix-blend-mode:difference;
 }
 
-.cursor.big{
-  width:70px;
-  height:70px;
+.cursor.active{
+  width:72px;
+  height:72px;
   background:#fff;
   border-color:#fff;
 }
 
-/* ================= NAV ================= */
+.cursor-label{
+  position:fixed;
+  left:0;
+  top:0;
+  z-index:100000;
+  pointer-events:none;
+  font:9px "DM Mono",monospace;
+  color:#fff;
+  opacity:0;
+  transform:translate(-50%,-50%);
+  transition:opacity .2s;
+  mix-blend-mode:difference;
+}
 
-nav{
+.cursor-label.show{
+  opacity:1;
+}
+
+/* =====================================================
+   NAV
+===================================================== */
+
+.nav{
   position:fixed;
   top:0;
   left:0;
   width:100%;
-  padding:22px 30px;
+  height:74px;
+  padding:0 30px;
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  z-index:1000;
-  mix-blend-mode:difference;
+  justify-content:space-between;
+  z-index:5000;
   color:#fff;
+  mix-blend-mode:difference;
 }
 
 .logo{
-  font-size:14px;
-  font-weight:800;
-  letter-spacing:-.02em;
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:-.04em;
 }
 
-.nav-right{
+.nav-links{
   display:flex;
-  gap:30px;
-  font-family:"DM Mono",monospace;
-  font-size:11px;
+  gap:28px;
+  font:10px "DM Mono",monospace;
   text-transform:uppercase;
 }
 
-.nav-right a{
-  color:#fff;
+.nav-links a{
   text-decoration:none;
+  position:relative;
 }
 
-/* ================= HERO ================= */
+.nav-links a:after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-5px;
+  width:0;
+  height:1px;
+  background:#fff;
+  transition:.35s;
+}
+
+.nav-links a:hover:after{
+  width:100%;
+}
+
+/* =====================================================
+   HERO
+===================================================== */
 
 .hero{
-  min-height:100vh;
+  min-height:100svh;
+  height:100svh;
   position:relative;
   display:flex;
   align-items:flex-end;
-  padding:0 30px 50px;
+  padding:0 30px 42px;
   overflow:hidden;
+  isolation:isolate;
 }
 
 .hero-grid{
@@ -112,51 +165,83 @@ nav{
   background-image:
     linear-gradient(rgba(0,0,0,.055) 1px,transparent 1px),
     linear-gradient(90deg,rgba(0,0,0,.055) 1px,transparent 1px);
-  background-size:60px 60px;
-  mask-image:linear-gradient(to bottom,black,transparent);
+  background-size:65px 65px;
+  mask-image:linear-gradient(to bottom,#000,transparent);
 }
 
-.hero-small{
+.hero-orb{
   position:absolute;
-  top:135px;
-  left:30px;
-  font-family:"DM Mono",monospace;
-  font-size:11px;
-  line-height:1.7;
-  text-transform:uppercase;
+  width:35vw;
+  height:35vw;
+  max-width:500px;
+  max-height:500px;
+  border-radius:50%;
+  background:#ff4d00;
+  filter:blur(80px);
+  opacity:.08;
+  right:-8%;
+  top:25%;
+  animation:orbFloat 7s ease-in-out infinite alternate;
 }
 
-.hero-small span{
+@keyframes orbFloat{
+  from{transform:translate3d(0,0,0) scale(1)}
+  to{transform:translate3d(-80px,50px,0) scale(1.18)}
+}
+
+.hero-info{
+  position:absolute;
+  top:115px;
+  left:30px;
+  font:10px/1.7 "DM Mono",monospace;
+  text-transform:uppercase;
+  z-index:2;
+}
+
+.hero-info strong{
   color:#ff4d00;
+  font-weight:500;
+}
+
+.hero-index{
+  position:absolute;
+  right:30px;
+  top:115px;
+  font:10px "DM Mono",monospace;
+  z-index:2;
 }
 
 .hero-title{
   position:relative;
-  z-index:2;
+  z-index:3;
   width:100%;
-  font-size:clamp(70px,15vw,230px);
-  line-height:.78;
-  letter-spacing:-.085em;
+  font-size:clamp(75px,16vw,245px);
+  line-height:.74;
+  letter-spacing:-.095em;
   font-weight:900;
   text-transform:uppercase;
 }
 
-.hero-title .line{
+.hero-line{
   display:block;
   overflow:hidden;
 }
 
-.hero-title .word{
+.hero-word{
   display:inline-block;
-  transform:translateY(110%);
-  animation:titleIn 1.2s cubic-bezier(.16,1,.3,1) forwards;
+  transform:translateY(115%);
+  animation:heroIn 1.25s cubic-bezier(.16,1,.3,1) forwards;
 }
 
-.hero-title .line:nth-child(2) .word{
-  animation-delay:.12s;
+.hero-line:nth-child(2) .hero-word{
+  animation-delay:.1s;
 }
 
-@keyframes titleIn{
+.hero-line:nth-child(3) .hero-word{
+  animation-delay:.2s;
+}
+
+@keyframes heroIn{
   to{
     transform:translateY(0);
   }
@@ -166,38 +251,40 @@ nav{
   color:#ff4d00;
 }
 
-.hero-meta{
+.hero-bottom{
   position:absolute;
   right:30px;
   bottom:42px;
-  font-family:"DM Mono",monospace;
-  font-size:10px;
+  font:9px/1.6 "DM Mono",monospace;
   text-align:right;
   text-transform:uppercase;
 }
 
-/* ================= MARQUEE ================= */
+/* =====================================================
+   MARQUEE
+===================================================== */
 
 .marquee{
-  border-top:1px solid #111;
-  border-bottom:1px solid #111;
+  width:100%;
   overflow:hidden;
   white-space:nowrap;
   background:#ff4d00;
   color:#fff;
+  border-top:1px solid #111;
+  border-bottom:1px solid #111;
 }
 
 .marquee-track{
-  display:inline-block;
+  display:inline-flex;
+  align-items:center;
   padding:15px 0;
-  animation:marquee 20s linear infinite;
-  font-size:14px;
-  font-weight:700;
-  letter-spacing:.08em;
+  animation:marquee 18s linear infinite;
+  font-size:13px;
+  font-weight:800;
 }
 
 .marquee-track span{
-  margin:0 35px;
+  margin:0 30px;
 }
 
 @keyframes marquee{
@@ -206,394 +293,721 @@ nav{
   }
 }
 
-/* ================= INTRO ================= */
+/* =====================================================
+   INTRO
+===================================================== */
 
 .intro{
-  min-height:90vh;
+  min-height:95svh;
+  padding:130px 30px;
   display:grid;
   grid-template-columns:1fr 2fr;
   gap:40px;
-  padding:130px 30px;
   border-bottom:1px solid #111;
 }
 
-.label{
-  font-family:"DM Mono",monospace;
-  font-size:11px;
+.mono{
+  font:10px "DM Mono",monospace;
   text-transform:uppercase;
 }
 
 .intro-text{
-  font-size:clamp(38px,6vw,90px);
-  line-height:.95;
-  letter-spacing:-.055em;
-  max-width:1000px;
+  font-size:clamp(40px,6vw,92px);
+  line-height:.92;
+  letter-spacing:-.065em;
+  max-width:1050px;
 }
 
-.intro-text .dim{
-  color:#aaa69c;
+.dim{
+  color:#aaa69d;
 }
 
-/* ================= WORK ================= */
+/* =====================================================
+   REVEAL
+===================================================== */
+
+.reveal{
+  opacity:0;
+  transform:translateY(80px);
+  transition:
+    opacity 1s cubic-bezier(.16,1,.3,1),
+    transform 1.1s cubic-bezier(.16,1,.3,1);
+}
+
+.reveal.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* =====================================================
+   WORK
+===================================================== */
 
 .work{
   background:#0b0b0b;
-  color:#f3f1eb;
-  position:relative;
+  color:#f2f0e9;
   padding:150px 30px 0;
+  overflow:hidden;
 }
 
-.work-head{
+.work-header{
   display:flex;
   justify-content:space-between;
   align-items:flex-end;
-  margin-bottom:120px;
+  padding-bottom:110px;
 }
 
 .work-title{
-  font-size:clamp(80px,14vw,210px);
-  line-height:.75;
-  letter-spacing:-.09em;
+  font-size:clamp(90px,15vw,220px);
+  line-height:.7;
+  letter-spacing:-.1em;
   font-weight:900;
 }
 
-.work-count{
-  font-family:"DM Mono",monospace;
-  font-size:11px;
+.work-counter{
   color:#777;
+  font:10px "DM Mono",monospace;
 }
 
-/* ================= PROJECT ================= */
+/* =====================================================
+   PROJECT
+===================================================== */
 
 .project{
-  min-height:100vh;
   position:relative;
-  border-top:1px solid #333;
+  min-height:100svh;
+  border-top:1px solid #292929;
   display:flex;
   align-items:center;
-  padding:100px 0;
   overflow:hidden;
+  padding:90px 0;
 }
 
 .project-number{
   position:absolute;
-  top:30px;
+  top:27px;
   left:0;
-  font-family:"DM Mono",monospace;
-  font-size:11px;
   color:#777;
+  font:10px "DM Mono",monospace;
+  z-index:10;
 }
 
-.project-name{
+.project-bg-number{
+  position:absolute;
+  right:-30px;
+  bottom:-100px;
+  font-size:35vw;
+  line-height:.7;
+  font-weight:900;
+  color:#121212;
+  pointer-events:none;
+}
+
+.project-title{
   position:absolute;
   left:0;
   top:50%;
-  transform:translateY(-50%);
-  z-index:1;
+  z-index:2;
   font-size:clamp(65px,13vw,190px);
   line-height:.75;
-  letter-spacing:-.09em;
+  letter-spacing:-.095em;
   font-weight:900;
   white-space:nowrap;
   pointer-events:none;
-  transition:transform .8s cubic-bezier(.16,1,.3,1);
+  transform:translate3d(0,-50%,0);
+  will-change:transform;
+  transition:color .5s;
 }
 
-.project:hover .project-name{
-  transform:translateY(-50%) translateX(-30px);
+.project:hover .project-title{
+  color:#ff4d00;
 }
 
-.project-preview{
-  width:58vw;
-  height:66vh;
-  margin-left:auto;
+.project-window{
   position:relative;
-  z-index:2;
+  z-index:5;
+  width:min(61vw,950px);
+  height:min(67vh,720px);
+  margin-left:auto;
   overflow:hidden;
-  background:#181818;
-  transform:translateX(80px) scale(.94);
-  opacity:.35;
+  background:#191919;
+  border:1px solid #333;
+  transform:translate3d(100px,45px,0) scale(.86) rotate(2deg);
+  opacity:0;
+  will-change:transform,opacity;
   transition:
-    transform 1s cubic-bezier(.16,1,.3,1),
-    opacity .8s ease;
+    transform 1.2s cubic-bezier(.16,1,.3,1),
+    opacity 1s cubic-bezier(.16,1,.3,1),
+    box-shadow .5s;
 }
 
-.project.in-view .project-preview{
-  transform:translateX(0) scale(1);
+.project.visible .project-window{
+  transform:translate3d(0,0,0) scale(1) rotate(0);
   opacity:1;
 }
 
-.project-preview iframe{
+.project:hover .project-window{
+  transform:translate3d(-12px,-12px,0) scale(1.015);
+  box-shadow:-20px 30px 80px rgba(0,0,0,.35);
+}
+
+.project-window iframe{
   width:100%;
   height:100%;
+  display:block;
   border:0;
   pointer-events:none;
-  transform:scale(1);
-  transition:transform 1.2s cubic-bezier(.16,1,.3,1);
+  background:#fff;
 }
 
-.project:hover .project-preview iframe{
-  transform:scale(1.035);
-}
-
-.project-info{
+.project-overlay{
   position:absolute;
-  bottom:105px;
-  left:0;
-  z-index:4;
-  display:flex;
-  gap:25px;
-  align-items:center;
+  inset:0;
+  z-index:6;
+  pointer-events:none;
+  background:linear-gradient(
+    135deg,
+    rgba(255,77,0,.12),
+    transparent 35%,
+    transparent 70%,
+    rgba(255,255,255,.05)
+  );
+  opacity:.5;
 }
 
-.project-info span{
-  font-family:"DM Mono",monospace;
-  font-size:10px;
+.project-meta{
+  position:absolute;
+  left:0;
+  bottom:75px;
+  z-index:10;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.project-meta span{
+  padding:8px 11px;
+  border:1px solid #444;
+  font:9px "DM Mono",monospace;
   text-transform:uppercase;
-  border:1px solid #555;
-  padding:9px 13px;
 }
 
 .project-open{
   position:absolute;
   right:0;
-  bottom:105px;
-  z-index:5;
+  bottom:75px;
+  z-index:10;
 }
 
 .project-open a{
   color:#fff;
   text-decoration:none;
-  font-family:"DM Mono",monospace;
-  font-size:10px;
-  text-transform:uppercase;
+  font:10px "DM Mono",monospace;
   border-bottom:1px solid #fff;
   padding-bottom:5px;
+  transition:.3s;
 }
 
-/* ================= EXPERIMENT ================= */
+.project-open a:hover{
+  color:#ff4d00;
+  border-color:#ff4d00;
+}
+
+/* =====================================================
+   EXPERIMENT
+===================================================== */
 
 .experiment{
-  min-height:100vh;
+  min-height:100svh;
   background:#ff4d00;
   color:#111;
-  padding:120px 30px;
+  padding:110px 30px;
   overflow:hidden;
+  position:relative;
 }
 
-.exp-top{
+.exp-header{
   display:flex;
   justify-content:space-between;
-  font-family:"DM Mono",monospace;
-  font-size:11px;
+  font:10px "DM Mono",monospace;
+  text-transform:uppercase;
 }
 
 .exp-title{
-  margin-top:100px;
-  font-size:clamp(80px,17vw,260px);
-  line-height:.72;
-  letter-spacing:-.1em;
+  margin-top:120px;
+  font-size:clamp(80px,17vw,270px);
+  line-height:.68;
+  letter-spacing:-.105em;
   font-weight:900;
-  transition:transform .2s ease-out;
+  will-change:transform;
 }
 
-.exp-bottom{
-  margin-top:130px;
-  display:flex;
-  justify-content:flex-end;
+.exp-title span{
+  color:#fff;
 }
 
 .exp-copy{
-  max-width:500px;
+  max-width:480px;
+  margin:120px 0 0 auto;
   font-size:18px;
-  line-height:1.4;
+  line-height:1.35;
 }
 
-/* ================= ABOUT ================= */
+/* =====================================================
+   ABOUT
+===================================================== */
 
 .about{
-  min-height:100vh;
+  min-height:100svh;
   padding:130px 30px;
   display:grid;
   grid-template-columns:1fr 2fr;
   gap:40px;
 }
 
+.about-main{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  min-height:65vh;
+}
+
 .about-text{
-  font-size:clamp(42px,6vw,90px);
-  line-height:.92;
-  letter-spacing:-.06em;
+  font-size:clamp(43px,6vw,92px);
+  line-height:.9;
+  letter-spacing:-.065em;
 }
 
 .about-text span{
-  color:#aaa69c;
+  color:#aaa69d;
 }
 
 .about-details{
-  align-self:end;
-  font-family:"DM Mono",monospace;
-  font-size:11px;
-  line-height:2;
+  font:10px/2 "DM Mono",monospace;
+  text-transform:uppercase;
 }
 
-/* ================= CONTACT ================= */
+/* =====================================================
+   CONTACT
+===================================================== */
 
 .contact{
-  min-height:100vh;
-  background:#111;
-  color:#f3f1eb;
-  padding:80px 30px 35px;
+  min-height:100svh;
+  background:#101010;
+  color:#f2f0e9;
+  padding:70px 30px 30px;
   display:flex;
   flex-direction:column;
   justify-content:space-between;
   overflow:hidden;
 }
 
-.contact-small{
-  font-family:"DM Mono",monospace;
-  font-size:11px;
+.contact-label{
+  font:10px "DM Mono",monospace;
+  color:#777;
 }
 
-.contact-title{
-  font-size:clamp(70px,15vw,220px);
-  line-height:.75;
-  letter-spacing:-.09em;
-  font-weight:900;
+.contact-main{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
 }
 
-.contact-title a{
-  color:#f3f1eb;
+.contact-link{
+  display:block;
+  width:max-content;
+  max-width:100%;
+  color:#f2f0e9;
   text-decoration:none;
-  transition:color .3s;
+  font-size:clamp(48px,11vw,165px);
+  line-height:.78;
+  letter-spacing:-.085em;
+  font-weight:900;
+  transition:
+    color .4s,
+    transform .5s cubic-bezier(.16,1,.3,1);
 }
 
-.contact-title a:hover{
+.contact-link:hover{
   color:#ff4d00;
+  transform:translateX(20px);
+}
+
+.contact-link.instagram{
+  font-size:clamp(38px,8vw,120px);
 }
 
 .contact-footer{
-  border-top:1px solid #444;
   padding-top:20px;
+  border-top:1px solid #333;
   display:flex;
   justify-content:space-between;
-  font-family:"DM Mono",monospace;
-  font-size:10px;
+  gap:15px;
+  font:9px "DM Mono",monospace;
   text-transform:uppercase;
+  color:#777;
 }
 
-/* ================= REVEAL ================= */
-
-.reveal{
-  opacity:0;
-  transform:translateY(60px);
-  transition:
-    opacity 1s cubic-bezier(.16,1,.3,1),
-    transform 1s cubic-bezier(.16,1,.3,1);
-}
-
-.reveal.show{
-  opacity:1;
-  transform:translateY(0);
-}
-
-/* ================= RESPONSIVE ================= */
+/* =====================================================
+   MOBILE
+===================================================== */
 
 @media(max-width:800px){
 
+  html{
+    overflow-x:hidden;
+  }
+
   body{
+    width:100%;
+    overflow-x:hidden;
     cursor:auto;
   }
 
-  .cursor{
+  body,
+  a{
+    cursor:auto;
+  }
+
+  .cursor,
+  .cursor-label{
     display:none;
   }
 
-  nav{
-    padding:18px 16px;
+  .nav{
+    height:62px;
+    padding:0 15px;
   }
 
-  .nav-right{
-    gap:12px;
+  .logo{
+    font-size:11px;
   }
 
-  .hero{
-    padding:0 16px 35px;
-  }
-
-  .hero-small{
-    left:16px;
-    top:100px;
-  }
-
-  .hero-meta{
-    right:16px;
-    bottom:30px;
-  }
-
-  .intro{
-    grid-template-columns:1fr;
-    padding:90px 16px;
-    gap:60px;
-  }
-
-  .work{
-    padding:90px 16px 0;
-  }
-
-  .work-head{
-    margin-bottom:70px;
-  }
-
-  .project{
-    min-height:80vh;
-    padding:80px 0;
-  }
-
-  .project-name{
-    top:35%;
-    font-size:22vw;
-  }
-
-  .project-preview{
-    width:92vw;
-    height:55vh;
-    margin-left:auto;
-  }
-
-  .project-info{
-    bottom:35px;
-    gap:8px;
-  }
-
-  .project-info span{
-    padding:7px 9px;
+  .nav-links{
+    gap:13px;
     font-size:8px;
   }
 
-  .project-open{
-    bottom:35px;
+  /* HERO */
+
+  .hero{
+    min-height:100svh;
+    height:100svh;
+    padding:0 15px 28px;
+    align-items:flex-end;
   }
 
+  .hero-grid{
+    background-size:38px 38px;
+  }
+
+  .hero-orb{
+    width:65vw;
+    height:65vw;
+    filter:blur(55px);
+    right:-25%;
+    top:30%;
+  }
+
+  .hero-info{
+    top:88px;
+    left:15px;
+    font-size:8px;
+    line-height:1.65;
+  }
+
+  .hero-index{
+    top:88px;
+    right:15px;
+    font-size:8px;
+  }
+
+  .hero-title{
+    width:100%;
+    font-size:22vw;
+    line-height:.76;
+    letter-spacing:-.105em;
+    word-break:normal;
+  }
+
+  .hero-bottom{
+    right:15px;
+    bottom:25px;
+    font-size:7px;
+    line-height:1.5;
+  }
+
+  /* MARQUEE */
+
+  .marquee-track{
+    padding:12px 0;
+    font-size:10px;
+  }
+
+  .marquee-track span{
+    margin:0 18px;
+  }
+
+  /* INTRO */
+
+  .intro{
+    min-height:auto;
+    padding:90px 15px 110px;
+    display:block;
+  }
+
+  .intro .mono{
+    margin-bottom:65px;
+  }
+
+  .intro-text{
+    font-size:12vw;
+    line-height:.9;
+    letter-spacing:-.07em;
+  }
+
+  /* WORK */
+
+  .work{
+    padding:90px 15px 0;
+  }
+
+  .work-header{
+    display:block;
+    padding-bottom:70px;
+  }
+
+  .work-title{
+    font-size:25vw;
+    line-height:.7;
+  }
+
+  .work-counter{
+    margin-top:25px;
+    font-size:8px;
+  }
+
+  /* PROJECT */
+
+  .project{
+    min-height:auto;
+    height:auto;
+    display:block;
+    padding:75px 0 90px;
+  }
+
+  .project-number{
+    top:25px;
+    font-size:8px;
+  }
+
+  .project-bg-number{
+    font-size:55vw;
+    bottom:-20px;
+    right:-15px;
+  }
+
+  .project-title{
+    position:relative;
+    top:auto;
+    left:auto;
+    transform:none !important;
+    font-size:20vw;
+    line-height:.75;
+    white-space:normal;
+    margin:20px 0 28px;
+    z-index:2;
+  }
+
+  .project-window{
+    width:100%;
+    height:62svh;
+    min-height:430px;
+    margin:0;
+    transform:translate3d(0,45px,0) scale(.92);
+    border-color:#333;
+  }
+
+  .project.visible .project-window{
+    transform:translate3d(0,0,0) scale(1);
+  }
+
+  .project:hover .project-window{
+    transform:none;
+    box-shadow:none;
+  }
+
+  .project-window iframe{
+    width:100%;
+    height:100%;
+  }
+
+  .project-meta{
+    position:relative;
+    left:auto;
+    bottom:auto;
+    margin-top:20px;
+    display:flex;
+  }
+
+  .project-meta span{
+    font-size:7px;
+    padding:7px 8px;
+  }
+
+  .project-open{
+    position:relative;
+    right:auto;
+    bottom:auto;
+    margin-top:22px;
+  }
+
+  .project-open a{
+    font-size:8px;
+  }
+
+  /* EXPERIMENT */
+
   .experiment{
-    padding:90px 16px;
+    min-height:90svh;
+    padding:80px 15px;
+  }
+
+  .exp-header{
+    font-size:8px;
   }
 
   .exp-title{
     margin-top:100px;
+    font-size:24vw;
+    line-height:.7;
   }
+
+  .exp-copy{
+    margin:90px 0 0;
+    font-size:15px;
+    max-width:100%;
+  }
+
+  /* ABOUT */
 
   .about{
-    grid-template-columns:1fr;
-    padding:90px 16px;
+    min-height:auto;
+    padding:100px 15px;
+    display:block;
   }
 
+  .about > .mono{
+    margin-bottom:65px;
+  }
+
+  .about-main{
+    min-height:auto;
+    display:block;
+  }
+
+  .about-text{
+    font-size:11.5vw;
+    line-height:.9;
+  }
+
+  .about-details{
+    margin-top:80px;
+    font-size:8px;
+  }
+
+  /* CONTACT */
+
   .contact{
-    padding:70px 16px 25px;
+    min-height:90svh;
+    padding:65px 15px 22px;
+  }
+
+  .contact-label{
+    font-size:8px;
+  }
+
+  .contact-main{
+    width:100%;
+    overflow:hidden;
+  }
+
+  .contact-link{
+    width:100%;
+    max-width:100%;
+    font-size:12.5vw;
+    line-height:.82;
+    letter-spacing:-.075em;
+    overflow-wrap:anywhere;
+  }
+
+  .contact-link.instagram{
+    font-size:8.8vw;
+    line-height:.9;
+  }
+
+  .contact-link:hover{
+    transform:none;
   }
 
   .contact-footer{
-    flex-direction:column;
-    gap:10px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    font-size:7px;
+    line-height:1.5;
+  }
+
+  .contact-footer span:last-child{
+    text-align:right;
+  }
+}
+
+/* EXTRA SMALL PHONES */
+
+@media(max-width:390px){
+
+  .nav-links{
+    gap:9px;
+  }
+
+  .nav-links a:nth-child(2){
+    display:none;
+  }
+
+  .hero-title{
+    font-size:23vw;
+  }
+
+  .project-window{
+    min-height:390px;
+    height:58svh;
+  }
+
+  .contact-link{
+    font-size:13vw;
+  }
+
+  .contact-link.instagram{
+    font-size:8.3vw;
+  }
+}
+
+/* TOUCH DEVICES */
+
+@media(hover:none){
+
+  .project-window{
+    transition:
+      transform .9s cubic-bezier(.16,1,.3,1),
+      opacity .8s;
+  }
+
+  .project.visible .project-window{
+    transform:scale(1);
+  }
+
+  .project-title{
+    color:#f2f0e9;
   }
 }
 </style>
@@ -602,15 +1016,16 @@ nav{
 <body>
 
 <div class="cursor"></div>
+<div class="cursor-label">VIEW</div>
 
 <!-- NAV -->
-<nav>
+<nav class="nav">
   <div class="logo">AI VISION STUDIO®</div>
 
-  <div class="nav-right">
-    <a href="#work">Work</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
+  <div class="nav-links">
+    <a href="#work">WORK</a>
+    <a href="#about">ABOUT</a>
+    <a href="#contact">CONTACT</a>
   </div>
 </nav>
 
@@ -619,27 +1034,36 @@ nav{
 <section class="hero">
 
   <div class="hero-grid"></div>
+  <div class="hero-orb"></div>
 
-  <div class="hero-small">
-    Independent digital studio<br>
-    Ahmedabad, India<br>
-    <span>Available for selected work</span>
+  <div class="hero-info">
+    INDEPENDENT DIGITAL STUDIO<br>
+    AHMEDABAD / INDIA<br>
+    <strong>AVAILABLE FOR SELECTED WORK</strong>
+  </div>
+
+  <div class="hero-index">
+    001<br>
+    2026
   </div>
 
   <h1 class="hero-title">
-    <span class="line">
-      <span class="word">WE</span>
+    <span class="hero-line">
+      <span class="hero-word">WE</span>
     </span>
 
-    <span class="line">
-      <span class="word">BUILD<span class="orange">.</span></span>
+    <span class="hero-line">
+      <span class="hero-word">MAKE</span>
+    </span>
+
+    <span class="hero-line">
+      <span class="hero-word">DIGITAL<span class="orange">.</span></span>
     </span>
   </h1>
 
-  <div class="hero-meta">
-    Digital experiences<br>
-    Websites / Design / Systems<br>
-    2026
+  <div class="hero-bottom">
+    DESIGN / DEVELOPMENT / MOTION<br>
+    SCROLL TO EXPLORE ↓
   </div>
 
 </section>
@@ -648,14 +1072,14 @@ nav{
 <!-- MARQUEE -->
 <div class="marquee">
   <div class="marquee-track">
-    <span>DESIGN</span>✦
-    <span>DEVELOPMENT</span>✦
-    <span>EXPERIENCE</span>✦
     <span>AI VISION STUDIO</span>✦
     <span>DESIGN</span>✦
     <span>DEVELOPMENT</span>✦
-    <span>EXPERIENCE</span>✦
+    <span>INTERACTION</span>✦
     <span>AI VISION STUDIO</span>✦
+    <span>DESIGN</span>✦
+    <span>DEVELOPMENT</span>✦
+    <span>INTERACTION</span>✦
   </div>
 </div>
 
@@ -663,15 +1087,15 @@ nav{
 <!-- INTRO -->
 <section class="intro">
 
-  <div class="label">
+  <div class="mono">
     / 001 — INTRO
   </div>
 
   <div class="intro-text reveal">
-    We don't make websites
-    <span class="dim">that simply sit there.</span>
-    We build digital experiences
-    <span class="dim">that move.</span>
+    We don't build
+    <span class="dim">ordinary websites.</span>
+    We build digital
+    <span class="dim">experiences that move.</span>
   </div>
 
 </section>
@@ -680,219 +1104,247 @@ nav{
 <!-- WORK -->
 <section class="work" id="work">
 
-  <div class="work-head">
+  <div class="work-header">
     <h2 class="work-title">WORK</h2>
 
-    <div class="work-count">
-      07 / SELECTED PROJECTS
+    <div class="work-counter">
+      07 SELECTED PROJECTS / 2026
     </div>
   </div>
 
 
-  <!-- PROJECT 01 -->
+  <!-- 01 -->
   <article class="project reveal">
 
     <div class="project-number">01 / 07</div>
 
-    <div class="project-name">
+    <div class="project-bg-number">01</div>
+
+    <div class="project-title">
       EVENTBUDGET
     </div>
 
-    <div class="project-preview">
+    <div class="project-window">
       <iframe
         src="https://eventbudget-sooty.vercel.app/"
-        loading="lazy">
+        loading="lazy"
+        title="EventBudget">
       </iframe>
+      <div class="project-overlay"></div>
     </div>
 
-    <div class="project-info">
+    <div class="project-meta">
       <span>EVENT PLATFORM</span>
       <span>2026</span>
     </div>
 
     <div class="project-open">
       <a href="https://eventbudget-sooty.vercel.app/" target="_blank">
-        OPEN ↗
+        OPEN PROJECT ↗
       </a>
     </div>
 
   </article>
 
 
-  <!-- PROJECT 02 -->
+  <!-- 02 -->
   <article class="project reveal">
 
     <div class="project-number">02 / 07</div>
 
-    <div class="project-name">
+    <div class="project-bg-number">02</div>
+
+    <div class="project-title">
       RADHE
     </div>
 
-    <div class="project-preview">
+    <div class="project-window">
       <iframe
         src="https://radhearena.vercel.app/"
-        loading="lazy">
+        loading="lazy"
+        title="Radhe Arena">
       </iframe>
+      <div class="project-overlay"></div>
     </div>
 
-    <div class="project-info">
+    <div class="project-meta">
       <span>SPORTS EXPERIENCE</span>
       <span>2026</span>
     </div>
 
     <div class="project-open">
       <a href="https://radhearena.vercel.app/" target="_blank">
-        OPEN ↗
+        OPEN PROJECT ↗
       </a>
     </div>
 
   </article>
 
 
-  <!-- PROJECT 03 -->
+  <!-- 03 -->
   <article class="project reveal">
 
     <div class="project-number">03 / 07</div>
 
-    <div class="project-name">
+    <div class="project-bg-number">03</div>
+
+    <div class="project-title">
       NOVA
     </div>
 
-    <div class="project-preview">
+    <div class="project-window">
       <iframe
         src="https://nova-gilt-psi.vercel.app/"
-        loading="lazy">
+        loading="lazy"
+        title="Nova">
       </iframe>
+      <div class="project-overlay"></div>
     </div>
 
-    <div class="project-info">
+    <div class="project-meta">
       <span>DIGITAL EXPERIENCE</span>
       <span>2026</span>
     </div>
 
     <div class="project-open">
       <a href="https://nova-gilt-psi.vercel.app/" target="_blank">
-        OPEN ↗
+        OPEN PROJECT ↗
       </a>
     </div>
 
   </article>
 
 
-  <!-- PROJECT 04 -->
+  <!-- 04 -->
   <article class="project reveal">
 
     <div class="project-number">04 / 07</div>
 
-    <div class="project-name">
-      CASA
+    <div class="project-bg-number">04</div>
+
+    <div class="project-title">
+      CASA MIRA
     </div>
 
-    <div class="project-preview">
+    <div class="project-window">
       <iframe
         src="https://casa-mira-inky.vercel.app/"
-        loading="lazy">
+        loading="lazy"
+        title="Casa Mira">
       </iframe>
+      <div class="project-overlay"></div>
     </div>
 
-    <div class="project-info">
+    <div class="project-meta">
       <span>HOSPITALITY</span>
       <span>2026</span>
     </div>
 
     <div class="project-open">
       <a href="https://casa-mira-inky.vercel.app/" target="_blank">
-        OPEN ↗
+        OPEN PROJECT ↗
       </a>
     </div>
 
   </article>
 
 
-  <!-- PROJECT 05 -->
+  <!-- 05 -->
   <article class="project reveal">
 
     <div class="project-number">05 / 07</div>
 
-    <div class="project-name">
+    <div class="project-bg-number">05</div>
+
+    <div class="project-title">
       NOIRÉ
     </div>
 
-    <div class="project-preview">
+    <div class="project-window">
       <iframe
         src="https://noire-five-blond.vercel.app/"
-        loading="lazy">
+        loading="lazy"
+        title="Noire">
       </iframe>
+      <div class="project-overlay"></div>
     </div>
 
-    <div class="project-info">
+    <div class="project-meta">
       <span>EDITORIAL</span>
       <span>2026</span>
     </div>
 
     <div class="project-open">
       <a href="https://noire-five-blond.vercel.app/" target="_blank">
-        OPEN ↗
+        OPEN PROJECT ↗
       </a>
     </div>
 
   </article>
 
 
-  <!-- PROJECT 06 -->
+  <!-- 06 -->
   <article class="project reveal">
 
     <div class="project-number">06 / 07</div>
 
-    <div class="project-name">
+    <div class="project-bg-number">06</div>
+
+    <div class="project-title">
       FORMA
     </div>
 
-    <div class="project-preview">
+    <div class="project-window">
       <iframe
         src="https://forma-ochre-nine.vercel.app/"
-        loading="lazy">
+        loading="lazy"
+        title="Forma">
       </iframe>
+      <div class="project-overlay"></div>
     </div>
 
-    <div class="project-info">
+    <div class="project-meta">
       <span>BRAND EXPERIENCE</span>
       <span>2026</span>
     </div>
 
     <div class="project-open">
       <a href="https://forma-ochre-nine.vercel.app/" target="_blank">
-        OPEN ↗
+        OPEN PROJECT ↗
       </a>
     </div>
 
   </article>
 
 
-  <!-- PROJECT 07 -->
+  <!-- 07 -->
   <article class="project reveal">
 
     <div class="project-number">07 / 07</div>
 
-    <div class="project-name">
+    <div class="project-bg-number">07</div>
+
+    <div class="project-title">
       SAVORO
     </div>
 
-    <div class="project-preview">
+    <div class="project-window">
       <iframe
         src="https://savoro-puce.vercel.app/#menu"
-        loading="lazy">
+        loading="lazy"
+        title="Savoro">
       </iframe>
+      <div class="project-overlay"></div>
     </div>
 
-    <div class="project-info">
+    <div class="project-meta">
       <span>RESTAURANT</span>
       <span>2026</span>
     </div>
 
     <div class="project-open">
       <a href="https://savoro-puce.vercel.app/#menu" target="_blank">
-        OPEN ↗
+        OPEN PROJECT ↗
       </a>
     </div>
 
@@ -904,9 +1356,9 @@ nav{
 <!-- EXPERIMENT -->
 <section class="experiment">
 
-  <div class="exp-top">
-    <span>/ 002 — EXPERIMENTS</span>
-    <span>MOVE YOUR CURSOR</span>
+  <div class="exp-header">
+    <span>/ 002 — EXPERIMENT</span>
+    <span>MOVE / SCROLL / EXPLORE</span>
   </div>
 
   <div class="exp-title" id="expTitle">
@@ -914,12 +1366,10 @@ nav{
     DIFFERENT<span>.</span>
   </div>
 
-  <div class="exp-bottom">
-    <div class="exp-copy">
-      We combine design, technology and motion
-      to create websites that feel less like
-      pages — and more like experiences.
-    </div>
+  <div class="exp-copy">
+    Design, technology and motion —
+    combined into digital experiences
+    that feel alive.
   </div>
 
 </section>
@@ -928,11 +1378,11 @@ nav{
 <!-- ABOUT -->
 <section class="about" id="about">
 
-  <div class="label">
+  <div class="mono">
     / 003 — ABOUT
   </div>
 
-  <div>
+  <div class="about-main">
 
     <div class="about-text reveal">
       AI Vision Studio is an independent
@@ -942,7 +1392,7 @@ nav{
     </div>
 
     <div class="about-details reveal">
-      BASED IN AHMEDABAD, INDIA<br>
+      AHMEDABAD / INDIA<br>
       WORKING WORLDWIDE<br>
       DESIGN / DEVELOPMENT / MOTION<br>
       2026
@@ -956,38 +1406,32 @@ nav{
 <!-- CONTACT -->
 <section class="contact" id="contact">
 
-  <div class="contact-small">
+  <div class="contact-label">
     / 004 — LET'S MAKE SOMETHING
   </div>
 
-  <div class="contact-title reveal">
-
-    <a href="tel:9925054448">
-      9925054448
-    </a>
-
-    <br>
+  <div class="contact-main reveal">
 
     <a
+      class="contact-link"
+      href="tel:+919925054448">
+      +91 99250 54448
+    </a>
+
+    <a
+      class="contact-link instagram"
       href="https://instagram.com/aivisionstudioahmeadabad_"
-      target="_blank">
-      INSTAGRAM ↗
+      target="_blank"
+      rel="noopener">
+      @aivisionstudioahmeadabad_
     </a>
 
   </div>
 
   <div class="contact-footer">
-
     <span>AI VISION STUDIO®</span>
-
-    <span>
-      AHMEDABAD / INDIA
-    </span>
-
-    <span>
-      © 2026
-    </span>
-
+    <span>AHMEDABAD / INDIA</span>
+    <span>© 2026</span>
   </div>
 
 </section>
@@ -995,63 +1439,79 @@ nav{
 
 <script>
 
-/* ================= CURSOR ================= */
+/* =====================================================
+   CURSOR
+===================================================== */
 
 const cursor = document.querySelector(".cursor");
+const cursorLabel = document.querySelector(".cursor-label");
 
-let mouseX = 0;
-let mouseY = 0;
-let cursorX = 0;
-let cursorY = 0;
+let mx = 0;
+let my = 0;
+let cx = 0;
+let cy = 0;
 
-document.addEventListener("mousemove", e => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-});
+if(window.matchMedia("(hover:hover)").matches){
 
-function cursorLoop(){
+  document.addEventListener("mousemove",e=>{
+    mx=e.clientX;
+    my=e.clientY;
+  });
 
-  cursorX += (mouseX - cursorX) * .15;
-  cursorY += (mouseY - cursorY) * .15;
+  function moveCursor(){
 
-  cursor.style.left = cursorX + "px";
-  cursor.style.top = cursorY + "px";
+    cx += (mx-cx)*.16;
+    cy += (my-cy)*.16;
 
-  requestAnimationFrame(cursorLoop);
+    cursor.style.left=cx+"px";
+    cursor.style.top=cy+"px";
+
+    cursorLabel.style.left=cx+"px";
+    cursorLabel.style.top=cy+"px";
+
+    requestAnimationFrame(moveCursor);
+  }
+
+  moveCursor();
+
+  document.querySelectorAll(
+    ".project-window,.contact-link,.nav-links a"
+  ).forEach(el=>{
+
+    el.addEventListener("mouseenter",()=>{
+
+      cursor.classList.add("active");
+
+      if(el.classList.contains("project-window")){
+        cursorLabel.classList.add("show");
+      }
+
+    });
+
+    el.addEventListener("mouseleave",()=>{
+
+      cursor.classList.remove("active");
+      cursorLabel.classList.remove("show");
+
+    });
+
+  });
+
 }
 
-cursorLoop();
 
+/* =====================================================
+   SCROLL REVEAL
+===================================================== */
 
-/* cursor hover */
+const revealObserver = new IntersectionObserver(
+  entries=>{
 
-document.querySelectorAll("a,.project-preview,.project").forEach(el => {
-
-  el.addEventListener("mouseenter",()=>{
-    cursor.classList.add("big");
-  });
-
-  el.addEventListener("mouseleave",()=>{
-    cursor.classList.remove("big");
-  });
-
-});
-
-
-/* ================= SCROLL REVEALS ================= */
-
-const observer = new IntersectionObserver(
-  entries => {
-
-    entries.forEach(entry => {
+    entries.forEach(entry=>{
 
       if(entry.isIntersecting){
 
-        entry.target.classList.add("show");
-
-        if(entry.target.classList.contains("project")){
-          entry.target.classList.add("in-view");
-        }
+        entry.target.classList.add("visible");
 
       }
 
@@ -1059,111 +1519,237 @@ const observer = new IntersectionObserver(
 
   },
   {
-    threshold:.15
+    threshold:.12,
+    rootMargin:"0px 0px -8% 0px"
   }
 );
 
 document
   .querySelectorAll(".reveal,.project")
-  .forEach(el => observer.observe(el));
+  .forEach(el=>revealObserver.observe(el));
 
 
-/* ================= PROJECT PARALLAX ================= */
+/* =====================================================
+   PROJECT SCROLL MOTION
+===================================================== */
 
-const projects = document.querySelectorAll(".project");
+const projects=document.querySelectorAll(".project");
 
-window.addEventListener("scroll",()=>{
+function projectMotion(){
 
-  const viewport = window.innerHeight;
+  const vh=window.innerHeight;
 
   projects.forEach(project=>{
 
-    const rect = project.getBoundingClientRect();
+    const rect=project.getBoundingClientRect();
 
-    const center = rect.top + rect.height/2;
+    const center=rect.top+(rect.height/2);
 
-    const distance = (center - viewport/2) / viewport;
+    const distance=(center-vh/2)/vh;
 
-    const name = project.querySelector(".project-name");
+    const title=project.querySelector(".project-title");
+    const windowEl=project.querySelector(".project-window");
 
-    if(name){
+    if(!title) return;
 
-      name.style.transform =
-        `translateY(-50%) translateX(${distance * -55}px)`;
+    if(window.innerWidth>800){
+
+      title.style.transform=
+        `translate3d(${distance*-80}px,-50%,0)`;
+
+      windowEl.style.setProperty(
+        "--move",
+        distance
+      );
 
     }
 
   });
 
-});
+}
+
+window.addEventListener(
+  "scroll",
+  projectMotion,
+  {passive:true}
+);
 
 
-/* ================= EXPERIMENT MOUSE ================= */
+/* =====================================================
+   EXPERIMENT PARALLAX
+===================================================== */
 
-const expTitle = document.getElementById("expTitle");
+const experiment=document.querySelector(".experiment");
+const expTitle=document.querySelector("#expTitle");
 
-document.querySelector(".experiment")
-.addEventListener("mousemove",e=>{
+if(experiment){
 
-  const rect =
-    e.currentTarget.getBoundingClientRect();
+  experiment.addEventListener("mousemove",e=>{
 
-  const x =
-    (e.clientX - rect.left) / rect.width - .5;
+    if(window.innerWidth<=800) return;
 
-  const y =
-    (e.clientY - rect.top) / rect.height - .5;
+    const rect=experiment.getBoundingClientRect();
 
-  expTitle.style.transform =
-    `translate(${x * 35}px,${y * 25}px) rotate(${x * 1.5}deg)`;
+    const x=(e.clientX-rect.left)/rect.width-.5;
+    const y=(e.clientY-rect.top)/rect.height-.5;
 
-});
-
-
-document.querySelector(".experiment")
-.addEventListener("mouseleave",()=>{
-
-  expTitle.style.transform =
-    "translate(0,0) rotate(0)";
-
-});
-
-
-/* ================= MAGNETIC LINKS ================= */
-
-document.querySelectorAll(".nav-right a").forEach(link=>{
-
-  link.addEventListener("mousemove",e=>{
-
-    const r = link.getBoundingClientRect();
-
-    const x = e.clientX - r.left - r.width/2;
-    const y = e.clientY - r.top - r.height/2;
-
-    link.style.transform =
-      `translate(${x*.2}px,${y*.2}px)`;
+    expTitle.style.transform=
+      `translate3d(${x*45}px,${y*35}px,0)
+       rotate(${x*2}deg)`;
 
   });
 
-  link.addEventListener("mouseleave",()=>{
+}
 
-    link.style.transform =
-      "translate(0,0)";
+
+/* =====================================================
+   MOBILE TOUCH PARALLAX
+===================================================== */
+
+let ticking=false;
+
+function mobileMotion(){
+
+  if(window.innerWidth>800){
+    ticking=false;
+    return;
+  }
+
+  const vh=window.innerHeight;
+
+  projects.forEach(project=>{
+
+    const rect=project.getBoundingClientRect();
+
+    if(
+      rect.top < vh &&
+      rect.bottom > 0
+    ){
+
+      const progress=
+        (vh-rect.top)/(vh+rect.height);
+
+      const windowEl=
+        project.querySelector(".project-window");
+
+      if(windowEl){
+
+        const y=
+          (progress-.5)*-25;
+
+        windowEl.style.transform=
+          `translate3d(0,${y}px,0) scale(1)`;
+
+      }
+
+    }
 
   });
+
+  ticking=false;
+}
+
+window.addEventListener("scroll",()=>{
+
+  if(!ticking){
+
+    requestAnimationFrame(mobileMotion);
+
+    ticking=true;
+
+  }
+
+},{passive:true});
+
+
+/* =====================================================
+   MAGNETIC CONTACT
+===================================================== */
+
+if(window.matchMedia("(hover:hover)").matches){
+
+  document
+    .querySelectorAll(".contact-link")
+    .forEach(link=>{
+
+      link.addEventListener("mousemove",e=>{
+
+        const r=link.getBoundingClientRect();
+
+        const x=e.clientX-r.left-r.width/2;
+        const y=e.clientY-r.top-r.height/2;
+
+        link.style.transform=
+          `translate3d(${x*.035}px,${y*.035}px,0)`;
+
+      });
+
+      link.addEventListener("mouseleave",()=>{
+
+        link.style.transform="translate3d(0,0,0)";
+
+      });
+
+    });
+
+}
+
+
+/* =====================================================
+   PREVENT IFRAME FROM CAUSING PAGE HORIZONTAL SCROLL
+===================================================== */
+
+window.addEventListener("load",()=>{
+
+  document.documentElement.style.overflowX="hidden";
+  document.body.style.overflowX="hidden";
 
 });
 
 
-/* ================= KEYBOARD ================= */
+/* =====================================================
+   SMOOTH PROJECT ACTIVE STATE
+===================================================== */
+
+const projectObserver=new IntersectionObserver(
+  entries=>{
+
+    entries.forEach(entry=>{
+
+      const project=entry.target;
+
+      if(entry.isIntersecting){
+
+        project.classList.add("visible");
+
+      }
+
+    });
+
+  },
+  {
+    threshold:.25
+  }
+);
+
+projects.forEach(project=>{
+  projectObserver.observe(project);
+});
+
+
+/* =====================================================
+   ESC = TOP
+===================================================== */
 
 document.addEventListener("keydown",e=>{
 
-  if(e.key === "Escape"){
+  if(e.key==="Escape"){
+
     window.scrollTo({
       top:0,
       behavior:"smooth"
     });
+
   }
 
 });
