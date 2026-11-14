@@ -2,25 +2,29 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 
-<title>KAUSTUBH — AI Vision Studio</title>
+<title>Kaustubh — AI Vision Studio</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
 
 <style>
 
-:root{
-    --paper:#F3F0E8;
-    --paper2:#E8E3D7;
-    --ink:#151515;
-    --red:#D72F24;
-    --silver:#B7B5AE;
-    --muted:#77756F;
-    --line:rgba(21,21,21,.16);
+/* =========================================================
+   CORE
+========================================================= */
 
+:root{
+    --black:#111111;
+    --paper:#F1EEE6;
+    --cream:#E5E0D5;
+    --red:#D9362B;
+    --grey:#77756E;
+    --line:rgba(17,17,17,.16);
+    --white:#FAF8F2;
     --ease:cubic-bezier(.16,1,.3,1);
 }
 
@@ -37,48 +41,47 @@ html{
 
 body{
     background:var(--paper);
-    color:var(--ink);
+    color:var(--black);
     font-family:"Manrope",sans-serif;
     overflow-x:hidden;
 }
 
-body:after{
+body:before{
     content:"";
     position:fixed;
     inset:0;
     pointer-events:none;
-    z-index:9998;
-    opacity:.035;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    z-index:9999;
+    opacity:.025;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 ::selection{
     background:var(--red);
-    color:#fff;
+    color:white;
 }
 
 a{
-    color:inherit;
     text-decoration:none;
+    color:inherit;
 }
 
 
 /* =========================================================
-   CURSOR
+   MONEY CURSOR
 ========================================================= */
 
 .money-cursor{
     position:fixed;
+    left:0;
+    top:0;
+    width:65px;
+    height:65px;
     z-index:99999;
-    width:72px;
-    height:72px;
     pointer-events:none;
     transform:translate(-50%,-50%);
     opacity:0;
-    transition:
-        opacity .3s ease,
-        width .3s var(--ease),
-        height .3s var(--ease);
+    transition:opacity .3s ease;
 }
 
 body.cursor-ready .money-cursor{
@@ -87,10 +90,10 @@ body.cursor-ready .money-cursor{
 
 .coin{
     position:absolute;
-    width:34px;
-    height:34px;
     left:50%;
     top:50%;
+    width:31px;
+    height:31px;
     transform:translate(-50%,-50%);
     border-radius:50%;
     background:var(--red);
@@ -98,120 +101,121 @@ body.cursor-ready .money-cursor{
     display:grid;
     place-items:center;
     font-family:Georgia,serif;
-    font-size:17px;
-    box-shadow:0 7px 25px rgba(215,47,36,.28);
+    font-size:15px;
+    box-shadow:0 10px 35px rgba(217,54,43,.35);
+    transition:.35s var(--ease);
 }
 
-.orbit{
-    position:absolute;
-    width:65px;
-    height:65px;
-    left:50%;
-    top:50%;
-    transform:translate(-50%,-50%);
-    border:1px solid rgba(21,21,21,.35);
-    border-radius:50%;
-    animation:orbit 5s linear infinite;
-}
-
-.orbit:before{
+.coin:after{
     content:"";
     position:absolute;
-    width:6px;
-    height:6px;
-    background:var(--red);
+    inset:4px;
+    border:1px solid rgba(255,255,255,.5);
     border-radius:50%;
-    top:-3px;
-    left:50%;
 }
 
-.orbit-two{
+.cursor-ring{
     position:absolute;
-    width:48px;
-    height:48px;
+    inset:0;
+    border:1px solid rgba(17,17,17,.35);
+    border-radius:50%;
+    animation:spin 6s linear infinite;
+}
+
+.cursor-ring:before{
+    content:"";
+    position:absolute;
+    width:5px;
+    height:5px;
+    background:var(--red);
+    border-radius:50%;
+    left:50%;
+    top:-3px;
+}
+
+.cursor-ring-2{
+    position:absolute;
+    width:45px;
+    height:45px;
     left:50%;
     top:50%;
     transform:translate(-50%,-50%);
-    border:1px dashed rgba(21,21,21,.3);
+    border:1px dashed rgba(17,17,17,.25);
     border-radius:50%;
-    animation:orbitReverse 7s linear infinite;
+    animation:spinReverse 8s linear infinite;
 }
 
-@keyframes orbit{
-    to{
-        transform:translate(-50%,-50%) rotate(360deg);
-    }
-}
-
-@keyframes orbitReverse{
-    to{
-        transform:translate(-50%,-50%) rotate(-360deg);
-    }
-}
-
-.money-cursor.active{
+.money-cursor.hover{
     width:105px;
     height:105px;
 }
 
-.money-cursor.active .coin{
-    width:46px;
-    height:46px;
+.money-cursor.hover .coin{
+    width:45px;
+    height:45px;
+    font-size:18px;
+}
+
+@keyframes spin{
+    to{transform:rotate(360deg)}
+}
+
+@keyframes spinReverse{
+    to{transform:translate(-50%,-50%) rotate(-360deg)}
 }
 
 
 /* =========================================================
-   TOP NAV
+   NAV
 ========================================================= */
 
 .nav{
     position:absolute;
+    z-index:100;
     top:0;
     left:0;
     width:100%;
-    padding:24px 30px;
-    z-index:100;
+    padding:25px 30px;
     display:grid;
     grid-template-columns:1fr auto 1fr;
     align-items:center;
     font-family:"DM Mono",monospace;
-    font-size:9px;
+    font-size:8px;
 }
 
-.brand{
+.logo{
     display:flex;
     align-items:center;
     gap:10px;
     letter-spacing:.08em;
 }
 
-.brand-mark{
+.logo-circle{
     width:25px;
     height:25px;
-    border:1px solid var(--ink);
+    border:1px solid currentColor;
     border-radius:50%;
     display:grid;
     place-items:center;
     font-family:Georgia,serif;
-    font-size:12px;
 }
 
 .nav-center{
-    font-size:8px;
-    color:var(--muted);
+    color:var(--grey);
+    letter-spacing:.14em;
 }
 
-.nav-right{
-    justify-self:end;
+.nav-links{
     display:flex;
-    gap:22px;
+    gap:25px;
+    justify-self:end;
 }
 
-.nav-right a{
+.nav-links a{
     transition:.25s ease;
 }
 
-.nav-right a:hover{
+.nav-links a:hover{
     color:var(--red);
 }
 
@@ -224,74 +228,98 @@ body.cursor-ready .money-cursor{
     min-height:100svh;
     position:relative;
     overflow:hidden;
+    background:var(--paper);
     display:flex;
     align-items:center;
-    background:var(--paper);
 }
 
-.hero-grid{
+.hero-lines{
     position:absolute;
     inset:0;
     background:
-        linear-gradient(90deg,transparent 49.8%,var(--line) 50%,transparent 50.2%),
-        linear-gradient(0deg,transparent 49.8%,var(--line) 50%,transparent 50.2%);
-    opacity:.5;
+        linear-gradient(
+            90deg,
+            transparent 0,
+            transparent 49.9%,
+            rgba(17,17,17,.09) 50%,
+            transparent 50.1%
+        );
 }
 
-.hero-number{
+.hero-circle{
     position:absolute;
-    right:-2vw;
-    bottom:-10vw;
+    width:43vw;
+    height:43vw;
+    max-width:650px;
+    max-height:650px;
+    border-radius:50%;
+    background:var(--red);
+    right:6vw;
+    top:19%;
+    opacity:.95;
+    mix-blend-mode:multiply;
+    animation:heroFloat 9s ease-in-out infinite;
+}
+
+.hero-circle:after{
+    content:"";
+    position:absolute;
+    inset:8%;
+    border:1px solid rgba(255,255,255,.45);
+    border-radius:50%;
+}
+
+@keyframes heroFloat{
+
+    0%,100%{
+        transform:translate3d(0,0,0) scale(1);
+    }
+
+    50%{
+        transform:translate3d(-25px,25px,0) scale(1.035);
+    }
+
+}
+
+.hero-giant{
+    position:absolute;
+    right:-8vw;
+    bottom:-11vw;
     font-size:62vw;
     line-height:.65;
     font-weight:800;
-    letter-spacing:-.14em;
-    color:var(--paper2);
-    user-select:none;
-}
-
-.hero-red{
-    position:absolute;
-    width:38vw;
-    height:38vw;
-    max-width:520px;
-    max-height:520px;
-    border-radius:50%;
-    background:var(--red);
-    right:10vw;
-    top:19%;
-    mix-blend-mode:multiply;
-    animation:redFloat 8s ease-in-out infinite;
-}
-
-@keyframes redFloat{
-    0%,100%{
-        transform:translate(0,0) scale(1);
-    }
-    50%{
-        transform:translate(-30px,30px) scale(1.06);
-    }
+    letter-spacing:-.15em;
+    color:var(--cream);
 }
 
 .hero-content{
     position:relative;
     z-index:5;
     width:100%;
-    padding:110px 7vw 70px;
+    padding:130px 7vw 80px;
 }
 
-.eyebrow{
+.hero-kicker{
+    display:flex;
+    align-items:center;
+    gap:14px;
     font-family:"DM Mono",monospace;
-    font-size:9px;
-    letter-spacing:.18em;
-    margin-bottom:35px;
-    color:var(--red);
+    font-size:8px;
+    letter-spacing:.16em;
+    color:var(--grey);
+    margin-bottom:38px;
+}
+
+.hero-kicker i{
+    width:30px;
+    height:1px;
+    background:var(--red);
 }
 
 .hero-title{
-    font-size:clamp(90px,15vw,230px);
+    font-size:clamp(85px,14.8vw,230px);
     line-height:.72;
-    letter-spacing:-.12em;
+    letter-spacing:-.115em;
     font-weight:800;
 }
 
@@ -300,141 +328,221 @@ body.cursor-ready .money-cursor{
     overflow:hidden;
 }
 
-.hero-title .word{
+.hero-title .inner{
     display:block;
     transform:translateY(110%);
-    animation:titleIn 1.3s var(--ease) forwards;
+    animation:heroText 1.25s var(--ease) forwards;
 }
 
-.hero-title .line:nth-child(2) .word{
+.hero-title .line:nth-child(2) .inner{
     animation-delay:.08s;
 }
 
-.hero-title .line:nth-child(3) .word{
+.hero-title .line:nth-child(3) .inner{
     animation-delay:.16s;
 }
 
-.hero-title .italic{
+.hero-title em{
     font-family:"Playfair Display",serif;
     font-weight:500;
-    font-style:italic;
-    letter-spacing:-.09em;
+    letter-spacing:-.08em;
 }
 
-@keyframes titleIn{
+@keyframes heroText{
     to{
         transform:translateY(0);
     }
 }
 
-.hero-meta{
+.hero-bottom{
     position:absolute;
+    bottom:27px;
     left:7vw;
     right:7vw;
-    bottom:28px;
+    z-index:10;
     display:flex;
     justify-content:space-between;
     font-family:"DM Mono",monospace;
-    font-size:8px;
-    color:var(--muted);
+    font-size:7px;
+    color:var(--grey);
 }
 
-.hero-meta .available{
+.status{
     color:var(--red);
 }
 
 
 /* =========================================================
-   MANIFESTO
+   BRAND STATEMENT
 ========================================================= */
 
-.manifesto{
-    min-height:95svh;
-    padding:150px 7vw;
-    background:var(--ink);
-    color:var(--paper);
-    display:flex;
-    align-items:center;
+.statement{
+    min-height:100svh;
+    background:var(--black);
+    color:var(--white);
     position:relative;
     overflow:hidden;
+    display:flex;
+    align-items:center;
+    padding:100px 7vw;
 }
 
-.manifesto:before{
-    content:"02";
+.statement-number{
     position:absolute;
-    right:-4vw;
-    top:-5vw;
-    font-size:55vw;
-    font-weight:800;
+    right:-5vw;
+    top:-10vw;
+    font-size:65vw;
     line-height:.7;
-    color:#202020;
-    letter-spacing:-.14em;
+    color:#1A1A1A;
+    font-weight:800;
+    letter-spacing:-.16em;
 }
 
-.manifesto-inner{
+.statement-content{
     position:relative;
     z-index:2;
     max-width:1250px;
 }
 
-.section-tag{
+.tiny{
     font-family:"DM Mono",monospace;
     font-size:8px;
+    letter-spacing:.16em;
     color:var(--red);
     margin-bottom:45px;
 }
 
-.manifesto h2{
-    font-size:clamp(55px,8vw,125px);
-    line-height:.9;
-    letter-spacing:-.075em;
+.statement h2{
+    font-size:clamp(60px,8.4vw,130px);
+    line-height:.87;
+    letter-spacing:-.08em;
     font-weight:600;
 }
 
-.manifesto h2 i{
-    font-family:"Playfair Display",serif;
+.statement h2 em{
     color:var(--red);
+    font-family:"Playfair Display",serif;
     font-weight:500;
 }
 
-.manifesto-note{
-    margin-top:60px;
-    max-width:410px;
+.statement-copy{
+    margin-top:65px;
+    max-width:440px;
     font-family:"DM Mono",monospace;
     font-size:9px;
-    line-height:1.8;
-    color:#8D8B84;
+    line-height:1.9;
+    color:#8D8A82;
 }
 
 
 /* =========================================================
-   WORK INTRO
+   AI VISION SECTION
 ========================================================= */
 
-.work-intro{
-    padding:110px 6vw 50px;
+.studio{
     background:var(--paper);
+    padding:130px 7vw;
 }
 
-.work-intro-top{
+.studio-top{
     display:flex;
     justify-content:space-between;
-    align-items:center;
+    align-items:flex-start;
     border-top:1px solid var(--line);
-    padding-top:18px;
+    padding-top:16px;
 }
 
-.work-intro h2{
-    font-size:clamp(75px,12vw,180px);
+.studio-title{
+    font-size:clamp(75px,11vw,175px);
     line-height:.7;
     letter-spacing:-.11em;
     font-weight:800;
 }
 
-.work-intro p{
+.studio-side{
+    max-width:230px;
     font-family:"DM Mono",monospace;
     font-size:8px;
-    color:var(--muted);
+    line-height:1.7;
+    color:var(--grey);
+}
+
+.studio-side strong{
+    color:var(--black);
+}
+
+.services{
+    margin-top:110px;
+    border-top:1px solid var(--line);
+}
+
+.service{
+    min-height:125px;
+    border-bottom:1px solid var(--line);
+    display:grid;
+    grid-template-columns:90px 1fr 250px 35px;
+    align-items:center;
+    gap:30px;
+    transition:.5s var(--ease);
+}
+
+.service:hover{
+    padding-left:25px;
+    background:var(--black);
+    color:var(--white);
+}
+
+.service-number{
+    font-family:"DM Mono",monospace;
+    font-size:8px;
+    color:var(--red);
+}
+
+.service-name{
+    font-size:clamp(28px,4vw,58px);
+    letter-spacing:-.065em;
+    font-weight:700;
+}
+
+.service-desc{
+    font-family:"DM Mono",monospace;
+    font-size:7px;
+    line-height:1.7;
+    color:var(--grey);
+}
+
+.service-arrow{
+    font-size:20px;
+}
+
+
+/* =========================================================
+   WORK HEADER
+========================================================= */
+
+.work-header{
+    background:var(--cream);
+    padding:100px 7vw 55px;
+}
+
+.work-header-top{
+    border-top:1px solid var(--line);
+    padding-top:15px;
+    display:flex;
+    justify-content:space-between;
+}
+
+.work-header h2{
+    font-size:clamp(80px,13vw,200px);
+    line-height:.68;
+    letter-spacing:-.12em;
+    font-weight:800;
+}
+
+.work-header p{
+    font-family:"DM Mono",monospace;
+    font-size:8px;
+    color:var(--grey);
 }
 
 
@@ -442,300 +550,278 @@ body.cursor-ready .money-cursor{
    PROJECTS
 ========================================================= */
 
-.projects{
-    background:var(--paper);
-}
-
 .project{
     min-height:100svh;
-    padding:55px 6vw 90px;
-    border-top:1px solid var(--line);
+    padding:70px 6vw 80px;
     position:relative;
     overflow:hidden;
     display:flex;
     flex-direction:column;
     justify-content:center;
+    background:var(--paper);
 }
-
-.project:before{
-    content:"";
-    position:absolute;
-    width:38vw;
-    height:38vw;
-    max-width:550px;
-    max-height:550px;
-    border-radius:50%;
-    border:1px solid var(--line);
-    right:-14vw;
-    top:50%;
-    transform:translateY(-50%);
-}
-
-.project:after{
-    content:"";
-    position:absolute;
-    width:18px;
-    height:18px;
-    background:var(--red);
-    border-radius:50%;
-    right:9vw;
-    top:50%;
-    transform:translateY(-50%);
-}
-
-.project-head{
-    display:grid;
-    grid-template-columns:90px 1fr auto;
-    align-items:end;
-    gap:25px;
-    margin-bottom:35px;
-    position:relative;
-    z-index:5;
-}
-
-.project-index{
-    font-family:"DM Mono",monospace;
-    font-size:9px;
-    color:var(--red);
-}
-
-.project-name{
-    font-size:clamp(60px,9vw,140px);
-    line-height:.72;
-    letter-spacing:-.105em;
-    font-weight:800;
-}
-
-.project-type{
-    font-family:"DM Mono",monospace;
-    font-size:8px;
-    color:var(--muted);
-    text-align:right;
-    line-height:1.6;
-}
-
-.project-screen{
-    width:100%;
-    height:min(61vw,650px);
-    min-height:380px;
-    background:#191919;
-    position:relative;
-    z-index:3;
-    overflow:hidden;
-    border:1px solid rgba(21,21,21,.25);
-    box-shadow:20px 25px 80px rgba(0,0,0,.16);
-    transform:translateY(35px);
-    opacity:0;
-    transition:
-        transform 1.1s var(--ease),
-        opacity 1.1s ease;
-}
-
-.project.visible .project-screen{
-    transform:translateY(0);
-    opacity:1;
-}
-
-.browser{
-    height:35px;
-    width:100%;
-    position:absolute;
-    top:0;
-    left:0;
-    z-index:10;
-    background:#191919;
-    display:flex;
-    align-items:center;
-    padding:0 12px;
-    gap:6px;
-}
-
-.browser-dot{
-    width:6px;
-    height:6px;
-    border-radius:50%;
-    background:#5E5E5E;
-}
-
-.browser-url{
-    margin-left:8px;
-    height:18px;
-    flex:1;
-    border:1px solid #313131;
-    color:#777;
-    display:flex;
-    align-items:center;
-    padding-left:8px;
-    font-family:"DM Mono",monospace;
-    font-size:6px;
-}
-
-.project iframe{
-    position:absolute;
-    top:35px;
-    left:0;
-    width:100%;
-    height:calc(100% - 35px);
-    border:0;
-    background:white;
-    pointer-events:none;
-}
-
-.project-bottom{
-    position:relative;
-    z-index:5;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding-top:22px;
-}
-
-.project-bottom span{
-    font-family:"DM Mono",monospace;
-    font-size:7px;
-    color:var(--muted);
-}
-
-.visit{
-    color:var(--ink)!important;
-    border-bottom:1px solid var(--ink);
-    padding-bottom:3px;
-}
-
-
-/* =========================================================
-   SPECIAL PROJECT COLORS
-========================================================= */
 
 .project:nth-child(even){
-    background:#EAE6DD;
+    background:#E8E3D8;
 }
 
-.project:nth-child(3n){
-    background:#D9D5CB;
+.project:nth-child(3){
+    background:#D7D2C7;
 }
 
 .project:nth-child(4){
-    background:var(--ink);
-    color:var(--paper);
-}
-
-.project:nth-child(4) .project-type,
-.project:nth-child(4) .project-bottom span{
-    color:#8B8982;
-}
-
-.project:nth-child(4) .visit{
-    color:var(--paper)!important;
-    border-color:var(--paper);
+    background:var(--black);
+    color:var(--white);
 }
 
 .project:nth-child(5){
     background:var(--red);
-    color:#fff;
-}
-
-.project:nth-child(5) .project-index{
-    color:#fff;
-}
-
-.project:nth-child(5) .project-type,
-.project:nth-child(5) .project-bottom span{
-    color:rgba(255,255,255,.65);
-}
-
-.project:nth-child(5) .visit{
-    color:#fff!important;
-    border-color:#fff;
+    color:white;
 }
 
 .project:nth-child(6){
-    background:#C8C6C0;
+    background:#C4C1BA;
 }
 
 .project:nth-child(7){
     background:var(--paper);
 }
 
+.project-number-bg{
+    position:absolute;
+    right:-3vw;
+    bottom:-13vw;
+    font-size:48vw;
+    font-weight:800;
+    line-height:.7;
+    letter-spacing:-.15em;
+    opacity:.035;
+}
 
-/* =========================================================
-   STATEMENT
-========================================================= */
+.project-top{
+    display:grid;
+    grid-template-columns:60px 1fr auto;
+    align-items:end;
+    gap:20px;
+    margin-bottom:30px;
+    position:relative;
+    z-index:4;
+}
 
-.statement{
-    min-height:90svh;
-    background:var(--ink);
-    color:var(--paper);
+.project-no{
+    font-family:"DM Mono",monospace;
+    color:var(--red);
+    font-size:9px;
+}
+
+.project:nth-child(5) .project-no{
+    color:white;
+}
+
+.project-name{
+    font-size:clamp(65px,9vw,145px);
+    line-height:.7;
+    letter-spacing:-.11em;
+    font-weight:800;
+}
+
+.project-category{
+    font-family:"DM Mono",monospace;
+    font-size:7px;
+    line-height:1.6;
+    color:var(--grey);
+    text-align:right;
+}
+
+.project:nth-child(4) .project-category,
+.project:nth-child(5) .project-category{
+    color:rgba(255,255,255,.6);
+}
+
+.project-window{
+    width:100%;
+    height:min(60vw,650px);
+    min-height:380px;
+    position:relative;
+    z-index:5;
+    background:#191919;
+    overflow:hidden;
+    border:1px solid rgba(0,0,0,.2);
+    box-shadow:20px 30px 90px rgba(0,0,0,.17);
+    opacity:0;
+    transform:translateY(55px) scale(.985);
+    transition:
+        opacity 1s ease,
+        transform 1.2s var(--ease);
+}
+
+.project.show .project-window{
+    opacity:1;
+    transform:translateY(0) scale(1);
+}
+
+.browser{
+    height:34px;
+    position:absolute;
+    left:0;
+    right:0;
+    top:0;
+    z-index:10;
+    background:#1A1A1A;
     display:flex;
     align-items:center;
-    justify-content:center;
+    gap:5px;
+    padding:0 11px;
+}
+
+.dot{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:#676767;
+}
+
+.url{
+    height:18px;
+    flex:1;
+    margin-left:8px;
+    border:1px solid #303030;
+    display:flex;
+    align-items:center;
+    padding-left:8px;
+    color:#737373;
+    font-family:"DM Mono",monospace;
+    font-size:6px;
+}
+
+.project-window iframe{
+    position:absolute;
+    left:0;
+    top:34px;
+    width:100%;
+    height:calc(100% - 34px);
+    border:0;
+    background:white;
+    pointer-events:none;
+}
+
+.project-bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top:18px;
     position:relative;
-    overflow:hidden;
+    z-index:5;
 }
 
-.statement-word{
-    font-size:clamp(100px,20vw,310px);
-    line-height:.7;
-    letter-spacing:-.14em;
-    font-weight:800;
-    transform:rotate(-6deg);
-    white-space:nowrap;
+.project-bottom span{
+    font-family:"DM Mono",monospace;
+    font-size:7px;
+    color:var(--grey);
 }
 
-.statement-word span{
+.open{
+    border-bottom:1px solid currentColor;
+    padding-bottom:4px;
+    font-family:"DM Mono",monospace;
+    font-size:8px;
+    transition:.3s ease;
+}
+
+.open:hover{
     color:var(--red);
 }
 
-.statement-small{
+
+/* =========================================================
+   BIG DIFFERENCE
+========================================================= */
+
+.big-line{
+    min-height:90svh;
+    background:var(--black);
+    color:var(--white);
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.big-line h2{
+    font-size:clamp(90px,17vw,260px);
+    line-height:.7;
+    letter-spacing:-.13em;
+    white-space:nowrap;
+    transform:rotate(-5deg);
+}
+
+.big-line h2 span{
+    color:var(--red);
+}
+
+.big-line small{
     position:absolute;
-    bottom:35px;
+    bottom:30px;
     left:6vw;
     font-family:"DM Mono",monospace;
-    font-size:8px;
     color:#777;
+    font-size:7px;
 }
 
 
 /* =========================================================
-   ABOUT
+   ABOUT KAUSTUBH
 ========================================================= */
 
 .about{
-    background:var(--paper2);
+    background:var(--cream);
     padding:140px 7vw;
 }
 
 .about-grid{
     display:grid;
-    grid-template-columns:120px 1fr;
-    gap:50px;
+    grid-template-columns:100px 1fr;
+    gap:45px;
 }
 
 .about-title{
-    font-size:clamp(55px,8vw,120px);
-    line-height:.88;
+    max-width:1250px;
+    font-size:clamp(55px,7.5vw,115px);
+    line-height:.9;
     letter-spacing:-.075em;
-    max-width:1200px;
+    font-weight:600;
 }
 
 .about-title .red{
     color:var(--red);
 }
 
-.about-title i{
+.about-title em{
     font-family:"Playfair Display",serif;
     font-weight:500;
 }
 
-.about-info{
-    margin-top:80px;
+.about-bottom{
+    margin-top:90px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
     display:grid;
     grid-template-columns:repeat(4,1fr);
     gap:30px;
+}
+
+.about-box{
     font-family:"DM Mono",monospace;
     font-size:8px;
-    color:var(--muted);
     line-height:1.8;
+    color:var(--grey);
+}
+
+.about-box strong{
+    display:block;
+    color:var(--black);
+    margin-bottom:8px;
 }
 
 
@@ -744,15 +830,15 @@ body.cursor-ready .money-cursor{
 ========================================================= */
 
 .contact{
-    min-height:85svh;
+    min-height:95svh;
     background:var(--paper);
-    padding:120px 7vw 30px;
+    padding:110px 7vw 28px;
     display:flex;
     flex-direction:column;
     justify-content:space-between;
 }
 
-.contact-top{
+.contact-head{
     display:flex;
     justify-content:space-between;
     font-family:"DM Mono",monospace;
@@ -760,64 +846,61 @@ body.cursor-ready .money-cursor{
     color:var(--red);
 }
 
-.contact-main{
+.contact-grid{
     display:grid;
-    grid-template-columns:1fr 370px;
+    grid-template-columns:1fr 390px;
     gap:70px;
     align-items:end;
 }
 
 .contact-title{
-    font-size:clamp(85px,12vw,185px);
-    line-height:.7;
-    letter-spacing:-.115em;
+    font-size:clamp(90px,12vw,190px);
+    line-height:.68;
+    letter-spacing:-.12em;
     font-weight:800;
 }
 
 .contact-title em{
+    color:var(--red);
     font-family:"Playfair Display",serif;
     font-weight:500;
-    color:var(--red);
 }
 
-.contact-details{
+.contact-card{
     border-top:1px solid var(--line);
     padding-top:20px;
-    font-family:"DM Mono",monospace;
-    font-size:9px;
-    line-height:1.8;
 }
 
-.contact-details .small{
-    color:var(--muted);
-    margin-bottom:18px;
+.contact-card-label{
+    font-family:"DM Mono",monospace;
+    font-size:8px;
+    line-height:1.8;
+    color:var(--grey);
+    margin-bottom:25px;
 }
 
 .contact-link{
     display:block;
-    font-family:"Manrope",sans-serif;
-    font-size:21px;
+    font-size:22px;
     font-weight:600;
-    letter-spacing:-.04em;
-    margin-bottom:13px;
-    transition:
-        color .3s ease,
-        transform .3s var(--ease);
+    letter-spacing:-.045em;
+    margin-bottom:14px;
+    transition:.35s var(--ease);
 }
 
 .contact-link:hover{
     color:var(--red);
-    transform:translateX(8px);
+    transform:translateX(9px);
 }
 
 .contact-footer{
     border-top:1px solid var(--line);
-    padding-top:17px;
+    padding-top:15px;
     display:flex;
     justify-content:space-between;
     font-family:"DM Mono",monospace;
     font-size:7px;
-    color:var(--muted);
+    color:var(--grey);
 }
 
 
@@ -826,10 +909,6 @@ body.cursor-ready .money-cursor{
 ========================================================= */
 
 @media(max-width:800px){
-
-    body{
-        cursor:auto;
-    }
 
     .money-cursor{
         display:none;
@@ -844,179 +923,182 @@ body.cursor-ready .money-cursor{
         display:none;
     }
 
-    .nav-right{
+    .nav-links{
         gap:13px;
-        font-size:7px;
+        font-size:6px;
     }
 
-    .brand{
-        font-size:7px;
+    .logo{
+        font-size:6px;
     }
 
-    .brand-mark{
+    .logo-circle{
         width:21px;
         height:21px;
     }
 
-    /* HERO */
-
-    .hero{
-        min-height:100svh;
-    }
-
-    .hero-number{
-        font-size:115vw;
-        right:-15vw;
-        bottom:0;
-    }
-
-    .hero-red{
-        width:58vw;
-        height:58vw;
-        right:-8vw;
-        top:23%;
-    }
-
     .hero-content{
-        padding:100px 18px 80px;
+        padding:105px 18px 75px;
     }
 
-    .eyebrow{
-        font-size:7px;
-        margin-bottom:28px;
+    .hero-circle{
+        width:70vw;
+        height:70vw;
+        right:-20vw;
+        top:25%;
+    }
+
+    .hero-giant{
+        font-size:110vw;
+        right:-15vw;
+        bottom:-2vw;
     }
 
     .hero-title{
-        font-size:23vw;
-        line-height:.74;
+        font-size:24vw;
     }
 
-    .hero-meta{
+    .hero-kicker{
+        font-size:6px;
+        margin-bottom:28px;
+    }
+
+    .hero-bottom{
         left:18px;
         right:18px;
         bottom:18px;
         font-size:6px;
     }
 
-    .hero-meta span:nth-child(2){
+    .hero-bottom span:last-child{
         display:none;
     }
 
 
-    /* MANIFESTO */
-
-    .manifesto{
-        min-height:85svh;
-        padding:90px 18px;
+    .statement{
+        min-height:90svh;
+        padding:80px 18px;
     }
 
-    .manifesto:before{
-        font-size:100vw;
-        right:-15vw;
+    .statement-number{
+        font-size:110vw;
+        right:-20vw;
     }
 
-    .manifesto h2{
+    .statement h2{
         font-size:12vw;
     }
 
-    .manifesto-note{
-        margin-top:45px;
+    .statement-copy{
         font-size:7px;
+        margin-top:45px;
     }
 
 
-    /* WORK INTRO */
-
-    .work-intro{
-        padding:85px 18px 40px;
+    .studio{
+        padding:85px 18px;
     }
 
-    .work-intro-top{
-        padding-top:14px;
+    .studio-top{
+        display:block;
     }
 
-    .work-intro h2{
+    .studio-title{
         font-size:25vw;
     }
 
-    .work-intro p{
+    .studio-side{
+        margin-top:40px;
+        font-size:7px;
+    }
+
+    .services{
+        margin-top:65px;
+    }
+
+    .service{
+        min-height:110px;
+        grid-template-columns:32px 1fr 20px;
+        gap:10px;
+    }
+
+    .service-desc{
+        display:none;
+    }
+
+    .service-name{
+        font-size:8vw;
+    }
+
+
+    .work-header{
+        padding:80px 18px 40px;
+    }
+
+    .work-header h2{
+        font-size:25vw;
+    }
+
+    .work-header p{
         font-size:6px;
     }
 
 
-    /* PROJECT */
-
     .project{
         min-height:auto;
-        padding:65px 18px 85px;
+        padding:65px 18px 80px;
         display:block;
     }
 
-    .project:before{
-        width:75vw;
-        height:75vw;
-        right:-30vw;
-    }
-
-    .project:after{
-        right:13vw;
-    }
-
-    .project-head{
-        grid-template-columns:45px 1fr;
-        gap:10px;
-        margin-bottom:25px;
-        align-items:start;
+    .project-top{
+        grid-template-columns:38px 1fr;
+        gap:8px;
+        margin-bottom:23px;
     }
 
     .project-name{
         font-size:18vw;
-        line-height:.75;
     }
 
-    .project-type{
+    .project-category{
         grid-column:2;
         text-align:left;
         font-size:6px;
     }
 
-    .project-screen{
-        height:67vw;
-        min-height:245px;
-        box-shadow:10px 15px 35px rgba(0,0,0,.12);
+    .project-window{
+        width:100%;
+        height:63vw;
+        min-height:230px;
     }
 
     .browser{
-        height:28px;
+        height:27px;
     }
 
-    .project iframe{
-        top:28px;
-        height:calc(100% - 28px);
+    .project-window iframe{
+        top:27px;
+        height:calc(100% - 27px);
     }
 
     .project-bottom{
-        padding-top:15px;
+        padding-top:14px;
     }
 
-    .project-bottom span{
+    .project-bottom span,
+    .open{
         font-size:6px;
     }
 
 
-    /* STATEMENT */
-
-    .statement{
+    .big-line{
         min-height:65svh;
     }
 
-    .statement-word{
+    .big-line h2{
         font-size:29vw;
-        transform:rotate(-7deg);
     }
 
-
-    /* ABOUT */
 
     .about{
         padding:90px 18px;
@@ -1026,7 +1108,7 @@ body.cursor-ready .money-cursor{
         display:block;
     }
 
-    .about-grid > .section-tag{
+    .about-grid > .tiny{
         margin-bottom:50px;
     }
 
@@ -1034,41 +1116,37 @@ body.cursor-ready .money-cursor{
         font-size:11.5vw;
     }
 
-    .about-info{
-        margin-top:55px;
+    .about-bottom{
+        margin-top:60px;
         grid-template-columns:1fr 1fr;
+        gap:25px;
+    }
+
+    .about-box{
         font-size:6px;
     }
 
-
-    /* CONTACT */
 
     .contact{
-        min-height:75svh;
-        padding:90px 18px 20px;
+        min-height:80svh;
+        padding:85px 18px 20px;
     }
 
-    .contact-top{
+    .contact-head{
         font-size:6px;
     }
 
-    .contact-main{
+    .contact-grid{
         display:block;
     }
 
     .contact-title{
         font-size:20vw;
-        line-height:.72;
         margin-bottom:55px;
-    }
-
-    .contact-details{
-        padding-top:16px;
     }
 
     .contact-link{
         font-size:17px;
-        margin-bottom:12px;
     }
 
     .contact-footer{
@@ -1079,44 +1157,28 @@ body.cursor-ready .money-cursor{
 
 
 /* =========================================================
-   EXTRA SMALL
+   VERY SMALL
 ========================================================= */
 
 @media(max-width:390px){
 
     .hero-title{
-        font-size:24vw;
+        font-size:25vw;
     }
 
     .project-name{
         font-size:19vw;
     }
 
-    .project-screen{
-        min-height:225px;
-    }
-
-}
-
-
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
-
-@media(prefers-reduced-motion:reduce){
-
-    *,
-    *:before,
-    *:after{
-        animation:none!important;
-        transition:none!important;
-        scroll-behavior:auto!important;
+    .contact-title{
+        font-size:21vw;
     }
 
 }
 
 </style>
 </head>
+
 
 <body>
 
@@ -1127,9 +1189,9 @@ body.cursor-ready .money-cursor{
 
 <div class="money-cursor">
 
-    <div class="orbit"></div>
+    <div class="cursor-ring"></div>
 
-    <div class="orbit-two"></div>
+    <div class="cursor-ring-2"></div>
 
     <div class="coin">₹</div>
 
@@ -1142,23 +1204,23 @@ body.cursor-ready .money-cursor{
 
 <header class="nav">
 
-    <div class="brand">
+    <div class="logo">
 
-        <div class="brand-mark">K</div>
+        <div class="logo-circle">K</div>
 
         KAUSTUBH / AI VISION
 
     </div>
 
     <div class="nav-center">
-        DIGITAL WORKS / 2026
+        AI VISION STUDIO® / 2026
     </div>
 
-    <nav class="nav-right">
+    <nav class="nav-links">
 
         <a href="#work">WORK</a>
 
-        <a href="#about">ABOUT</a>
+        <a href="#studio">STUDIO</a>
 
         <a href="#contact">CONTACT</a>
 
@@ -1173,532 +1235,51 @@ body.cursor-ready .money-cursor{
 
 <section class="hero">
 
-    <div class="hero-grid"></div>
+    <div class="hero-lines"></div>
 
-    <div class="hero-number">K</div>
+    <div class="hero-circle"></div>
 
-    <div class="hero-red"></div>
+    <div class="hero-giant">K</div>
 
     <div class="hero-content">
 
-        <div class="eyebrow">
-            INDEPENDENT DIGITAL CREATIVE / AHMEDABAD
+        <div class="hero-kicker">
+
+            <i></i>
+
+            KAUSTUBH / CREATIVE DEVELOPER
+
         </div>
+
 
         <h1 class="hero-title">
 
             <span class="line">
-                <span class="word">KAU</span>
+                <span class="inner">MAKE</span>
             </span>
 
             <span class="line">
-                <span class="word">STUBH</span>
+                <span class="inner">THEM</span>
             </span>
 
             <span class="line">
-                <span class="word italic">makes.</span>
+                <span class="inner"><em>look.</em></span>
             </span>
 
         </h1>
 
     </div>
 
-    <div class="hero-meta">
+
+    <div class="hero-bottom">
 
         <span>AI VISION STUDIO®</span>
 
-        <span class="available">● OPEN FOR PROJECTS</span>
+        <span class="status">● ACCEPTING SELECT PROJECTS</span>
 
-        <span>SCROLL ↓</span>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     MANIFESTO
-===================================================== -->
-
-<section class="manifesto">
-
-    <div class="manifesto-inner">
-
-        <div class="section-tag">
-            01 / THE IDEA
-        </div>
-
-        <h2>
-            The internet is already
-            <i>full.</i>
-            <br>
-            So why make
-            <span style="color:#F3F0E8">another</span>
-            boring website?
-        </h2>
-
-        <div class="manifesto-note">
-
-            I design and build digital experiences
-            for brands, businesses and ideas that
-            deserve more than a template.
-
-            <br><br>
-
-            — KAUSTUBH
-
-        </div>
+        <span>SCROLL TO EXPLORE ↓</span>
 
     </div>
-
-</section>
-
-
-<!-- =====================================================
-     WORK INTRO
-===================================================== -->
-
-<section class="work-intro" id="work">
-
-    <div class="work-intro-top">
-
-        <h2>SELECTED</h2>
-
-        <p>
-            07 DIGITAL OBJECTS
-        </p>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     PROJECTS
-===================================================== -->
-
-<section class="projects">
-
-
-    <!-- 01 -->
-
-    <article class="project">
-
-        <div class="project-head">
-
-            <div class="project-index">
-                01
-            </div>
-
-            <h3 class="project-name">
-                EVENTBUDGET
-            </h3>
-
-            <div class="project-type">
-                PRODUCT<br>
-                PLANNING / EVENTS
-            </div>
-
-        </div>
-
-        <div class="project-screen">
-
-            <div class="browser">
-
-                <span class="browser-dot"></span>
-                <span class="browser-dot"></span>
-                <span class="browser-dot"></span>
-
-                <div class="browser-url">
-                    eventbudget-sooty.vercel.app
-                </div>
-
-            </div>
-
-            <iframe
-                src="https://eventbudget-sooty.vercel.app/"
-                loading="lazy">
-            </iframe>
-
-        </div>
-
-        <div class="project-bottom">
-
-            <span>
-                BUDGET × PLANNING × EXPERIENCE
-            </span>
-
-            <a
-                class="visit"
-                href="https://eventbudget-sooty.vercel.app/"
-                target="_blank">
-                OPEN PROJECT ↗
-            </a>
-
-        </div>
-
-    </article>
-
-
-    <!-- 02 -->
-
-    <article class="project">
-
-        <div class="project-head">
-
-            <div class="project-index">
-                02
-            </div>
-
-            <h3 class="project-name">
-                RADHE
-            </h3>
-
-            <div class="project-type">
-                SPORTS<br>
-                DIGITAL EXPERIENCE
-            </div>
-
-        </div>
-
-        <div class="project-screen">
-
-            <div class="browser">
-
-                <span class="browser-dot"></span>
-                <span class="browser-dot"></span>
-                <span class="browser-dot"></span>
-
-                <div class="browser-url">
-                    radhearena.vercel.app
-                </div>
-
-            </div>
-
-            <iframe
-                src="https://radhearena.vercel.app/"
-                loading="lazy">
-            </iframe>
-
-        </div>
-
-        <div class="project-bottom">
-
-            <span>
-                BOX CRICKET / AHMEDABAD
-            </span>
-
-            <a
-                class="visit"
-                href="https://radhearena.vercel.app/"
-                target="_blank">
-                OPEN PROJECT ↗
-            </a>
-
-        </div>
-
-    </article>
-
-
-    <!-- 03 -->
-
-    <article class="project">
-
-        <div class="project-head">
-
-            <div class="project-index">
-                03
-            </div>
-
-            <h3 class="project-name">
-                NOVA
-            </h3>
-
-            <div class="project-type">
-                DIGITAL<br>
-                EXPERIENCE
-            </div>
-
-        </div>
-
-        <div class="project-screen">
-
-            <div class="browser">
-
-                <span class="browser-dot"></span>
-                <span class="browser-dot"></span>
-                <span class="browser-dot"></span>
-
-                <div class="browser-url">
-                    nova-gilt-psi.vercel.app
-                </div>
-
-            </div>
-
-            <iframe
-                src="https://nova-gilt-psi.vercel.app/"
-                loading="lazy">
-            </iframe>
-
-        </div>
-
-        <div class="project-bottom">
-
-            <span>
-                INTERFACE / INTERACTION
-            </span>
-
-            <a
-                class="visit"
-                href="https://nova-gilt-psi.vercel.app/"
-                target="_blank">
-                OPEN PROJECT ↗
-            </a>
-
-        </div>
-
-    </article>
-
-
-    <!-- 04 -->
-
-    <article class="project">
-
-        <div class="project-head">
-
-            <div class="project-index">
-                04
-            </div>
-
-            <h3 class="project-name">
-                CASA MIRA
-            </h3>
-
-            <div class="project-type">
-                HOSPITALITY<br>
-                BRAND
-            </div>
-
-        </div>
-
-        <div class="project-screen">
-
-            <div class="browser">
-
-                <span class="browser-dot"></span>
-                <span class="browser-dot"></span>
-                <span class="browser-dot"></span>
-
-                <div class="browser-url">
-                    casa-mira-inky.vercel.app
-                </div>
-
-            </div>
-
-            <iframe
-                src="https://casa-mira-inky.vercel.app/"
-                loading="lazy">
-            </iframe>
-
-        </div>
-
-        <div class="project-bottom">
-
-            <span>
-                SPACE / IDENTITY / DIGITAL
-            </span>
-
-            <a
-                class="visit"
-                href="https://casa-mira-inky.vercel.app/"
-                target="_blank">
-                OPEN PROJECT ↗
-            </a>
-
-        </div>
-
-    </article>
-
-
-    <!-- 05 -->
-
-    <article class="project">
-
-        <div class="project-head">
-
-            <div class="project-index">
-                05
-            </div>
-
-            <h3 class="project-name">
-                NOIRÉ
-            </h3>
-
-            <div class="project-type">
-                FASHION<br>
-                EDITORIAL
-            </div>
-
-        </div>
-
-        <div class="project-screen">
-
-            <div class="browser">
-
-                <span class="browser-dot"></span>
-                <span class="browser-dot"></span>
-                <span class="browser-dot"></span>
-
-                <div class="browser-url">
-                    noire-five-blond.vercel.app
-                </div>
-
-            </div>
-
-            <iframe
-                src="https://noire-five-blond.vercel.app/"
-                loading="lazy">
-            </iframe>
-
-        </div>
-
-        <div class="project-bottom">
-
-            <span>
-                FASHION / EDITORIAL / CULTURE
-            </span>
-
-            <a
-                class="visit"
-                href="https://noire-five-blond.vercel.app/"
-                target="_blank">
-                OPEN PROJECT ↗
-            </a>
-
-        </div>
-
-    </article>
-
-
-    <!-- 06 -->
-
-    <article class="project">
-
-        <div class="project-head">
-
-            <div class="project-index">
-                06
-            </div>
-
-            <h3 class="project-name">
-                FORMA
-            </h3>
-
-            <div class="project-type">
-                ARCHITECTURE<br>
-                BRAND
-            </div>
-
-        </div>
-
-        <div class="project-screen">
-
-            <div class="browser">
-
-                <span class="browser-dot"></span>
-                <span class="browser-dot"></span>
-                <span class="browser-dot"></span>
-
-                <div class="browser-url">
-                    forma-ochre-nine.vercel.app
-                </div>
-
-            </div>
-
-            <iframe
-                src="https://forma-ochre-nine.vercel.app/"
-                loading="lazy">
-            </iframe>
-
-        </div>
-
-        <div class="project-bottom">
-
-            <span>
-                ARCHITECTURE / VISUAL SYSTEM
-            </span>
-
-            <a
-                class="visit"
-                href="https://forma-ochre-nine.vercel.app/"
-                target="_blank">
-                OPEN PROJECT ↗
-            </a>
-
-        </div>
-
-    </article>
-
-
-    <!-- 07 -->
-
-    <article class="project">
-
-        <div class="project-head">
-
-            <div class="project-index">
-                07
-            </div>
-
-            <h3 class="project-name">
-                SAVORO
-            </h3>
-
-            <div class="project-type">
-                RESTAURANT<br>
-                DIGITAL
-            </div>
-
-        </div>
-
-        <div class="project-screen">
-
-            <div class="browser">
-
-                <span class="browser-dot"></span>
-                <span class="browser-dot"></span>
-                <span class="browser-dot"></span>
-
-                <div class="browser-url">
-                    savoro-puce.vercel.app
-                </div>
-
-            </div>
-
-            <iframe
-                src="https://savoro-puce.vercel.app/#menu"
-                loading="lazy">
-            </iframe>
-
-        </div>
-
-        <div class="project-bottom">
-
-            <span>
-                MENU / BRAND / CONVERSION
-            </span>
-
-            <a
-                class="visit"
-                href="https://savoro-puce.vercel.app/#menu"
-                target="_blank">
-                OPEN PROJECT ↗
-            </a>
-
-        </div>
-
-    </article>
-
 
 </section>
 
@@ -1709,13 +1290,636 @@ body.cursor-ready .money-cursor{
 
 <section class="statement">
 
-    <div class="statement-word">
-        <span>NOT</span> NORMAL.
+    <div class="statement-number">01</div>
+
+    <div class="statement-content">
+
+        <div class="tiny">
+            WHY AI VISION
+        </div>
+
+        <h2>
+
+            YOUR BUSINESS
+            <br>
+
+            DESERVES TO
+            <br>
+
+            LOOK <em>EXPENSIVE.</em>
+
+        </h2>
+
+
+        <div class="statement-copy">
+
+            AI Vision Studio creates websites and digital
+            experiences designed around one simple idea:
+
+            <br><br>
+
+            <strong>
+                If people remember the website,
+                they remember the business.
+            </strong>
+
+        </div>
+
     </div>
 
-    <div class="statement-small">
-        THAT'S THE POINT / KAUSTUBH
+</section>
+
+
+<!-- =====================================================
+     STUDIO
+===================================================== -->
+
+<section class="studio" id="studio">
+
+    <div class="studio-top">
+
+        <h2 class="studio-title">
+            AI<br>
+            VISION.
+        </h2>
+
+        <div class="studio-side">
+
+            <strong>AI VISION STUDIO®</strong>
+
+            <br><br>
+
+            An independent digital studio
+            by <strong>Kaustubh</strong> —
+            building websites, identities and
+            interactive experiences for ambitious
+            businesses.
+
+        </div>
+
     </div>
+
+
+    <div class="services">
+
+        <div class="service">
+
+            <span class="service-number">01</span>
+
+            <span class="service-name">
+                Websites
+            </span>
+
+            <span class="service-desc">
+                CUSTOM DIGITAL EXPERIENCES<br>
+                BUILT AROUND THE BUSINESS.
+            </span>
+
+            <span class="service-arrow">↗</span>
+
+        </div>
+
+
+        <div class="service">
+
+            <span class="service-number">02</span>
+
+            <span class="service-name">
+                Brand Presence
+            </span>
+
+            <span class="service-desc">
+                TURNING A BUSINESS INTO<br>
+                SOMETHING PEOPLE REMEMBER.
+            </span>
+
+            <span class="service-arrow">↗</span>
+
+        </div>
+
+
+        <div class="service">
+
+            <span class="service-number">03</span>
+
+            <span class="service-name">
+                Digital Systems
+            </span>
+
+            <span class="service-desc">
+                MENUS / BOOKINGS / LEADS /<br>
+                SMART BUSINESS EXPERIENCES.
+            </span>
+
+            <span class="service-arrow">↗</span>
+
+        </div>
+
+
+        <div class="service">
+
+            <span class="service-number">04</span>
+
+            <span class="service-name">
+                Motion & Interaction
+            </span>
+
+            <span class="service-desc">
+                BECAUSE STATIC IS EASY.<br>
+                MEMORABLE IS HARD.
+            </span>
+
+            <span class="service-arrow">↗</span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     WORK HEADER
+===================================================== -->
+
+<section class="work-header" id="work">
+
+    <div class="work-header-top">
+
+        <h2>SELECTED<br>WORK.</h2>
+
+        <p>
+            07 PROJECTS /<br>
+            BUILT BY AI VISION
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PROJECT 01
+===================================================== -->
+
+<section class="project">
+
+    <div class="project-number-bg">01</div>
+
+    <div class="project-top">
+
+        <span class="project-no">01</span>
+
+        <h3 class="project-name">
+            EVENTBUDGET
+        </h3>
+
+        <div class="project-category">
+            PRODUCT<br>
+            EVENTS / PLANNING
+        </div>
+
+    </div>
+
+
+    <div class="project-window">
+
+        <div class="browser">
+
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+
+            <div class="url">
+                eventbudget-sooty.vercel.app
+            </div>
+
+        </div>
+
+        <iframe
+            src="https://eventbudget-sooty.vercel.app/"
+            loading="lazy">
+        </iframe>
+
+    </div>
+
+
+    <div class="project-bottom">
+
+        <span>
+            DIGITAL PRODUCT / 2026
+        </span>
+
+        <a
+            class="open"
+            href="https://eventbudget-sooty.vercel.app/"
+            target="_blank">
+            VIEW PROJECT ↗
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PROJECT 02
+===================================================== -->
+
+<section class="project">
+
+    <div class="project-number-bg">02</div>
+
+    <div class="project-top">
+
+        <span class="project-no">02</span>
+
+        <h3 class="project-name">
+            RADHE
+        </h3>
+
+        <div class="project-category">
+            SPORTS<br>
+            EXPERIENCE
+        </div>
+
+    </div>
+
+
+    <div class="project-window">
+
+        <div class="browser">
+
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+
+            <div class="url">
+                radhearena.vercel.app
+            </div>
+
+        </div>
+
+        <iframe
+            src="https://radhearena.vercel.app/"
+            loading="lazy">
+        </iframe>
+
+    </div>
+
+
+    <div class="project-bottom">
+
+        <span>
+            BOX CRICKET / AHMEDABAD
+        </span>
+
+        <a
+            class="open"
+            href="https://radhearena.vercel.app/"
+            target="_blank">
+            VIEW PROJECT ↗
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PROJECT 03
+===================================================== -->
+
+<section class="project">
+
+    <div class="project-number-bg">03</div>
+
+    <div class="project-top">
+
+        <span class="project-no">03</span>
+
+        <h3 class="project-name">
+            NOVA
+        </h3>
+
+        <div class="project-category">
+            DIGITAL<br>
+            EXPERIENCE
+        </div>
+
+    </div>
+
+
+    <div class="project-window">
+
+        <div class="browser">
+
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+
+            <div class="url">
+                nova-gilt-psi.vercel.app
+            </div>
+
+        </div>
+
+        <iframe
+            src="https://nova-gilt-psi.vercel.app/"
+            loading="lazy">
+        </iframe>
+
+    </div>
+
+
+    <div class="project-bottom">
+
+        <span>
+            INTERACTION / DIGITAL
+        </span>
+
+        <a
+            class="open"
+            href="https://nova-gilt-psi.vercel.app/"
+            target="_blank">
+            VIEW PROJECT ↗
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PROJECT 04
+===================================================== -->
+
+<section class="project">
+
+    <div class="project-number-bg">04</div>
+
+    <div class="project-top">
+
+        <span class="project-no">04</span>
+
+        <h3 class="project-name">
+            CASA MIRA
+        </h3>
+
+        <div class="project-category">
+            HOSPITALITY<br>
+            BRAND EXPERIENCE
+        </div>
+
+    </div>
+
+
+    <div class="project-window">
+
+        <div class="browser">
+
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+
+            <div class="url">
+                casa-mira-inky.vercel.app
+            </div>
+
+        </div>
+
+        <iframe
+            src="https://casa-mira-inky.vercel.app/"
+            loading="lazy">
+        </iframe>
+
+    </div>
+
+
+    <div class="project-bottom">
+
+        <span>
+            HOSPITALITY / VISUAL IDENTITY
+        </span>
+
+        <a
+            class="open"
+            href="https://casa-mira-inky.vercel.app/"
+            target="_blank">
+            VIEW PROJECT ↗
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PROJECT 05
+===================================================== -->
+
+<section class="project">
+
+    <div class="project-number-bg">05</div>
+
+    <div class="project-top">
+
+        <span class="project-no">05</span>
+
+        <h3 class="project-name">
+            NOIRÉ
+        </h3>
+
+        <div class="project-category">
+            FASHION<br>
+            EDITORIAL
+        </div>
+
+    </div>
+
+
+    <div class="project-window">
+
+        <div class="browser">
+
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+
+            <div class="url">
+                noire-five-blond.vercel.app
+            </div>
+
+        </div>
+
+        <iframe
+            src="https://noire-five-blond.vercel.app/"
+            loading="lazy">
+        </iframe>
+
+    </div>
+
+
+    <div class="project-bottom">
+
+        <span>
+            FASHION / EDITORIAL / CULTURE
+        </span>
+
+        <a
+            class="open"
+            href="https://noire-five-blond.vercel.app/"
+            target="_blank">
+            VIEW PROJECT ↗
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PROJECT 06
+===================================================== -->
+
+<section class="project">
+
+    <div class="project-number-bg">06</div>
+
+    <div class="project-top">
+
+        <span class="project-no">06</span>
+
+        <h3 class="project-name">
+            FORMA
+        </h3>
+
+        <div class="project-category">
+            ARCHITECTURE<br>
+            VISUAL SYSTEM
+        </div>
+
+    </div>
+
+
+    <div class="project-window">
+
+        <div class="browser">
+
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+
+            <div class="url">
+                forma-ochre-nine.vercel.app
+            </div>
+
+        </div>
+
+        <iframe
+            src="https://forma-ochre-nine.vercel.app/"
+            loading="lazy">
+        </iframe>
+
+    </div>
+
+
+    <div class="project-bottom">
+
+        <span>
+            ARCHITECTURE / DIGITAL
+        </span>
+
+        <a
+            class="open"
+            href="https://forma-ochre-nine.vercel.app/"
+            target="_blank">
+            VIEW PROJECT ↗
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PROJECT 07
+===================================================== -->
+
+<section class="project">
+
+    <div class="project-number-bg">07</div>
+
+    <div class="project-top">
+
+        <span class="project-no">07</span>
+
+        <h3 class="project-name">
+            SAVORO
+        </h3>
+
+        <div class="project-category">
+            RESTAURANT<br>
+            DIGITAL EXPERIENCE
+        </div>
+
+    </div>
+
+
+    <div class="project-window">
+
+        <div class="browser">
+
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+
+            <div class="url">
+                savoro-puce.vercel.app
+            </div>
+
+        </div>
+
+        <iframe
+            src="https://savoro-puce.vercel.app/#menu"
+            loading="lazy">
+        </iframe>
+
+    </div>
+
+
+    <div class="project-bottom">
+
+        <span>
+            MENU / BRAND / CONVERSION
+        </span>
+
+        <a
+            class="open"
+            href="https://savoro-puce.vercel.app/#menu"
+            target="_blank">
+            VIEW PROJECT ↗
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     BIG STATEMENT
+===================================================== -->
+
+<section class="big-line">
+
+    <h2>
+        DON'T LOOK<br>
+        <span>ORDINARY.</span>
+    </h2>
+
+    <small>
+        THAT'S THE WHOLE POINT / AI VISION STUDIO®
+    </small>
 
 </section>
 
@@ -1724,12 +1928,12 @@ body.cursor-ready .money-cursor{
      ABOUT
 ===================================================== -->
 
-<section class="about" id="about">
+<section class="about">
 
     <div class="about-grid">
 
-        <div class="section-tag">
-            03 / ABOUT
+        <div class="tiny">
+            03 / THE PERSON
         </div>
 
         <div>
@@ -1740,39 +1944,54 @@ body.cursor-ready .money-cursor{
 
                 <br><br>
 
-                Designer.
-                Developer.
-                Problem solver.
-
-                <br><br>
-
-                I turn ideas into
-                <i>digital experiences</i>
-                people actually remember.
+                I build the kind of digital
+                presence that makes a business
+                <em>feel bigger</em> than it is.
 
             </div>
 
 
-            <div class="about-info">
+            <div class="about-bottom">
 
-                <div>
-                    BASE<br>
-                    AHMEDABAD, INDIA
+                <div class="about-box">
+
+                    <strong>ROLE</strong>
+
+                    Creative Developer<br>
+                    Designer / Builder
+
                 </div>
 
-                <div>
-                    STUDIO<br>
-                    AI VISION STUDIO
+
+                <div class="about-box">
+
+                    <strong>STUDIO</strong>
+
+                    AI Vision Studio®<br>
+                    Ahmedabad, India
+
                 </div>
 
-                <div>
-                    FOCUS<br>
-                    WEB / BRAND / MOTION
+
+                <div class="about-box">
+
+                    <strong>BUILD</strong>
+
+                    Websites<br>
+                    Digital Systems<br>
+                    Brand Experiences
+
                 </div>
 
-                <div>
-                    STATUS<br>
-                    BUILDING
+
+                <div class="about-box">
+
+                    <strong>APPROACH</strong>
+
+                    Strategy first.<br>
+                    Design second.<br>
+                    Code all the way.
+
                 </div>
 
             </div>
@@ -1790,35 +2009,42 @@ body.cursor-ready .money-cursor{
 
 <section class="contact" id="contact">
 
-    <div class="contact-top">
+    <div class="contact-head">
 
         <span>
-            04 / CONTACT
+            04 / START SOMETHING
         </span>
 
         <span>
-            LET'S MAKE SOMETHING
+            AI VISION STUDIO®
         </span>
 
     </div>
 
 
-    <div class="contact-main">
+    <div class="contact-grid">
 
-        <div class="contact-title">
+        <h2 class="contact-title">
 
-            HAVE<br>
-            AN <em>IDEA?</em>
+            LET'S MAKE<br>
 
-        </div>
+            IT <em>HARD</em><br>
+
+            TO IGNORE.
+
+        </h2>
 
 
-        <div class="contact-details">
+        <div class="contact-card">
 
-            <div class="small">
-                AVAILABLE FOR SELECTED<br>
-                WEB & DIGITAL PROJECTS.
+            <div class="contact-card-label">
+
+                HAVE A BUSINESS?<br>
+                HAVE AN IDEA?<br>
+                LET'S TALK.
+
             </div>
+
 
             <a
                 class="contact-link"
@@ -1826,12 +2052,14 @@ body.cursor-ready .money-cursor{
                 +91 99250 54448 ↗
             </a>
 
+
             <a
                 class="contact-link"
                 href="https://instagram.com/aivisionstudioahmedabad_"
                 target="_blank">
                 @aivisionstudioahmedabad_ ↗
             </a>
+
 
             <a
                 class="contact-link"
@@ -1866,17 +2094,16 @@ body.cursor-ready .money-cursor{
 <script>
 
 /* =========================================================
-   CURSOR
+   MONEY CURSOR
 ========================================================= */
 
-const cursor =
-document.querySelector(".money-cursor");
+const cursor=document.querySelector(".money-cursor");
 
-let mouseX = window.innerWidth / 2;
-let mouseY = window.innerHeight / 2;
+let mouseX=window.innerWidth/2;
+let mouseY=window.innerHeight/2;
 
-let currentX = mouseX;
-let currentY = mouseY;
+let cursorX=mouseX;
+let cursorY=mouseY;
 
 window.addEventListener("mousemove",e=>{
 
@@ -1887,34 +2114,35 @@ window.addEventListener("mousemove",e=>{
 
 });
 
-function animateCursor(){
+function cursorLoop(){
 
-    currentX += (mouseX-currentX)*.16;
-    currentY += (mouseY-currentY)*.16;
+    cursorX+=(mouseX-cursorX)*.17;
+    cursorY+=(mouseY-cursorY)*.17;
 
-    cursor.style.left=currentX+"px";
-    cursor.style.top=currentY+"px";
+    cursor.style.left=cursorX+"px";
+    cursor.style.top=cursorY+"px";
 
-    requestAnimationFrame(animateCursor);
+    requestAnimationFrame(cursorLoop);
+
 }
 
-animateCursor();
+cursorLoop();
 
 
 /* =========================================================
-   CURSOR HOVER
+   CURSOR INTERACTION
 ========================================================= */
 
 document
-.querySelectorAll("a,.project-screen,.project-name")
+.querySelectorAll("a,.service,.project-window")
 .forEach(el=>{
 
     el.addEventListener("mouseenter",()=>{
-        cursor.classList.add("active");
+        cursor.classList.add("hover");
     });
 
     el.addEventListener("mouseleave",()=>{
-        cursor.classList.remove("active");
+        cursor.classList.remove("hover");
     });
 
 });
@@ -1924,11 +2152,9 @@ document
    PROJECT REVEAL
 ========================================================= */
 
-const projects =
-document.querySelectorAll(".project");
+const projects=document.querySelectorAll(".project");
 
-const projectObserver =
-new IntersectionObserver(
+const observer=new IntersectionObserver(
 
     entries=>{
 
@@ -1936,11 +2162,9 @@ new IntersectionObserver(
 
             if(entry.isIntersecting){
 
-                entry.target.classList.add("visible");
+                entry.target.classList.add("show");
 
-                projectObserver.unobserve(
-                    entry.target
-                );
+                observer.unobserve(entry.target);
 
             }
 
@@ -1949,97 +2173,82 @@ new IntersectionObserver(
     },
 
     {
-        threshold:.16
+        threshold:.12
     }
 
 );
 
 projects.forEach(project=>{
-    projectObserver.observe(project);
+    observer.observe(project);
 });
 
 
 /* =========================================================
-   PROJECT SCREEN PARALLAX
+   HERO MOUSE MOVEMENT
 ========================================================= */
 
-window.addEventListener(
-    "scroll",
-    ()=>{
+const hero=document.querySelector(".hero");
+const heroCircle=document.querySelector(".hero-circle");
+const heroGiant=document.querySelector(".hero-giant");
 
-        if(window.innerWidth<=800)
-            return;
+hero.addEventListener("mousemove",e=>{
 
-        projects.forEach(project=>{
+    if(window.innerWidth<=800)return;
 
-            const screen =
-                project.querySelector(".project-screen");
+    const x=e.clientX/window.innerWidth-.5;
+    const y=e.clientY/window.innerHeight-.5;
 
-            const rect =
-                project.getBoundingClientRect();
-
-            const center =
-                window.innerHeight/2;
-
-            const projectCenter =
-                rect.top+rect.height/2;
-
-            const distance =
-                projectCenter-center;
-
-            const move =
-                Math.max(
-                    -18,
-                    Math.min(
-                        18,
-                        distance*.018
-                    )
-                );
-
-            screen.style.transform =
-                `translateY(${move}px)`;
-
-        });
-
-    },
-    {passive:true}
-);
-
-
-/* =========================================================
-   HERO RED PARALLAX
-========================================================= */
-
-const red =
-document.querySelector(".hero-red");
-
-const number =
-document.querySelector(".hero-number");
-
-document
-.querySelector(".hero")
-.addEventListener("mousemove",e=>{
-
-    if(window.innerWidth<=800)
-        return;
-
-    const x =
-        e.clientX/window.innerWidth-.5;
-
-    const y =
-        e.clientY/window.innerHeight-.5;
-
-    red.style.transform =
+    heroCircle.style.transform=
         `translate(${x*35}px,${y*35}px)`;
 
-    number.style.transform =
-        `translate(${x*-15}px,${y*-10}px)`;
+    heroGiant.style.transform=
+        `translate(${x*-18}px,${y*-10}px)`;
 
 });
 
 
 /* =========================================================
-   CONTACT MAGNET
+   PROJECT WINDOW SCROLL MOTION
+========================================================= */
+
+window.addEventListener("scroll",()=>{
+
+    if(window.innerWidth<=800)return;
+
+    projects.forEach(project=>{
+
+        const windowEl=
+            project.querySelector(".project-window");
+
+        const rect=
+            project.getBoundingClientRect();
+
+        const distance=
+            rect.top-window.innerHeight/2;
+
+        const move=
+            Math.max(
+                -20,
+                Math.min(
+                    20,
+                    distance*.018
+                )
+            );
+
+        if(project.classList.contains("show")){
+
+            windowEl.style.transform=
+                `translateY(${move}px)`;
+
+        }
+
+    });
+
+},{passive:true});
+
+
+/* =========================================================
+   MAGNETIC CONTACT
 ========================================================= */
 
 document
@@ -2048,23 +2257,21 @@ document
 
     link.addEventListener("mousemove",e=>{
 
-        if(window.innerWidth<=800)
-            return;
+        if(window.innerWidth<=800)return;
 
-        const rect =
-            link.getBoundingClientRect();
+        const rect=link.getBoundingClientRect();
 
-        const x =
+        const x=
             e.clientX-
             rect.left-
             rect.width/2;
 
-        const y =
+        const y=
             e.clientY-
             rect.top-
             rect.height/2;
 
-        link.style.transform =
+        link.style.transform=
             `translate(${x*.08}px,${y*.08}px)`;
 
     });
@@ -2079,12 +2286,28 @@ document
 
 
 /* =========================================================
-   MOBILE CLEANUP
+   SERVICE HOVER
 ========================================================= */
 
-if(
-    window.matchMedia("(pointer:coarse)").matches
-){
+document
+.querySelectorAll(".service")
+.forEach(service=>{
+
+    service.addEventListener("mouseenter",()=>{
+
+        service.querySelector(".service-arrow")
+        .textContent="↗";
+
+    });
+
+});
+
+
+/* =========================================================
+   TOUCH DEVICE
+========================================================= */
+
+if(window.matchMedia("(pointer:coarse)").matches){
 
     document.body.style.cursor="auto";
 
