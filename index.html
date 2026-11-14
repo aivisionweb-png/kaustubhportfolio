@@ -3,18 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>AI VISION — Digital Studio</title>
-<meta name="description" content="AI Vision Studio — Digital experiences by Kaustubh.">
+<title>KAUSTUBH × AI VISION</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
 
 <style>
-/* =========================================================
-   AI VISION — DIGITAL DOSSIER
-========================================================= */
+:root{
+  --black:#07090c;
+  --ink:#101318;
+  --paper:#f2f0ea;
+  --white:#faf9f5;
+  --grey:#747a82;
+  --line:rgba(255,255,255,.13);
+  --blue:#8ea9ff;
+}
 
 *{
   margin:0;
@@ -27,9 +31,9 @@ html{
 }
 
 body{
-  background:#0b1017;
-  color:#f4efe5;
-  font-family:Manrope,sans-serif;
+  background:var(--black);
+  color:var(--white);
+  font-family:Inter,sans-serif;
   overflow-x:hidden;
   cursor:none;
 }
@@ -40,256 +44,217 @@ a{
 }
 
 ::selection{
-  background:#d9bd83;
-  color:#0b1017;
+  background:var(--white);
+  color:var(--black);
 }
 
-:root{
-  --black:#0b1017;
-  --navy:#111b28;
-  --navy2:#182536;
-  --ivory:#f4efe5;
-  --gold:#d9bd83;
-  --gold2:#f0d9a8;
-  --grey:#7f8791;
-  --line:rgba(244,239,229,.14);
-}
-
-
-/* =========================================================
-   GLOBAL NOISE
-========================================================= */
+/* ================================
+   NOISE
+================================ */
 
 .noise{
   position:fixed;
   inset:0;
   pointer-events:none;
-  z-index:9998;
-  opacity:.035;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  z-index:9999;
+  opacity:.045;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='x'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23x)'/%3E%3C/svg%3E");
 }
 
+/* ================================
+   LOADER
+================================ */
 
-/* =========================================================
-   CUSTOM CURSOR
-========================================================= */
+.loader{
+  position:fixed;
+  inset:0;
+  z-index:10000;
+  background:#08090b;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:opacity 1s cubic-bezier(.16,1,.3,1);
+}
+
+.loader.hide{
+  opacity:0;
+  pointer-events:none;
+}
+
+.loader-inner{
+  width:min(760px,88vw);
+}
+
+.loader-meta{
+  display:flex;
+  justify-content:space-between;
+  color:#62676d;
+  font:9px "DM Mono",monospace;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-bottom:25px;
+}
+
+.loader-brand{
+  overflow:hidden;
+  line-height:.8;
+}
+
+.loader-brand div{
+  font-size:clamp(55px,11vw,145px);
+  font-weight:800;
+  letter-spacing:-.09em;
+  transform:translateY(110%);
+  animation:loaderText 1.2s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+.loader-brand div:nth-child(2){
+  animation-delay:.1s;
+}
+
+.loader-brand span{
+  color:#666d76;
+  font-weight:400;
+}
+
+.loader-sub{
+  margin-top:30px;
+  display:flex;
+  justify-content:space-between;
+  color:#696f77;
+  font:8px "DM Mono",monospace;
+  text-transform:uppercase;
+}
+
+.loader-bar{
+  margin-top:16px;
+  width:100%;
+  height:1px;
+  background:#292d32;
+  overflow:hidden;
+}
+
+.loader-fill{
+  width:0;
+  height:100%;
+  background:#fff;
+  animation:loading 1.9s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+@keyframes loaderText{
+  to{transform:translateY(0)}
+}
+
+@keyframes loading{
+  to{width:100%}
+}
+
+/* ================================
+   CURSOR
+================================ */
 
 .cursor{
   position:fixed;
-  width:72px;
-  height:72px;
-  left:0;
-  top:0;
-  z-index:10000;
+  width:62px;
+  height:62px;
+  z-index:9998;
   pointer-events:none;
   transform:translate(-50%,-50%);
   opacity:0;
   transition:
     width .45s cubic-bezier(.16,1,.3,1),
     height .45s cubic-bezier(.16,1,.3,1),
-    opacity .25s;
+    opacity .2s;
 }
 
-.cursor.show{
+.cursor.on{
   opacity:1;
 }
 
 .cursor-ring{
   position:absolute;
   inset:0;
-  border:1px solid rgba(217,189,131,.8);
+  border:1px solid rgba(255,255,255,.7);
   border-radius:50%;
 }
 
-.cursor-ring:after{
-  content:"";
+.cursor-dot{
   position:absolute;
   width:5px;
   height:5px;
   border-radius:50%;
-  background:var(--gold);
-  left:50%;
-  top:-3px;
-}
-
-.cursor-inner{
-  position:absolute;
-  inset:12px;
-  border:1px dashed rgba(244,239,229,.5);
-  border-radius:50%;
-  animation:spin 7s linear infinite;
-}
-
-.cursor-cross-x,
-.cursor-cross-y{
-  position:absolute;
-  background:rgba(217,189,131,.5);
-}
-
-.cursor-cross-x{
-  width:100%;
-  height:1px;
+  background:#fff;
   top:50%;
-}
-
-.cursor-cross-y{
-  width:1px;
-  height:100%;
   left:50%;
-}
-
-.cursor-core{
-  position:absolute;
-  width:12px;
-  height:12px;
-  background:var(--gold);
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%) rotate(45deg);
-  transition:.4s cubic-bezier(.16,1,.3,1);
-}
-
-.cursor-text{
-  position:absolute;
-  left:50%;
-  top:50%;
   transform:translate(-50%,-50%);
-  font:500 7px "DM Mono",monospace;
-  letter-spacing:.08em;
+}
+
+.cursor-label{
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  font:7px "DM Mono",monospace;
+  letter-spacing:.05em;
   opacity:0;
-  white-space:nowrap;
   transition:.3s;
 }
 
-.cursor.active{
-  width:108px;
-  height:108px;
+.cursor.hover{
+  width:94px;
+  height:94px;
 }
 
-.cursor.active .cursor-core{
-  width:40px;
-  height:40px;
-  background:var(--navy2);
-  transform:translate(-50%,-50%) rotate(0);
-}
-
-.cursor.active .cursor-text{
+.cursor.hover .cursor-label{
   opacity:1;
 }
 
-.cursor.click{
-  width:48px;
-  height:48px;
-}
-
-@keyframes spin{
-  to{transform:rotate(360deg)}
-}
-
-
-/* =========================================================
-   INTRO LOADER
-========================================================= */
-
-.loader{
-  position:fixed;
-  inset:0;
-  z-index:9999;
-  background:var(--black);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition:
-    opacity 1s cubic-bezier(.16,1,.3,1),
-    visibility 1s;
-}
-
-.loader.done{
+.cursor.hover .cursor-dot{
   opacity:0;
-  visibility:hidden;
-  pointer-events:none;
 }
 
-.loader-content{
-  width:min(500px,85vw);
+.cursor.click{
+  width:38px;
+  height:38px;
 }
 
-.loader-top{
-  display:flex;
-  justify-content:space-between;
-  font:500 9px "DM Mono",monospace;
-  color:#727984;
-  margin-bottom:20px;
-  text-transform:uppercase;
-}
-
-.loader-name{
-  font-size:clamp(40px,7vw,80px);
-  line-height:.8;
-  font-weight:800;
-  letter-spacing:-.08em;
-}
-
-.loader-name span{
-  color:var(--gold);
-}
-
-.loader-line{
-  height:1px;
-  background:#303741;
-  margin-top:30px;
-  overflow:hidden;
-}
-
-.loader-progress{
-  width:0;
-  height:100%;
-  background:var(--gold);
-  animation:load 1.6s cubic-bezier(.16,1,.3,1) forwards;
-}
-
-@keyframes load{
-  to{width:100%}
-}
-
-
-/* =========================================================
+/* ================================
    NAV
-========================================================= */
+================================ */
 
 .nav{
   position:fixed;
   top:0;
   left:0;
   width:100%;
+  padding:25px 30px;
   z-index:900;
-  padding:24px 30px;
   display:flex;
   justify-content:space-between;
   align-items:center;
   mix-blend-mode:difference;
-  color:white;
+  color:#fff;
 }
 
 .logo{
-  font-size:13px;
+  font-size:12px;
   font-weight:800;
-  letter-spacing:-.02em;
+  letter-spacing:-.04em;
 }
 
 .logo span{
-  color:var(--gold);
+  font-weight:400;
 }
 
 .nav-links{
   display:flex;
-  gap:28px;
-  font:500 9px "DM Mono",monospace;
+  gap:26px;
+  font:8px "DM Mono",monospace;
   text-transform:uppercase;
 }
 
 .nav-links a{
-  opacity:.75;
+  opacity:.7;
   transition:.3s;
 }
 
@@ -297,736 +262,540 @@ a{
   opacity:1;
 }
 
-
-/* =========================================================
-   HERO — CINEMATIC
-========================================================= */
+/* ================================
+   HERO
+================================ */
 
 .hero{
   min-height:100svh;
   position:relative;
-  overflow:hidden;
   display:flex;
   align-items:center;
-  justify-content:center;
-  background:
-    radial-gradient(
-      circle at 70% 35%,
-      rgba(217,189,131,.13),
-      transparent 30%
-    ),
-    var(--black);
+  overflow:hidden;
+  background:#080a0d;
 }
 
 .hero-grid{
   position:absolute;
   inset:0;
-  background-image:
-    linear-gradient(rgba(244,239,229,.035) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(244,239,229,.035) 1px,transparent 1px);
-  background-size:80px 80px;
-  mask-image:linear-gradient(
-    to bottom,
-    black,
-    transparent 90%
-  );
+  background:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:90px 90px;
+  mask-image:linear-gradient(to bottom,#000,transparent);
 }
 
-.hero-light{
+.hero-orb{
   position:absolute;
-  width:45vw;
-  height:45vw;
+  width:48vw;
+  height:48vw;
   border-radius:50%;
-  background:radial-gradient(
-    circle,
-    rgba(217,189,131,.16),
-    transparent 68%
-  );
-  filter:blur(25px);
   right:-10vw;
-  top:10vh;
-  transition:transform 1.4s cubic-bezier(.16,1,.3,1);
+  top:18%;
+  background:
+    radial-gradient(
+      circle at 35% 35%,
+      rgba(142,169,255,.2),
+      transparent 60%
+    );
+  filter:blur(35px);
+  transition:transform 1s cubic-bezier(.16,1,.3,1);
 }
 
-.hero-coordinate{
-  position:absolute;
-  left:30px;
-  top:130px;
-  font:500 9px/1.9 "DM Mono",monospace;
-  color:#717984;
-  text-transform:uppercase;
-}
-
-.hero-coordinate strong{
-  color:var(--gold);
-  font-weight:500;
-}
-
-.hero-side{
-  position:absolute;
-  right:30px;
-  bottom:35px;
-  font:500 9px/1.7 "DM Mono",monospace;
-  color:#717984;
-  text-align:right;
-  text-transform:uppercase;
-}
-
-.hero-main{
+.hero-content{
   width:100%;
-  padding:0 30px;
+  padding:100px 30px 40px;
   position:relative;
-  z-index:3;
+  z-index:2;
 }
 
-.hero-small{
-  font:500 10px "DM Mono",monospace;
-  color:var(--gold);
+.eyebrow{
+  font:9px "DM Mono",monospace;
+  color:#747b84;
   text-transform:uppercase;
-  margin-bottom:35px;
-  opacity:0;
-  animation:fadeUp 1s 1.55s forwards;
+  margin-bottom:55px;
+}
+
+.eyebrow b{
+  color:#fff;
+  font-weight:400;
 }
 
 .hero-title{
-  font-size:clamp(85px,17vw,265px);
-  font-weight:800;
-  line-height:.69;
-  letter-spacing:-.105em;
+  font-size:clamp(85px,17vw,270px);
+  line-height:.72;
+  letter-spacing:-.11em;
+  font-weight:900;
   text-transform:uppercase;
 }
 
-.hero-title .line{
-  display:block;
+.hero-line{
   overflow:hidden;
 }
 
-.hero-title .word{
+.hero-word{
   display:inline-block;
   transform:translateY(110%);
-  animation:titleIn 1.25s cubic-bezier(.16,1,.3,1) forwards;
+  animation:heroIn 1.3s cubic-bezier(.16,1,.3,1) forwards;
 }
 
-.hero-title .line:nth-child(2) .word{
-  animation-delay:.13s;
+.hero-line:nth-child(2) .hero-word{
+  animation-delay:.12s;
 }
 
-.hero-title .line:nth-child(3) .word{
-  animation-delay:.26s;
+.hero-line:nth-child(3) .hero-word{
+  animation-delay:.24s;
 }
 
 .hero-title em{
   font-family:"Playfair Display",serif;
   font-weight:500;
-  color:var(--gold);
-  letter-spacing:-.06em;
+  letter-spacing:-.08em;
+  text-transform:none;
 }
 
-.hero-bottom{
-  margin-top:45px;
+.hero-footer{
+  margin-top:70px;
   display:flex;
   justify-content:space-between;
-  align-items:center;
-  font:500 9px "DM Mono",monospace;
-  color:#747b84;
+  color:#676e77;
+  font:8px "DM Mono",monospace;
   text-transform:uppercase;
-  opacity:0;
-  animation:fadeUp 1s 1.7s forwards;
 }
 
-.scroll-mark{
-  display:flex;
-  gap:12px;
-  align-items:center;
-}
-
-.scroll-line{
-  width:70px;
-  height:1px;
-  background:#6b727b;
-}
-
-@keyframes titleIn{
+@keyframes heroIn{
   to{transform:translateY(0)}
 }
 
-@keyframes fadeUp{
-  to{
-    opacity:1;
-  }
-}
-
-
-/* =========================================================
+/* ================================
    MANIFESTO
-========================================================= */
+================================ */
 
 .manifesto{
+  background:var(--paper);
+  color:#090b0e;
+  padding:180px 30px;
   min-height:100svh;
-  padding:160px 30px;
-  background:var(--ivory);
-  color:var(--black);
   display:grid;
-  grid-template-columns:1fr 3fr;
-  gap:40px;
-  align-items:start;
+  grid-template-columns:1fr 4fr;
+  gap:30px;
 }
 
-.label{
-  font:500 9px "DM Mono",monospace;
-  color:#77786f;
+.mini{
+  font:9px "DM Mono",monospace;
   text-transform:uppercase;
+  color:#777a79;
 }
 
-.manifesto-copy{
-  max-width:1200px;
-  font-size:clamp(45px,7vw,112px);
-  line-height:.88;
-  letter-spacing:-.07em;
+.statement{
+  font-size:clamp(48px,7.2vw,115px);
+  line-height:.87;
+  letter-spacing:-.075em;
+  max-width:1300px;
 }
 
-.manifesto-copy .muted{
-  color:#aaa79f;
+.statement .dim{
+  color:#aaa9a4;
 }
 
-.serif{
+.statement em{
   font-family:"Playfair Display",serif;
-  font-style:italic;
   font-weight:500;
 }
 
+/* ================================
+   WORK
+================================ */
 
-/* =========================================================
-   SCROLL WORD REVEAL
-========================================================= */
-
-.split-word{
-  display:inline-block;
-  overflow:hidden;
-  vertical-align:bottom;
+.work{
+  background:#0c1015;
+  padding:120px 0 0;
 }
 
-.split-word span{
-  display:inline-block;
-  transform:translateY(110%);
-  transition:
-    transform 1s cubic-bezier(.16,1,.3,1);
-}
-
-.split-word.visible span{
-  transform:translateY(0);
-}
-
-
-/* =========================================================
-   WORK INTRO
-========================================================= */
-
-.work-intro{
-  background:var(--navy);
-  padding:150px 30px 100px;
-  color:var(--ivory);
-}
-
-.work-top{
+.work-head{
+  padding:0 30px 90px;
   display:flex;
   justify-content:space-between;
-  align-items:flex-start;
-  font:500 9px "DM Mono",monospace;
-  color:#737b85;
+  color:#686f78;
+  font:8px "DM Mono",monospace;
   text-transform:uppercase;
 }
 
-.work-top strong{
-  color:var(--gold);
-  font-weight:500;
+.work-head b{
+  color:#fff;
+  font-weight:400;
 }
 
-.work-big{
-  margin-top:100px;
-  font-size:clamp(90px,18vw,280px);
-  line-height:.66;
-  letter-spacing:-.11em;
-  font-weight:800;
-}
-
-.work-big span{
-  color:var(--gold);
-}
-
-
-/* =========================================================
-   PROJECT WORLDS
-========================================================= */
-
-.projects{
-  background:var(--navy);
-  color:var(--ivory);
-}
+/* PROJECT */
 
 .project{
-  min-height:115svh;
   position:relative;
-  overflow:hidden;
-  padding:100px 30px;
+  min-height:110svh;
   border-top:1px solid var(--line);
+  overflow:hidden;
   display:flex;
   align-items:center;
+  padding:100px 30px;
 }
 
-.project-bg{
+.project-number{
   position:absolute;
-  width:70vw;
-  height:70vw;
-  max-width:900px;
-  max-height:900px;
-  border-radius:50%;
-  filter:blur(80px);
-  opacity:.07;
-  right:-20%;
-  top:10%;
-  transition:transform 1.4s cubic-bezier(.16,1,.3,1);
-}
-
-.project:hover .project-bg{
-  transform:scale(1.2);
-}
-
-.project[data-theme="gold"] .project-bg{
-  background:var(--gold);
-}
-
-.project[data-theme="blue"] .project-bg{
-  background:#597897;
-}
-
-.project[data-theme="white"] .project-bg{
-  background:#fff;
-}
-
-.project[data-theme="brown"] .project-bg{
-  background:#ad8363;
-}
-
-.project[data-theme="red"] .project-bg{
-  background:#7f3e38;
-}
-
-.project[data-theme="green"] .project-bg{
-  background:#70836c;
-}
-
-.project[data-theme="orange"] .project-bg{
-  background:#d27e43;
-}
-
-.project-index{
-  position:absolute;
+  top:28px;
   left:30px;
-  top:30px;
-  font:500 9px "DM Mono",monospace;
-  color:#6f7780;
+  font:8px "DM Mono",monospace;
+  color:#626a73;
 }
 
-.project-type{
+.project-category{
   position:absolute;
+  top:28px;
   right:30px;
-  top:30px;
-  font:500 9px "DM Mono",monospace;
-  color:#6f7780;
+  font:8px "DM Mono",monospace;
+  color:#626a73;
   text-transform:uppercase;
 }
 
-.project-giant{
+.project-word{
   position:absolute;
-  left:30px;
+  left:20px;
   top:50%;
-  z-index:1;
   transform:translateY(-50%);
-  font-size:clamp(80px,14vw,210px);
-  font-weight:800;
-  letter-spacing:-.11em;
-  line-height:.65;
-  color:#1c2a3b;
-  transition:
-    transform 1s cubic-bezier(.16,1,.3,1),
-    color .6s;
+  font-size:clamp(90px,17vw,260px);
+  font-weight:900;
+  letter-spacing:-.12em;
+  line-height:.7;
+  color:#151b22;
   white-space:nowrap;
-}
-
-.project:hover .project-giant{
-  transform:translate(-25px,-50%);
-  color:#26384c;
-}
-
-.project-window{
-  width:min(68vw,1050px);
-  height:min(67svh,720px);
-  margin-left:auto;
-  position:relative;
-  z-index:3;
-  overflow:hidden;
-  background:#202b39;
-  box-shadow:
-    0 40px 100px rgba(0,0,0,.32);
-  transform:
-    translateY(90px)
-    scale(.92);
-  opacity:0;
   transition:
     transform 1.2s cubic-bezier(.16,1,.3,1),
-    opacity 1s ease;
+    color .5s;
 }
 
-.project-window.visible{
-  transform:
-    translateY(0)
-    scale(1);
-  opacity:1;
+.project:hover .project-word{
+  transform:translate(-35px,-50%);
+  color:#1c252e;
 }
 
-.window-bar{
-  height:32px;
-  background:#0c1118;
-  display:flex;
-  align-items:center;
-  padding:0 12px;
-  gap:6px;
+.project-visual{
   position:relative;
-  z-index:5;
-}
-
-.dot{
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:#5b626a;
-}
-
-.window-url{
+  z-index:2;
+  width:min(72vw,1100px);
+  height:min(68svh,730px);
   margin-left:auto;
-  margin-right:auto;
-  font:400 7px "DM Mono",monospace;
-  color:#555d67;
+  overflow:hidden;
+  background:#15191e;
+  box-shadow:0 50px 130px rgba(0,0,0,.45);
+  opacity:0;
+  transform:translateY(80px) scale(.94);
+  transition:
+    opacity 1s cubic-bezier(.16,1,.3,1),
+    transform 1.2s cubic-bezier(.16,1,.3,1);
 }
 
-.project-window iframe{
+.project-visual.visible{
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
+
+.project-visual iframe{
   width:100%;
-  height:calc(100% - 32px);
+  height:100%;
   border:0;
   display:block;
   pointer-events:none;
-  transition:transform 1.5s cubic-bezier(.16,1,.3,1);
+  transition:transform 1.4s cubic-bezier(.16,1,.3,1);
 }
 
 .project:hover iframe{
   transform:scale(1.025);
 }
 
-.project-info{
+.project-meta{
   position:absolute;
-  left:30px;
-  bottom:38px;
   z-index:5;
-  font:500 9px/1.7 "DM Mono",monospace;
-  color:#777f88;
+  left:30px;
+  bottom:30px;
+  font:8px/1.7 "DM Mono",monospace;
+  color:#7a828b;
   text-transform:uppercase;
 }
 
-.project-info strong{
+.project-meta strong{
+  color:#fff;
+  font-size:11px;
   display:block;
-  color:var(--ivory);
-  font-size:12px;
-  margin-bottom:4px;
 }
 
 .project-open{
   position:absolute;
-  right:30px;
-  bottom:38px;
   z-index:5;
+  right:30px;
+  bottom:30px;
   display:flex;
-  align-items:center;
   gap:12px;
-  font:500 9px "DM Mono",monospace;
+  align-items:center;
+  font:8px "DM Mono",monospace;
   text-transform:uppercase;
 }
 
-.project-arrow{
-  width:38px;
-  height:38px;
-  border:1px solid #59616b;
+.open-circle{
+  width:42px;
+  height:42px;
+  border:1px solid #545b64;
   border-radius:50%;
   display:grid;
   place-items:center;
-  transition:.4s cubic-bezier(.16,1,.3,1);
+  transition:.45s cubic-bezier(.16,1,.3,1);
 }
 
-.project-open:hover .project-arrow{
-  background:var(--gold);
-  color:var(--black);
-  border-color:var(--gold);
-  transform:rotate(45deg) scale(1.08);
+.project-open:hover .open-circle{
+  background:#fff;
+  color:#000;
+  border-color:#fff;
+  transform:rotate(45deg);
 }
 
+/* ================================
+   BIG BREAK
+================================ */
 
-/* =========================================================
-   INTERLUDE
-========================================================= */
-
-.interlude{
+.break{
   min-height:100svh;
-  background:var(--gold);
-  color:var(--black);
-  padding:110px 30px;
+  background:#f2f0ea;
+  color:#080a0d;
   display:flex;
   flex-direction:column;
-  justify-content:space-between;
+  justify-content:center;
+  padding:80px 30px;
   overflow:hidden;
 }
 
-.interlude-top{
-  display:flex;
-  justify-content:space-between;
-  font:500 9px "DM Mono",monospace;
+.break-top{
+  font:8px "DM Mono",monospace;
+  color:#777;
   text-transform:uppercase;
+  margin-bottom:80px;
 }
 
-.interlude-title{
-  font-size:clamp(90px,18vw,280px);
-  line-height:.62;
-  letter-spacing:-.115em;
-  font-weight:800;
-  transition:
-    transform .4s cubic-bezier(.16,1,.3,1);
+.break-title{
+  font-size:clamp(80px,17vw,270px);
+  font-weight:900;
+  line-height:.67;
+  letter-spacing:-.12em;
 }
 
-.interlude-title em{
+.break-title span{
+  display:inline-block;
+  transition:transform .4s cubic-bezier(.16,1,.3,1);
+}
+
+.break-title em{
   font-family:"Playfair Display",serif;
   font-weight:500;
 }
 
-.interlude-bottom{
-  display:flex;
-  justify-content:flex-end;
+.break-bottom{
+  margin-top:90px;
+  max-width:470px;
+  margin-left:auto;
+  font-size:16px;
+  line-height:1.5;
 }
 
-.interlude-copy{
-  max-width:480px;
-  font-size:17px;
-  line-height:1.45;
-}
-
-
-/* =========================================================
+/* ================================
    CAPABILITIES
-========================================================= */
+================================ */
 
 .capabilities{
-  background:var(--ivory);
-  color:var(--black);
+  background:#0a0d11;
   padding:160px 30px;
 }
 
-.cap-head{
+.cap-top{
   display:grid;
-  grid-template-columns:1fr 2fr;
-  gap:40px;
+  grid-template-columns:1fr 3fr;
+  gap:30px;
   margin-bottom:100px;
 }
 
 .cap-title{
-  font-size:clamp(75px,12vw,180px);
-  line-height:.68;
-  letter-spacing:-.1em;
-  font-weight:800;
+  font-size:clamp(70px,12vw,190px);
+  font-weight:900;
+  line-height:.65;
+  letter-spacing:-.11em;
 }
 
-.cap-title span{
-  color:#9c7b3f;
+.cap-title i{
+  font-family:"Playfair Display",serif;
+  font-weight:500;
 }
 
 .cap-list{
-  border-top:1px solid rgba(16,23,34,.18);
+  border-top:1px solid var(--line);
 }
 
-.cap-item{
-  position:relative;
-  padding:30px 0;
-  border-bottom:1px solid rgba(16,23,34,.18);
+.cap{
   display:grid;
-  grid-template-columns:80px 1fr 50px;
+  grid-template-columns:70px 1fr 40px;
   align-items:center;
-  transition:
-    padding .5s cubic-bezier(.16,1,.3,1),
-    background .5s;
+  padding:35px 0;
+  border-bottom:1px solid var(--line);
+  transition:.45s cubic-bezier(.16,1,.3,1);
 }
 
-.cap-item:hover{
-  background:var(--navy);
-  color:var(--ivory);
+.cap:hover{
   padding-left:25px;
   padding-right:25px;
+  background:#121820;
 }
 
-.cap-no{
-  font:500 9px "DM Mono",monospace;
-  color:#77786f;
+.cap-num{
+  font:8px "DM Mono",monospace;
+  color:#68707a;
 }
 
 .cap-name{
-  font-size:clamp(28px,4vw,62px);
-  font-weight:700;
-  letter-spacing:-.055em;
+  font-size:clamp(28px,4vw,60px);
+  font-weight:600;
+  letter-spacing:-.06em;
 }
 
 .cap-arrow{
-  font-size:20px;
   text-align:right;
+  color:#777f88;
   transition:.4s;
 }
 
-.cap-item:hover .cap-arrow{
-  color:var(--gold);
+.cap:hover .cap-arrow{
+  color:#fff;
   transform:rotate(45deg);
 }
 
+/* ================================
+   STUDIO
+================================ */
 
-/* =========================================================
-   ABOUT
-========================================================= */
-
-.about{
+.studio{
+  background:#dcdad3;
+  color:#080a0d;
+  padding:170px 30px;
   min-height:100svh;
-  background:#ddd8cc;
-  color:var(--black);
-  padding:160px 30px;
   display:grid;
   grid-template-columns:1fr 3fr;
-  gap:40px;
-}
-
-.about-main{
-  max-width:1200px;
-}
-
-.about-title{
-  font-size:clamp(45px,6.5vw,105px);
-  line-height:.87;
-  letter-spacing:-.065em;
-}
-
-.about-title .gold{
-  color:#98753b;
-}
-
-.about-details{
-  margin-top:100px;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
   gap:30px;
 }
 
-.detail{
-  border-top:1px solid rgba(16,23,34,.2);
-  padding-top:14px;
-  font:500 9px/1.8 "DM Mono",monospace;
+.studio-copy{
+  font-size:clamp(45px,6.8vw,108px);
+  line-height:.88;
+  letter-spacing:-.07em;
+}
+
+.studio-copy em{
+  font-family:"Playfair Display",serif;
+  font-weight:500;
+}
+
+.studio-copy .line{
+  color:#888782;
+}
+
+.studio-bottom{
+  margin-top:100px;
+  border-top:1px solid rgba(0,0,0,.2);
+  padding-top:20px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+  font:8px/1.7 "DM Mono",monospace;
   text-transform:uppercase;
 }
 
-.detail strong{
+.studio-bottom strong{
   display:block;
-  color:#111;
   margin-bottom:4px;
 }
 
+/* ================================
+   CONTACT
+================================ */
 
-/* =========================================================
-   FINAL CTA
-========================================================= */
-
-.final{
+.contact{
   min-height:100svh;
-  background:var(--black);
-  color:var(--ivory);
-  padding:80px 30px 30px;
+  background:#07090c;
   display:flex;
   flex-direction:column;
   justify-content:space-between;
-  overflow:hidden;
+  padding:70px 30px 25px;
 }
 
-.final-top{
+.contact-top,
+.footer{
   display:flex;
   justify-content:space-between;
-  font:500 9px "DM Mono",monospace;
-  color:#747b84;
+  color:#626a73;
+  font:8px "DM Mono",monospace;
   text-transform:uppercase;
 }
 
-.final-center{
-  position:relative;
+.contact-main{
+  margin-top:auto;
+  margin-bottom:auto;
 }
 
-.final-small{
-  font:500 9px "DM Mono",monospace;
-  color:var(--gold);
-  margin-bottom:30px;
+.contact-label{
+  color:#77808a;
+  font:8px "DM Mono",monospace;
   text-transform:uppercase;
+  margin-bottom:35px;
 }
 
-.final-title{
-  font-size:clamp(65px,12vw,185px);
-  line-height:.7;
-  letter-spacing:-.105em;
-  font-weight:800;
+.contact-title{
+  font-size:clamp(70px,13vw,205px);
+  font-weight:900;
+  line-height:.66;
+  letter-spacing:-.115em;
 }
 
-.final-title a{
+.contact-title a{
   display:inline-block;
   transition:
     color .4s,
     transform .5s cubic-bezier(.16,1,.3,1);
 }
 
-.final-title a:hover{
-  color:var(--gold);
-  transform:translateX(20px);
+.contact-title a:hover{
+  color:#8ea9ff;
+  transform:translateX(25px);
 }
 
-.final-mail{
-  margin-top:40px;
-  color:#777f88;
-  font:500 11px "DM Mono",monospace;
+.contact-info{
+  margin-top:45px;
+  font:9px "DM Mono",monospace;
+  color:#6c747d;
 }
 
-.final-mail a{
-  color:var(--ivory);
-  border-bottom:1px solid #555;
+.contact-info a{
+  color:#fff;
+  border-bottom:1px solid #41474e;
   padding-bottom:4px;
 }
 
 .footer{
-  border-top:1px solid rgba(244,239,229,.16);
-  padding-top:17px;
-  display:flex;
-  justify-content:space-between;
-  color:#707780;
-  font:500 8px "DM Mono",monospace;
-  text-transform:uppercase;
+  border-top:1px solid var(--line);
+  padding-top:15px;
 }
 
-
-/* =========================================================
-   REVEALS
-========================================================= */
+/* ================================
+   REVEAL
+================================ */
 
 .reveal{
   opacity:0;
-  transform:translateY(80px);
+  transform:translateY(70px);
   transition:
-    opacity 1.1s cubic-bezier(.16,1,.3,1),
-    transform 1.1s cubic-bezier(.16,1,.3,1);
+    opacity 1s cubic-bezier(.16,1,.3,1),
+    transform 1s cubic-bezier(.16,1,.3,1);
 }
 
 .reveal.visible{
@@ -1034,10 +803,9 @@ a{
   transform:translateY(0);
 }
 
-
-/* =========================================================
+/* ================================
    MOBILE
-========================================================= */
+================================ */
 
 @media(max-width:800px){
 
@@ -1052,139 +820,122 @@ a{
   .nav{
     padding:18px 16px;
     mix-blend-mode:normal;
-    color:var(--ivory);
   }
 
   .nav-links{
     gap:13px;
-    font-size:8px;
-  }
-
-  .hero{
-    min-height:100svh;
-  }
-
-  .hero-main{
-    padding:0 16px;
-  }
-
-  .hero-coordinate{
-    left:16px;
-    top:95px;
     font-size:7px;
   }
 
-  .hero-side{
-    right:16px;
-    bottom:25px;
-    font-size:7px;
+  .hero-content{
+    padding:100px 16px 30px;
   }
 
   .hero-title{
     font-size:22vw;
   }
 
-  .hero-small{
-    margin-bottom:25px;
-    font-size:8px;
+  .eyebrow{
+    margin-bottom:40px;
+    font-size:7px;
   }
 
-  .hero-bottom{
-    margin-top:35px;
-    font-size:7px;
+  .hero-footer{
+    margin-top:50px;
+    font-size:6px;
   }
 
   .manifesto{
     min-height:auto;
-    padding:100px 16px;
     display:block;
+    padding:100px 16px;
   }
 
-  .manifesto .label{
-    margin-bottom:60px;
+  .manifesto .mini{
+    margin-bottom:65px;
   }
 
-  .manifesto-copy{
+  .statement{
     font-size:12vw;
   }
 
-  .work-intro{
-    padding:100px 16px 80px;
+  .work{
+    padding-top:90px;
   }
 
-  .work-big{
-    font-size:24vw;
-    margin-top:90px;
-  }
-
-  .project{
-    min-height:90svh;
-    padding:75px 16px;
-  }
-
-  .project-index{
-    left:16px;
-  }
-
-  .project-type{
-    right:16px;
-  }
-
-  .project-giant{
-    left:16px;
-    top:34%;
-    font-size:23vw;
-  }
-
-  .project-window{
-    width:94vw;
-    height:52svh;
-  }
-
-  .project-info{
-    left:16px;
-    bottom:24px;
+  .work-head{
+    padding:0 16px 70px;
     font-size:7px;
   }
 
-  .project-info strong{
+  .project{
+    min-height:92svh;
+    padding:80px 16px;
+  }
+
+  .project-number{
+    left:16px;
+  }
+
+  .project-category{
+    right:16px;
+  }
+
+  .project-word{
+    left:10px;
+    font-size:24vw;
+  }
+
+  .project-visual{
+    width:94vw;
+    height:53svh;
+  }
+
+  .project-meta{
+    left:16px;
+    bottom:22px;
+    font-size:6px;
+  }
+
+  .project-meta strong{
     font-size:9px;
   }
 
   .project-open{
     right:16px;
-    bottom:22px;
-    font-size:7px;
+    bottom:20px;
+    font-size:6px;
   }
 
-  .project-arrow{
-    width:29px;
-    height:29px;
+  .open-circle{
+    width:31px;
+    height:31px;
   }
 
-  .interlude{
+  .break{
     min-height:90svh;
     padding:80px 16px;
   }
 
-  .interlude-title{
-    font-size:24vw;
+  .break-title{
+    font-size:23vw;
   }
 
-  .interlude-copy{
-    font-size:14px;
+  .break-bottom{
+    margin-top:70px;
+    font-size:13px;
   }
 
   .capabilities{
     padding:100px 16px;
   }
 
-  .cap-head{
+  .cap-top{
     display:block;
     margin-bottom:70px;
   }
 
-  .cap-head .label{
+  .cap-top .mini{
     margin-bottom:60px;
   }
 
@@ -1192,12 +943,12 @@ a{
     font-size:19vw;
   }
 
-  .cap-item{
-    grid-template-columns:40px 1fr 25px;
-    padding:23px 0;
+  .cap{
+    grid-template-columns:35px 1fr 25px;
+    padding:24px 0;
   }
 
-  .cap-item:hover{
+  .cap:hover{
     padding-left:10px;
     padding-right:10px;
   }
@@ -1206,41 +957,46 @@ a{
     font-size:8vw;
   }
 
-  .about{
+  .studio{
     min-height:auto;
-    padding:100px 16px;
     display:block;
+    padding:110px 16px;
   }
 
-  .about>.label{
+  .studio .mini{
     margin-bottom:60px;
   }
 
-  .about-title{
+  .studio-copy{
     font-size:12vw;
   }
 
-  .about-details{
+  .studio-bottom{
     margin-top:70px;
     grid-template-columns:1fr;
-    gap:25px;
+    gap:22px;
   }
 
-  .final{
+  .contact{
     min-height:90svh;
-    padding:70px 16px 22px;
+    padding:60px 16px 20px;
   }
 
-  .final-title{
-    font-size:15vw;
+  .contact-title{
+    font-size:16vw;
   }
 
-  .final-mail{
-    font-size:9px;
+  .contact-info{
+    font-size:7px;
+  }
+
+  .contact-top,
+  .footer{
+    font-size:6px;
   }
 
   .footer{
-    flex-direction:column;
+    flex-wrap:wrap;
     gap:8px;
   }
 }
@@ -1263,27 +1019,39 @@ a{
 
 <div class="noise"></div>
 
-
-<!-- =====================================================
+<!-- =========================================
      LOADER
-===================================================== -->
+========================================= -->
 
 <div class="loader" id="loader">
 
-  <div class="loader-content">
+  <div class="loader-inner">
 
-    <div class="loader-top">
-      <span>AI VISION STUDIO®</span>
-      <span id="loadNumber">001</span>
+    <div class="loader-meta">
+      <span>PERSONAL STUDIO</span>
+      <span>2026 / 001</span>
     </div>
 
-    <div class="loader-name">
-      DIGITAL<br>
-      <span>DOSSIER.</span>
+    <div class="loader-brand">
+
+      <div>KAUSTUBH</div>
+
+      <div>
+        <span>×</span> AI VISION
+      </div>
+
     </div>
 
-    <div class="loader-line">
-      <div class="loader-progress"></div>
+    <div class="loader-sub">
+
+      <span>DESIGN / CODE / MOTION</span>
+
+      <span id="counter">00</span>
+
+    </div>
+
+    <div class="loader-bar">
+      <div class="loader-fill"></div>
     </div>
 
   </div>
@@ -1291,118 +1059,85 @@ a{
 </div>
 
 
-<!-- =====================================================
+<!-- =========================================
      CURSOR
-===================================================== -->
+========================================= -->
 
 <div class="cursor" id="cursor">
 
   <div class="cursor-ring"></div>
-  <div class="cursor-inner"></div>
 
-  <div class="cursor-cross-x"></div>
-  <div class="cursor-cross-y"></div>
+  <div class="cursor-dot"></div>
 
-  <div class="cursor-core"></div>
-
-  <div class="cursor-text">
-    AI VISION
+  <div class="cursor-label">
+    VIEW
   </div>
 
 </div>
 
 
-<!-- =====================================================
+<!-- =========================================
      NAV
-===================================================== -->
+========================================= -->
 
 <header class="nav">
 
-  <a class="logo" href="#">
-    AI VISION <span>STUDIO®</span>
+  <a href="#" class="logo">
+    KAUSTUBH <span>× AI VISION</span>
   </a>
 
   <nav class="nav-links">
 
-    <a href="#work">Archive</a>
-    <a href="#capabilities">Capabilities</a>
-    <a href="#about">Studio</a>
-    <a href="#contact">Start</a>
+    <a href="#work">WORK</a>
+    <a href="#studio">STUDIO</a>
+    <a href="#contact">CONTACT</a>
 
   </nav>
 
 </header>
 
 
-<!-- =====================================================
+<!-- =========================================
      HERO
-===================================================== -->
+========================================= -->
 
 <section class="hero">
 
   <div class="hero-grid"></div>
 
-  <div class="hero-light" id="heroLight"></div>
+  <div class="hero-orb" id="orb"></div>
 
+  <div class="hero-content">
 
-  <div class="hero-coordinate">
-
-    DIGITAL DOSSIER / 001<br>
-    <strong>AHMEDABAD, INDIA</strong><br>
-    23.0225° N / 72.5714° E
-
-  </div>
-
-
-  <div class="hero-side">
-
-    INDEPENDENT STUDIO<br>
-    DESIGN / CODE / MOTION<br>
-    © 2026
-
-  </div>
-
-
-  <div class="hero-main">
-
-    <div class="hero-small">
-      BUILT BY KAUSTUBH — FOR BUSINESSES THAT REFUSE TO LOOK ORDINARY
+    <div class="eyebrow">
+      INDEPENDENT DIGITAL STUDIO /
+      <b>AHMEDABAD, INDIA</b>
     </div>
-
 
     <h1 class="hero-title">
 
-      <span class="line">
-        <span class="word">
-          MAKE
-        </span>
-      </span>
+      <div class="hero-line">
+        <span class="hero-word">MAKE</span>
+      </div>
 
-      <span class="line">
-        <span class="word">
-          THEM
-        </span>
-      </span>
+      <div class="hero-line">
+        <span class="hero-word">THEM</span>
+      </div>
 
-      <span class="line">
-        <span class="word">
-          <em>LOOK.</em>
-        </span>
-      </span>
+      <div class="hero-line">
+        <span class="hero-word"><em>STARE.</em></span>
+      </div>
 
     </h1>
 
-
-    <div class="hero-bottom">
+    <div class="hero-footer">
 
       <span>
-        AI VISION STUDIO / DIGITAL EXPERIENCES
+        DIGITAL EXPERIENCES / BRAND WORLDS
       </span>
 
-      <span class="scroll-mark">
-        SCROLL
-        <i class="scroll-line"></i>
-        ↓
+      <span>
+        ↓ SCROLL TO ENTER
       </span>
 
     </div>
@@ -1412,100 +1147,68 @@ a{
 </section>
 
 
-<!-- =====================================================
+<!-- =========================================
      MANIFESTO
-===================================================== -->
+========================================= -->
 
 <section class="manifesto">
 
-  <div class="label">
-    / 001 — MANIFESTO
+  <div class="mini">
+    001 / PHILOSOPHY
   </div>
 
-  <div class="manifesto-copy">
+  <div class="statement">
 
-    A website should not feel like
-    <span class="muted">another website.</span>
+    We don't make
+    <span class="dim">websites.</span>
 
-    It should feel like the moment
-    someone realizes
+    We create the kind of
+    digital presence that makes
+    someone stop,
 
-    <span class="serif">
-      “this is different.”
-    </span>
+    <em>look twice</em>,
 
-  </div>
-
-</section>
-
-
-<!-- =====================================================
-     WORK INTRO
-===================================================== -->
-
-<section class="work-intro" id="work">
-
-  <div class="work-top">
-
-    <span>
-      SELECTED WORK / <strong>2026</strong>
-    </span>
-
-    <span>
-      07 DIGITAL WORLDS
-    </span>
-
-  </div>
-
-
-  <div class="work-big">
-
-    SELECTED<br>
-    <span>WORK.</span>
+    and remember your name.
 
   </div>
 
 </section>
 
 
-<!-- =====================================================
-     PROJECTS
-===================================================== -->
+<!-- =========================================
+     WORK
+========================================= -->
 
-<section class="projects">
+<section class="work" id="work">
+
+  <div class="work-head">
+
+    <span>
+      SELECTED WORK / <b>07</b>
+    </span>
+
+    <span>
+      DRAG NOTHING. JUST SCROLL.
+    </span>
+
+  </div>
 
 
-  <!-- 01 EVENTBUDGET -->
+  <!-- EVENTBUDGET -->
 
-  <article class="project" data-theme="gold">
+  <article class="project">
 
-    <div class="project-bg"></div>
+    <span class="project-number">01 / 07</span>
 
-    <div class="project-index">
-      CASE 001 / 007
-    </div>
+    <span class="project-category">
+      DIGITAL PRODUCT
+    </span>
 
-    <div class="project-type">
-      Event Platform
-    </div>
-
-    <div class="project-giant">
+    <div class="project-word">
       EVENT
     </div>
 
-    <div class="project-window reveal">
-
-      <div class="window-bar">
-
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-
-        <span class="window-url">
-          eventbudget-sooty.vercel.app
-        </span>
-
-      </div>
+    <div class="project-visual reveal">
 
       <iframe
         src="https://eventbudget-sooty.vercel.app/"
@@ -1514,64 +1217,39 @@ a{
 
     </div>
 
-
-    <div class="project-info">
-
+    <div class="project-meta">
       <strong>EVENTBUDGET</strong>
-
-      EVENT PLANNING / DIGITAL PRODUCT<br>
-      2026
-
+      EVENT PLANNING / PRODUCT
     </div>
 
-
     <a
-      class="project-open"
       href="https://eventbudget-sooty.vercel.app/"
-      target="_blank">
+      target="_blank"
+      class="project-open">
 
-      OPEN CASE
-
-      <span class="project-arrow">
-        ↗
-      </span>
+      OPEN
+      <span class="open-circle">↗</span>
 
     </a>
 
   </article>
 
 
-  <!-- 02 RADHE -->
+  <!-- RADHE -->
 
-  <article class="project" data-theme="blue">
+  <article class="project">
 
-    <div class="project-bg"></div>
+    <span class="project-number">02 / 07</span>
 
-    <div class="project-index">
-      CASE 002 / 007
-    </div>
+    <span class="project-category">
+      SPORTS / EXPERIENCE
+    </span>
 
-    <div class="project-type">
-      Sports Experience
-    </div>
-
-    <div class="project-giant">
+    <div class="project-word">
       RADHE
     </div>
 
-    <div class="project-window reveal">
-
-      <div class="window-bar">
-
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-
-        <span class="window-url">
-          radhearena.vercel.app
-        </span>
-
-      </div>
+    <div class="project-visual reveal">
 
       <iframe
         src="https://radhearena.vercel.app/"
@@ -1580,64 +1258,39 @@ a{
 
     </div>
 
-
-    <div class="project-info">
-
+    <div class="project-meta">
       <strong>RADHE ARENA</strong>
-
-      SPORTS / EXPERIENCE<br>
-      2026
-
+      SPORTS / DIGITAL EXPERIENCE
     </div>
 
-
     <a
-      class="project-open"
       href="https://radhearena.vercel.app/"
-      target="_blank">
+      target="_blank"
+      class="project-open">
 
-      OPEN CASE
-
-      <span class="project-arrow">
-        ↗
-      </span>
+      OPEN
+      <span class="open-circle">↗</span>
 
     </a>
 
   </article>
 
 
-  <!-- 03 NOVA -->
+  <!-- NOVA -->
 
-  <article class="project" data-theme="white">
+  <article class="project">
 
-    <div class="project-bg"></div>
+    <span class="project-number">03 / 07</span>
 
-    <div class="project-index">
-      CASE 003 / 007
-    </div>
+    <span class="project-category">
+      DIGITAL EXPERIENCE
+    </span>
 
-    <div class="project-type">
-      Digital Experience
-    </div>
-
-    <div class="project-giant">
+    <div class="project-word">
       NOVA
     </div>
 
-    <div class="project-window reveal">
-
-      <div class="window-bar">
-
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-
-        <span class="window-url">
-          nova-gilt-psi.vercel.app
-        </span>
-
-      </div>
+    <div class="project-visual reveal">
 
       <iframe
         src="https://nova-gilt-psi.vercel.app/"
@@ -1646,64 +1299,39 @@ a{
 
     </div>
 
-
-    <div class="project-info">
-
+    <div class="project-meta">
       <strong>NOVA</strong>
-
-      DIGITAL EXPERIENCE<br>
-      2026
-
+      DIGITAL EXPERIENCE / WEB
     </div>
 
-
     <a
-      class="project-open"
       href="https://nova-gilt-psi.vercel.app/"
-      target="_blank">
+      target="_blank"
+      class="project-open">
 
-      OPEN CASE
-
-      <span class="project-arrow">
-        ↗
-      </span>
+      OPEN
+      <span class="open-circle">↗</span>
 
     </a>
 
   </article>
 
 
-  <!-- 04 CASA -->
+  <!-- CASA MIRA -->
 
-  <article class="project" data-theme="brown">
+  <article class="project">
 
-    <div class="project-bg"></div>
+    <span class="project-number">04 / 07</span>
 
-    <div class="project-index">
-      CASE 004 / 007
-    </div>
+    <span class="project-category">
+      HOSPITALITY
+    </span>
 
-    <div class="project-type">
-      Hospitality
-    </div>
-
-    <div class="project-giant">
+    <div class="project-word">
       CASA
     </div>
 
-    <div class="project-window reveal">
-
-      <div class="window-bar">
-
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-
-        <span class="window-url">
-          casa-mira-inky.vercel.app
-        </span>
-
-      </div>
+    <div class="project-visual reveal">
 
       <iframe
         src="https://casa-mira-inky.vercel.app/"
@@ -1712,64 +1340,39 @@ a{
 
     </div>
 
-
-    <div class="project-info">
-
+    <div class="project-meta">
       <strong>CASA MIRA</strong>
-
-      HOSPITALITY / BRAND<br>
-      2026
-
+      HOSPITALITY / BRAND
     </div>
 
-
     <a
-      class="project-open"
       href="https://casa-mira-inky.vercel.app/"
-      target="_blank">
+      target="_blank"
+      class="project-open">
 
-      OPEN CASE
-
-      <span class="project-arrow">
-        ↗
-      </span>
+      OPEN
+      <span class="open-circle">↗</span>
 
     </a>
 
   </article>
 
 
-  <!-- 05 NOIRE -->
+  <!-- NOIRE -->
 
-  <article class="project" data-theme="red">
+  <article class="project">
 
-    <div class="project-bg"></div>
+    <span class="project-number">05 / 07</span>
 
-    <div class="project-index">
-      CASE 005 / 007
-    </div>
+    <span class="project-category">
+      EDITORIAL
+    </span>
 
-    <div class="project-type">
-      Editorial
-    </div>
-
-    <div class="project-giant">
+    <div class="project-word">
       NOIRÉ
     </div>
 
-    <div class="project-window reveal">
-
-      <div class="window-bar">
-
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-
-        <span class="window-url">
-          noire-five-blond.vercel.app
-        </span>
-
-      </div>
+    <div class="project-visual reveal">
 
       <iframe
         src="https://noire-five-blond.vercel.app/"
@@ -1778,64 +1381,39 @@ a{
 
     </div>
 
-
-    <div class="project-info">
-
+    <div class="project-meta">
       <strong>NOIRÉ</strong>
-
-      EDITORIAL / DIGITAL<br>
-      2026
-
+      EDITORIAL / DIGITAL
     </div>
 
-
     <a
-      class="project-open"
       href="https://noire-five-blond.vercel.app/"
-      target="_blank">
+      target="_blank"
+      class="project-open">
 
-      OPEN CASE
-
-      <span class="project-arrow">
-        ↗
-      </span>
+      OPEN
+      <span class="open-circle">↗</span>
 
     </a>
 
   </article>
 
 
-  <!-- 06 FORMA -->
+  <!-- FORMA -->
 
-  <article class="project" data-theme="green">
+  <article class="project">
 
-    <div class="project-bg"></div>
+    <span class="project-number">06 / 07</span>
 
-    <div class="project-index">
-      CASE 006 / 007
-    </div>
+    <span class="project-category">
+      BRAND EXPERIENCE
+    </span>
 
-    <div class="project-type">
-      Brand Experience
-    </div>
-
-    <div class="project-giant">
+    <div class="project-word">
       FORMA
     </div>
 
-    <div class="project-window reveal">
-
-      <div class="window-bar">
-
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-
-        <span class="window-url">
-          forma-ochre-nine.vercel.app
-        </span>
-
-      </div>
+    <div class="project-visual reveal">
 
       <iframe
         src="https://forma-ochre-nine.vercel.app/"
@@ -1844,64 +1422,39 @@ a{
 
     </div>
 
-
-    <div class="project-info">
-
+    <div class="project-meta">
       <strong>FORMA</strong>
-
-      BRAND EXPERIENCE / WEB<br>
-      2026
-
+      BRAND EXPERIENCE / WEB
     </div>
 
-
     <a
-      class="project-open"
       href="https://forma-ochre-nine.vercel.app/"
-      target="_blank">
+      target="_blank"
+      class="project-open">
 
-      OPEN CASE
-
-      <span class="project-arrow">
-        ↗
-      </span>
+      OPEN
+      <span class="open-circle">↗</span>
 
     </a>
 
   </article>
 
 
-  <!-- 07 SAVORO -->
+  <!-- SAVORO -->
 
-  <article class="project" data-theme="orange">
+  <article class="project">
 
-    <div class="project-bg"></div>
+    <span class="project-number">07 / 07</span>
 
-    <div class="project-index">
-      CASE 007 / 007
-    </div>
+    <span class="project-category">
+      RESTAURANT
+    </span>
 
-    <div class="project-type">
-      Restaurant
-    </div>
-
-    <div class="project-giant">
+    <div class="project-word">
       SAVORO
     </div>
 
-    <div class="project-window reveal">
-
-      <div class="window-bar">
-
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-
-        <span class="window-url">
-          savoro-puce.vercel.app
-        </span>
-
-      </div>
+    <div class="project-visual reveal">
 
       <iframe
         src="https://savoro-puce.vercel.app/#menu"
@@ -1910,102 +1463,78 @@ a{
 
     </div>
 
-
-    <div class="project-info">
-
+    <div class="project-meta">
       <strong>SAVORO</strong>
-
-      RESTAURANT / DIGITAL EXPERIENCE<br>
-      2026
-
+      RESTAURANT / DIGITAL
     </div>
 
-
     <a
-      class="project-open"
       href="https://savoro-puce.vercel.app/#menu"
-      target="_blank">
+      target="_blank"
+      class="project-open">
 
-      OPEN CASE
-
-      <span class="project-arrow">
-        ↗
-      </span>
+      OPEN
+      <span class="open-circle">↗</span>
 
     </a>
 
   </article>
 
-
 </section>
 
 
-<!-- =====================================================
-     INTERLUDE
-===================================================== -->
+<!-- =========================================
+     BIG STATEMENT
+========================================= -->
 
-<section class="interlude" id="experiment">
+<section class="break" id="break">
 
-  <div class="interlude-top">
+  <div class="break-top">
+    002 / WHY IT FEELS DIFFERENT
+  </div>
 
-    <span>
-      / 002 — THE DIFFERENCE
-    </span>
+  <div class="break-title" id="breakTitle">
 
-    <span>
-      MOVE YOUR CURSOR
-    </span>
+    <span>NOT</span><br>
+    <em>ANOTHER</em><br>
+    <span>SITE.</span>
 
   </div>
 
+  <div class="break-bottom">
 
-  <div
-    class="interlude-title"
-    id="interludeTitle">
+    A digital experience should have a point
+    of view.
 
-    DON'T<br>
+    Not ten gradients.
+    Not fifty cards.
+    Not another template.
 
-    <em>LOOK</em><br>
-
-    ORDINARY.
-
-  </div>
-
-
-  <div class="interlude-bottom">
-
-    <p class="interlude-copy">
-
-      The best digital work doesn't scream
-      for attention. It earns it.
-
-      Every interaction, transition and detail
-      exists for one reason:
-
-      <strong>to make the brand impossible to forget.</strong>
-
-    </p>
+    <strong>
+      Just an unforgettable idea,
+      executed properly.
+    </strong>
 
   </div>
 
 </section>
 
 
-<!-- =====================================================
+<!-- =========================================
      CAPABILITIES
-===================================================== -->
+========================================= -->
 
-<section class="capabilities" id="capabilities">
+<section class="capabilities">
 
-  <div class="cap-head">
+  <div class="cap-top">
 
-    <div class="label">
-      / 003 — CAPABILITIES
+    <div class="mini">
+      003 / WHAT WE BUILD
     </div>
 
     <h2 class="cap-title">
       BUILT<br>
-      <span>TO MOVE.</span>
+      <i>DIFFERENT.</i>
     </h2>
 
   </div>
@@ -2013,10 +1542,9 @@ a{
 
   <div class="cap-list">
 
+    <div class="cap">
 
-    <div class="cap-item">
-
-      <span class="cap-no">01</span>
+      <span class="cap-num">01</span>
 
       <span class="cap-name">
         Websites
@@ -2028,13 +1556,12 @@ a{
 
     </div>
 
+    <div class="cap">
 
-    <div class="cap-item">
-
-      <span class="cap-no">02</span>
+      <span class="cap-num">02</span>
 
       <span class="cap-name">
-        Brand Presence
+        Brand Worlds
       </span>
 
       <span class="cap-arrow">
@@ -2043,13 +1570,12 @@ a{
 
     </div>
 
+    <div class="cap">
 
-    <div class="cap-item">
-
-      <span class="cap-no">03</span>
+      <span class="cap-num">03</span>
 
       <span class="cap-name">
-        Digital Experiences
+        Digital Products
       </span>
 
       <span class="cap-arrow">
@@ -2058,10 +1584,9 @@ a{
 
     </div>
 
+    <div class="cap">
 
-    <div class="cap-item">
-
-      <span class="cap-no">04</span>
+      <span class="cap-num">04</span>
 
       <span class="cap-name">
         Motion & Interaction
@@ -2073,13 +1598,12 @@ a{
 
     </div>
 
+    <div class="cap">
 
-    <div class="cap-item">
-
-      <span class="cap-no">05</span>
+      <span class="cap-num">05</span>
 
       <span class="cap-name">
-        Digital Systems
+        Creative Systems
       </span>
 
       <span class="cap-arrow">
@@ -2088,71 +1612,54 @@ a{
 
     </div>
 
-
   </div>
 
 </section>
 
 
-<!-- =====================================================
-     ABOUT
-===================================================== -->
+<!-- =========================================
+     STUDIO
+========================================= -->
 
-<section class="about" id="about">
+<section class="studio" id="studio">
 
-  <div class="label">
-    / 004 — THE STUDIO
+  <div class="mini">
+    004 / THE PERSON
   </div>
 
+  <div>
 
-  <div class="about-main">
+    <div class="studio-copy">
 
-    <div class="about-title">
+      I'm <span class="line">Kaustubh.</span>
 
-      AI Vision Studio is a small,
-      independent digital studio built by
+      I design and build digital
+      experiences through
 
-      <span class="gold">
-        Kaustubh.
-      </span>
+      <em>AI Vision Studio.</em>
 
-      We design and build digital
-      experiences for businesses that
-      want to be remembered —
-
-      <span class="gold">
-        not just discovered.
-      </span>
+      Small studio.
+      Big ambition.
+      <span class="line">Zero interest in ordinary.</span>
 
     </div>
 
 
-    <div class="about-details">
+    <div class="studio-bottom">
 
-      <div class="detail">
-
-        <strong>Founder</strong>
-
-        Kaustubh
-
+      <div>
+        <strong>FOUNDER</strong>
+        KAUSTUBH
       </div>
 
-
-      <div class="detail">
-
-        <strong>Based</strong>
-
-        Ahmedabad / India
-
+      <div>
+        <strong>LOCATION</strong>
+        AHMEDABAD / INDIA
       </div>
 
-
-      <div class="detail">
-
-        <strong>Focus</strong>
-
-        Design / Code / Motion
-
+      <div>
+        <strong>DISCIPLINES</strong>
+        DESIGN / CODE / MOTION
       </div>
 
     </div>
@@ -2162,33 +1669,32 @@ a{
 </section>
 
 
-<!-- =====================================================
-     FINAL CTA
-===================================================== -->
+<!-- =========================================
+     CONTACT
+========================================= -->
 
-<section class="final" id="contact">
+<section class="contact" id="contact">
 
-  <div class="final-top">
+  <div class="contact-top">
 
     <span>
-      / 005 — NEW BUSINESS
+      005 / START SOMETHING
     </span>
 
     <span>
-      AI VISION STUDIO®
+      KAUSTUBH × AI VISION
     </span>
 
   </div>
 
 
-  <div class="final-center">
+  <div class="contact-main">
 
-    <div class="final-small">
-      YOUR NEXT SITE COULD BE HERE.
+    <div class="contact-label">
+      YOUR BUSINESS DESERVES A BETTER FIRST IMPRESSION.
     </div>
 
-
-    <div class="final-title">
+    <div class="contact-title">
 
       <a href="tel:9925054448">
         LET'S
@@ -2197,19 +1703,21 @@ a{
       <br>
 
       <a href="tel:9925054448">
-        MAKE IT.
+        TALK.
       </a>
 
     </div>
 
 
-    <div class="final-mail">
+    <div class="contact-info">
 
       <a href="mailto:aivisionstudio2821@gmail.com">
         aivisionstudio2821@gmail.com
       </a>
 
-      &nbsp; / &nbsp;
+      &nbsp;&nbsp; /
+
+      &nbsp;&nbsp;
 
       <a href="tel:9925054448">
         9925054448
@@ -2223,7 +1731,7 @@ a{
   <footer class="footer">
 
     <span>
-      KAUSTUBH / AI VISION STUDIO
+      KAUSTUBH × AI VISION STUDIO
     </span>
 
     <span>
@@ -2233,9 +1741,7 @@ a{
     <a
       href="https://instagram.com/aivisionstudioahmedabad_"
       target="_blank">
-
       INSTAGRAM ↗
-
     </a>
 
     <span>
@@ -2249,131 +1755,151 @@ a{
 
 <script>
 
-/* =========================================================
+/* =========================================
    LOADER
-========================================================= */
+========================================= */
+
+const loader =
+  document.getElementById("loader");
+
+const counter =
+  document.getElementById("counter");
+
+let n=0;
+
+const countTimer=setInterval(()=>{
+
+  n++;
+
+  counter.textContent =
+    String(n).padStart(2,"0");
+
+  if(n>=100){
+    clearInterval(countTimer);
+  }
+
+},17);
 
 window.addEventListener("load",()=>{
 
-  const loader =
-    document.getElementById("loader");
-
   setTimeout(()=>{
-    loader.classList.add("done");
-  },1800);
+
+    loader.classList.add("hide");
+
+  },2100);
 
 });
 
 
-/* =========================================================
+/* =========================================
    CURSOR
-========================================================= */
+========================================= */
 
 const cursor =
   document.getElementById("cursor");
 
-let mx=0;
-let my=0;
-
-let cx=0;
-let cy=0;
+let mouseX=0;
+let mouseY=0;
+let curX=0;
+let curY=0;
 
 window.addEventListener("mousemove",(e)=>{
 
-  mx=e.clientX;
-  my=e.clientY;
+  mouseX=e.clientX;
+  mouseY=e.clientY;
 
-  cursor.classList.add("show");
+  cursor.classList.add("on");
 
 });
 
+function cursorMove(){
 
-function cursorLoop(){
+  curX+=(mouseX-curX)*.13;
+  curY+=(mouseY-curY)*.13;
 
-  cx += (mx-cx)*.13;
-  cy += (my-cy)*.13;
+  cursor.style.left=curX+"px";
+  cursor.style.top=curY+"px";
 
-  cursor.style.left=cx+"px";
-  cursor.style.top=cy+"px";
-
-  requestAnimationFrame(cursorLoop);
+  requestAnimationFrame(cursorMove);
 
 }
 
-cursorLoop();
+cursorMove();
 
 
-const cursorTargets =
-  document.querySelectorAll(
-    "a,.project-window,.cap-item"
-  );
-
-
-cursorTargets.forEach(el=>{
+document
+.querySelectorAll("a,.project-visual,.cap")
+.forEach(el=>{
 
   el.addEventListener("mouseenter",()=>{
-    cursor.classList.add("active");
+
+    cursor.classList.add("hover");
+
   });
 
   el.addEventListener("mouseleave",()=>{
-    cursor.classList.remove("active");
+
+    cursor.classList.remove("hover");
+
   });
 
 });
 
 
 document.addEventListener("mousedown",()=>{
+
   cursor.classList.add("click");
+
 });
 
 document.addEventListener("mouseup",()=>{
+
   cursor.classList.remove("click");
+
 });
 
 
-/* =========================================================
-   HERO PARALLAX
-========================================================= */
+/* =========================================
+   HERO ORB
+========================================= */
 
 const hero =
   document.querySelector(".hero");
 
-const heroLight =
-  document.getElementById("heroLight");
-
+const orb =
+  document.getElementById("orb");
 
 hero.addEventListener("mousemove",(e)=>{
 
-  const r =
+  const rect =
     hero.getBoundingClientRect();
 
   const x =
-    (e.clientX-r.left)/r.width-.5;
+    (e.clientX-rect.left)/rect.width-.5;
 
   const y =
-    (e.clientY-r.top)/r.height-.5;
+    (e.clientY-rect.top)/rect.height-.5;
 
-  heroLight.style.transform =
-    `translate(${x*70}px,${y*70}px)`;
+  orb.style.transform=
+    `translate(${x*80}px,${y*80}px)`;
 
 });
 
 
-/* =========================================================
-   INTERLUDE PARALLAX
-========================================================= */
+/* =========================================
+   BREAK INTERACTION
+========================================= */
 
-const interlude =
-  document.querySelector(".interlude");
+const breakSection =
+  document.querySelector(".break");
 
-const interludeTitle =
-  document.getElementById("interludeTitle");
+const breakTitle =
+  document.getElementById("breakTitle");
 
-
-interlude.addEventListener("mousemove",(e)=>{
+breakSection.addEventListener("mousemove",(e)=>{
 
   const r =
-    interlude.getBoundingClientRect();
+    breakSection.getBoundingClientRect();
 
   const x =
     (e.clientX-r.left)/r.width-.5;
@@ -2381,26 +1907,25 @@ interlude.addEventListener("mousemove",(e)=>{
   const y =
     (e.clientY-r.top)/r.height-.5;
 
-  interludeTitle.style.transform =
-    `translate(${x*35}px,${y*25}px)
-     rotate(${x*1.2}deg)`;
+  breakTitle.style.transform=
+    `translate(${x*35}px,${y*20}px)
+     rotate(${x*.7}deg)`;
 
 });
 
+breakSection.addEventListener("mouseleave",()=>{
 
-interlude.addEventListener("mouseleave",()=>{
-
-  interludeTitle.style.transform=
+  breakTitle.style.transform=
     "translate(0,0) rotate(0)";
 
 });
 
 
-/* =========================================================
-   REVEAL OBSERVER
-========================================================= */
+/* =========================================
+   REVEAL
+========================================= */
 
-const revealObserver =
+const observer =
   new IntersectionObserver(
     entries=>{
 
@@ -2422,75 +1947,49 @@ const revealObserver =
 
 
 document
-.querySelectorAll(
-  ".reveal,.split-word"
-)
+.querySelectorAll(".reveal")
 .forEach(el=>{
-  revealObserver.observe(el);
+  observer.observe(el);
 });
 
 
-/* =========================================================
-   PROJECT PARALLAX
-========================================================= */
+/* =========================================
+   PROJECT SCROLL MOTION
+========================================= */
 
 const projects =
   document.querySelectorAll(".project");
 
-
-function projectMotion(){
+window.addEventListener("scroll",()=>{
 
   projects.forEach(project=>{
 
     const rect =
       project.getBoundingClientRect();
 
-    const center =
-      rect.top + rect.height/2;
-
     const distance =
-      (center-window.innerHeight/2)
-      /window.innerHeight;
+      (rect.top + rect.height/2 -
+      window.innerHeight/2) /
+      window.innerHeight;
 
-    const giant =
-      project.querySelector(
-        ".project-giant"
-      );
+    const word =
+      project.querySelector(".project-word");
 
-    const bg =
-      project.querySelector(
-        ".project-bg"
-      );
+    if(word){
 
-    if(giant){
-
-      giant.style.marginLeft =
-        `${distance*-35}px`;
-
-    }
-
-    if(bg){
-
-      bg.style.transform =
-        `translateY(${distance*-80}px)`;
+      word.style.marginLeft =
+        `${distance*-30}px`;
 
     }
 
   });
 
-}
+},{passive:true});
 
 
-window.addEventListener(
-  "scroll",
-  projectMotion,
-  {passive:true}
-);
-
-
-/* =========================================================
+/* =========================================
    MAGNETIC NAV
-========================================================= */
+========================================= */
 
 document
 .querySelectorAll(".nav-links a")
@@ -2508,100 +2007,27 @@ document
       e.clientY-r.top-r.height/2;
 
     link.style.transform=
-      `translate(${x*.18}px,${y*.18}px)`;
+      `translate(${x*.2}px,${y*.2}px)`;
 
   });
 
   link.addEventListener("mouseleave",()=>{
 
-    link.style.transform=
-      "translate(0,0)";
+    link.style.transform="translate(0,0)";
 
   });
 
 });
 
 
-/* =========================================================
-   SMOOTH ANCHORS
-========================================================= */
-
-document
-.querySelectorAll('a[href^="#"]')
-.forEach(link=>{
-
-  link.addEventListener("click",(e)=>{
-
-    const target =
-      document.querySelector(
-        link.getAttribute("href")
-      );
-
-    if(!target) return;
-
-    e.preventDefault();
-
-    target.scrollIntoView({
-      behavior:"smooth"
-    });
-
-  });
-
-});
-
-
-/* =========================================================
-   LOADER COUNTER
-========================================================= */
-
-const number =
-  document.getElementById("loadNumber");
-
-let count=1;
-
-const counter =
-  setInterval(()=>{
-
-    count++;
-
-    number.textContent =
-      String(count).padStart(3,"0");
-
-    if(count>=100){
-      clearInterval(counter);
-    }
-
-  },14);
-
-
-/* =========================================================
-   ESC TO TOP
-========================================================= */
-
-document.addEventListener("keydown",(e)=>{
-
-  if(e.key==="Escape"){
-
-    window.scrollTo({
-      top:0,
-      behavior:"smooth"
-    });
-
-  }
-
-});
-
-
-/* =========================================================
+/* =========================================
    MOBILE
-========================================================= */
+========================================= */
 
 if(
   window.matchMedia("(pointer:coarse)").matches
 ){
-
   document.body.style.cursor="auto";
-
 }
 
 </script>
