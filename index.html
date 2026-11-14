@@ -2,23 +2,22 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#080808">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a0a0a">
 
-<title>AI VISION — Kaustubh Shukla</title>
+<title>AI VISION — KAUSTUBH</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg:#080808;
-  --paper:#f3f0e8;
-  --white:#f5f3ed;
+  --black:#090909;
+  --white:#f2efe7;
   --orange:#ff4d00;
-  --muted:#777;
-  --line:rgba(255,255,255,.13);
+  --grey:#777;
+  --line:rgba(242,239,231,.14);
   --ease:cubic-bezier(.16,1,.3,1);
 }
 
@@ -29,14 +28,14 @@
 }
 
 html{
-  background:var(--bg);
+  background:var(--black);
   scroll-behavior:smooth;
 }
 
 body{
-  background:var(--bg);
+  background:var(--black);
   color:var(--white);
-  font-family:Inter,Arial,sans-serif;
+  font-family:Inter,sans-serif;
   overflow-x:hidden;
 }
 
@@ -50,106 +49,95 @@ a{
   color:#fff;
 }
 
-/* ========================================
-   LOADER
-======================================== */
+/* =========================
+   INTRO
+========================= */
 
-.loader{
+.intro{
   position:fixed;
   inset:0;
-  background:#080808;
+  background:#090909;
   z-index:9999;
-  display:grid;
-  place-items:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   transition:opacity .8s ease,visibility .8s;
 }
 
-.loader.hide{
+.intro.done{
   opacity:0;
   visibility:hidden;
 }
 
-.loader-inner{
-  width:min(90%,1000px);
+.intro-wrap{
+  width:min(92%,1100px);
 }
 
-.loader-meta{
+.intro-top{
   display:flex;
   justify-content:space-between;
   font:10px "DM Mono",monospace;
-  letter-spacing:.14em;
   color:#666;
+  letter-spacing:.15em;
   margin-bottom:30px;
 }
 
-.loader-title{
-  font-size:clamp(55px,11vw,160px);
+.intro-big{
+  font-size:clamp(55px,12vw,170px);
   font-weight:900;
   line-height:.78;
-  letter-spacing:-.08em;
+  letter-spacing:-.09em;
+  overflow:hidden;
 }
 
-.loader-title span{
+.intro-big span{
   display:block;
-  transform:translateY(100%);
-  animation:loadText 1s var(--ease) forwards;
+  transform:translateY(105%);
+  animation:introIn 1s var(--ease) forwards;
 }
 
-.loader-title span:nth-child(2){
+.intro-big span:nth-child(2){
   color:var(--orange);
   animation-delay:.1s;
 }
 
-.loader-bar{
+.intro-rule{
   height:1px;
   background:#222;
   margin-top:40px;
   overflow:hidden;
 }
 
-.loader-bar i{
+.intro-rule i{
   display:block;
-  height:100%;
   width:0;
+  height:100%;
   background:var(--orange);
-  animation:loadBar 1.9s var(--ease) forwards;
+  animation:introLoad 1.8s var(--ease) forwards;
 }
 
-@keyframes loadText{
+@keyframes introIn{
   to{transform:translateY(0)}
 }
 
-@keyframes loadBar{
+@keyframes introLoad{
   to{width:100%}
 }
 
-/* ========================================
-   GRAIN — CSS ONLY
-======================================== */
+/* =========================
+   HEADER
+========================= */
 
-.grain{
+header{
   position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:8000;
-  opacity:.035;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* ========================================
-   NAV
-======================================== */
-
-.nav{
-  position:fixed;
-  z-index:7000;
   top:0;
   left:0;
   right:0;
-  padding:25px 34px;
+  z-index:5000;
+  padding:25px 30px;
   display:flex;
-  align-items:center;
   justify-content:space-between;
+  align-items:center;
   mix-blend-mode:difference;
 }
 
@@ -158,35 +146,24 @@ a{
   letter-spacing:.13em;
 }
 
-.nav-links{
+.menu{
   display:flex;
-  gap:30px;
+  gap:28px;
 }
 
-.nav-links a{
+.menu a{
   font:10px "DM Mono",monospace;
   letter-spacing:.12em;
-  position:relative;
+  opacity:.8;
 }
 
-.nav-links a:after{
-  content:"";
-  position:absolute;
-  left:0;
-  bottom:-6px;
-  width:0;
-  height:1px;
-  background:white;
-  transition:.4s var(--ease);
+.menu a:hover{
+  opacity:1;
 }
 
-.nav-links a:hover:after{
-  width:100%;
-}
-
-/* ========================================
+/* =========================
    CURSOR
-======================================== */
+========================= */
 
 .cursor{
   position:fixed;
@@ -194,41 +171,41 @@ a{
   height:7px;
   border-radius:50%;
   background:var(--orange);
-  z-index:9998;
+  z-index:10000;
   pointer-events:none;
   transform:translate(-50%,-50%);
   opacity:0;
 }
 
-.cursor-ring{
+.cursor:after{
+  content:"";
   position:absolute;
-  width:32px;
-  height:32px;
+  width:28px;
+  height:28px;
+  border:1px solid rgba(255,255,255,.55);
+  border-radius:50%;
   left:50%;
   top:50%;
   transform:translate(-50%,-50%);
-  border:1px solid rgba(255,255,255,.5);
-  border-radius:50%;
   transition:.35s var(--ease);
 }
 
-.cursor.hover .cursor-ring{
-  width:75px;
-  height:75px;
+.cursor.big:after{
+  width:65px;
+  height:65px;
   border-color:var(--orange);
 }
 
 .cursor-label{
   position:absolute;
-  top:47px;
-  left:50px;
+  left:38px;
+  top:38px;
   white-space:nowrap;
   font:8px "DM Mono",monospace;
   opacity:0;
-  transition:.3s;
 }
 
-.cursor.hover .cursor-label{
+.cursor.big .cursor-label{
   opacity:1;
 }
 
@@ -240,635 +217,492 @@ a{
   .cursor{display:none}
 }
 
-/* ========================================
+/* =========================
    HERO
-======================================== */
+========================= */
 
 .hero{
   min-height:100svh;
+  position:relative;
   display:flex;
   align-items:center;
-  padding:110px 5vw 60px;
-  position:relative;
+  padding:100px 5vw;
   overflow:hidden;
-  background:
-    radial-gradient(
-      circle at 70% 50%,
-      rgba(255,77,0,.09),
-      transparent 28%
-    ),
-    var(--bg);
 }
 
-.hero-content{
+.hero-light{
+  position:absolute;
+  width:450px;
+  height:450px;
+  border-radius:50%;
+  background:radial-gradient(
+    circle,
+    rgba(255,77,0,.13),
+    transparent 68%
+  );
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+  left:50%;
+  top:50%;
+  transition:left .2s ease-out,top .2s ease-out;
+}
+
+.hero-inner{
   width:100%;
-  will-change:transform;
 }
 
 .hero-top{
   display:flex;
   justify-content:space-between;
-  margin-bottom:55px;
+  align-items:flex-start;
+  margin-bottom:70px;
 }
 
-.eyebrow{
+.mono{
   font:10px "DM Mono",monospace;
-  letter-spacing:.16em;
+  letter-spacing:.14em;
   text-transform:uppercase;
-  color:#777;
+  color:#666;
 }
 
-.hero-description{
-  max-width:280px;
+.hero-copy{
+  max-width:260px;
   font:11px/1.7 "DM Mono",monospace;
   color:#666;
 }
 
 .hero-title{
-  font-size:clamp(70px,15vw,230px);
+  font-size:clamp(70px,16vw,245px);
   font-weight:900;
-  line-height:.76;
-  letter-spacing:-.09em;
+  line-height:.72;
+  letter-spacing:-.095em;
+  text-transform:uppercase;
 }
 
-.hero-title .row{
+.hero-line{
   overflow:hidden;
 }
 
-.hero-title .row span{
+.hero-line span{
   display:block;
   transform:translateY(110%);
-  animation:titleIn 1.2s var(--ease) forwards;
+  animation:heroIn 1.2s var(--ease) forwards;
 }
 
-.hero-title .row:nth-child(2) span{
+.hero-line:nth-child(2) span{
   animation-delay:.1s;
   color:transparent;
-  -webkit-text-stroke:1px #eee;
+  -webkit-text-stroke:1px var(--white);
 }
 
-.hero-title .row:nth-child(3) span{
+.hero-line:nth-child(3) span{
   animation-delay:.2s;
 }
 
-@keyframes titleIn{
+@keyframes heroIn{
   to{transform:translateY(0)}
 }
 
 .hero-bottom{
+  margin-top:80px;
   display:flex;
   justify-content:space-between;
-  margin-top:75px;
+  align-items:center;
 }
 
-.scroll{
+.scroll-label{
   display:flex;
   align-items:center;
-  gap:15px;
-  font:10px "DM Mono",monospace;
+  gap:14px;
+  font:9px "DM Mono",monospace;
   letter-spacing:.14em;
 }
 
-.scroll i{
-  width:65px;
+.scroll-line{
+  width:60px;
   height:1px;
   background:#444;
-  position:relative;
 }
 
-.scroll i:after{
-  content:"";
-  position:absolute;
-  width:18px;
-  height:1px;
-  background:var(--orange);
-  left:0;
-  animation:scrollLine 1.4s infinite;
+.hero-count{
+  font:10px "DM Mono",monospace;
+  color:#555;
 }
 
-@keyframes scrollLine{
-  to{left:47px}
-}
+/* =========================
+   STATEMENT
+========================= */
 
-/* ========================================
-   MANIFESTO
-======================================== */
-
-.manifesto{
+.statement{
   min-height:100svh;
-  padding:12vw 5vw;
+  background:var(--white);
+  color:#090909;
   display:flex;
   align-items:center;
-  background:var(--paper);
-  color:#090909;
+  padding:10vw 5vw;
 }
 
-.manifesto-content{
+.statement-inner{
   width:100%;
 }
 
-.manifesto-title{
-  margin-top:65px;
-  font-size:clamp(50px,9vw,145px);
-  font-weight:900;
-  letter-spacing:-.08em;
-  line-height:.83;
+.statement-small{
+  font:10px "DM Mono",monospace;
+  color:#777;
+  letter-spacing:.14em;
 }
 
-.manifesto-title div{
+.statement-title{
+  margin-top:60px;
+  font-size:clamp(50px,9vw,145px);
+  font-weight:900;
+  line-height:.82;
+  letter-spacing:-.08em;
+}
+
+.statement-title .shift{
+  display:block;
+  transform:translateX(var(--shift,0px));
   transition:transform .12s linear;
 }
 
-.manifesto-title .outline{
+.statement-title .outline{
   color:transparent;
   -webkit-text-stroke:1px #111;
 }
 
-.manifesto-footer{
+.statement-footer{
+  margin-top:80px;
+  border-top:1px solid #ccc;
+  padding-top:20px;
   display:flex;
   justify-content:space-between;
-  margin-top:80px;
-  padding-top:20px;
-  border-top:1px solid #ccc;
   font:10px "DM Mono",monospace;
   color:#777;
 }
 
-/* ========================================
-   WORK INTRO
-======================================== */
+/* =========================
+   GALLERY INTRO
+========================= */
 
-.work-intro{
-  min-height:65svh;
+.gallery-intro{
+  min-height:70svh;
   display:flex;
   align-items:flex-end;
   padding:10vw 5vw;
 }
 
-.work-title{
-  font-size:clamp(70px,14vw,210px);
-  font-weight:900;
-  line-height:.75;
+.gallery-intro h2{
+  font-size:clamp(75px,14vw,210px);
+  line-height:.73;
   letter-spacing:-.09em;
+  font-weight:900;
 }
 
-.work-title span{
+.gallery-intro h2 span{
   color:var(--orange);
 }
 
-/* ========================================
-   PROJECT
-======================================== */
+/* =========================
+   GALLERY PROJECT
+========================= */
 
-.project{
-  min-height:110svh;
-  padding:80px 5vw;
+.art{
+  min-height:105svh;
   position:relative;
   display:flex;
   align-items:center;
+  padding:100px 5vw;
   overflow:hidden;
-  isolation:isolate;
 }
 
-.project:before{
-  content:"";
+.art-number{
   position:absolute;
-  inset:0;
-  background:
-    radial-gradient(
-      circle at 50% 50%,
-      var(--glow),
-      transparent 35%
-    );
-  z-index:-2;
-}
-
-.project-grid{
-  position:absolute;
-  inset:-20%;
-  z-index:-3;
-  opacity:.1;
-  background-image:
-    linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px);
-  background-size:100px 100px;
-  transform:rotateX(65deg) translateY(20%);
-}
-
-.project-info{
-  position:absolute;
-  top:70px;
+  top:55px;
   left:5vw;
-  right:5vw;
-  display:flex;
-  justify-content:space-between;
-  z-index:5;
+  font:10px "DM Mono",monospace;
+  color:#555;
 }
 
-.project-number,
-.project-type{
+.art-category{
+  position:absolute;
+  top:55px;
+  right:5vw;
+  text-align:right;
   font:10px/1.7 "DM Mono",monospace;
   color:#666;
 }
 
-.project-type{
-  text-align:right;
-}
-
-.project-stage{
+.art-center{
   width:100%;
+  position:relative;
   display:flex;
   justify-content:center;
   align-items:center;
 }
 
-.project-window{
-  position:relative;
-  width:min(76vw,1050px);
+.art-window{
+  width:min(70vw,1000px);
   aspect-ratio:16/10;
+  position:relative;
   background:#111;
-  transform:
-    translate3d(
-      var(--px,0px),
-      var(--py,0px),
-      0
-    )
-    rotateY(var(--ry,0deg))
-    rotateX(var(--rx,0deg))
-    scale(var(--ps,1));
   box-shadow:
-    35px 45px 90px rgba(0,0,0,.45),
-    0 0 100px var(--glow);
+    25px 35px 80px rgba(0,0,0,.5);
+  transform:
+    translateY(var(--move,0px))
+    rotate(var(--rotate,0deg))
+    scale(var(--scale,1));
   will-change:transform;
-  transition:transform .12s linear;
 }
 
-.project-window:before{
+.art-window:before{
   content:"";
   position:absolute;
-  inset:-16px;
+  inset:-12px;
   border:1px solid rgba(255,255,255,.08);
   pointer-events:none;
 }
 
-.project-window:after{
+.art-window:after{
   content:"";
   position:absolute;
   inset:0;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.12);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.15);
   pointer-events:none;
 }
 
-.project-preview{
+.art-placeholder{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+}
+
+.art-placeholder iframe{
   width:100%;
   height:100%;
-  display:block;
   border:0;
-  background:#111;
+  display:block;
 }
 
-.project-name{
+.art-name{
   position:absolute;
+  z-index:5;
   left:50%;
   top:50%;
-  width:110%;
-  text-align:center;
   transform:
     translate(
-      calc(-50% + var(--tx,0px)),
-      calc(-50% + var(--ty,0px))
+      calc(-50% + var(--name-x,0px)),
+      calc(-50% + var(--name-y,0px))
     );
   pointer-events:none;
-  z-index:4;
   mix-blend-mode:difference;
+  text-align:center;
 }
 
-.project-name h2{
+.art-name h3{
   font-size:clamp(55px,9vw,145px);
-  font-weight:900;
-  letter-spacing:-.08em;
   line-height:.8;
+  letter-spacing:-.08em;
+  font-weight:900;
   white-space:nowrap;
 }
 
-.project-name p{
-  margin-top:20px;
+.art-name p{
+  margin-top:18px;
   font:9px "DM Mono",monospace;
   letter-spacing:.18em;
 }
 
-.project-bottom{
+.art-footer{
   position:absolute;
-  bottom:55px;
+  bottom:45px;
   left:5vw;
   right:5vw;
   display:flex;
   justify-content:space-between;
   align-items:center;
   font:10px "DM Mono",monospace;
-  color:#777;
+  color:#666;
 }
 
-.open{
+.view{
   border:1px solid #333;
-  padding:12px 17px;
-  transition:.35s var(--ease);
+  padding:11px 16px;
+  transition:.3s;
 }
 
-.open:hover{
-  border-color:var(--orange);
+.view:hover{
   color:var(--orange);
+  border-color:var(--orange);
 }
 
-/* project colours */
+/* different art backgrounds */
 
-.savoro{
-  --glow:rgba(210,160,80,.13);
+.a1{
   background:#0c0a08;
 }
 
-.nova{
-  --glow:rgba(80,120,255,.11);
-  background:#080a0f;
+.a2{
+  background:#080b11;
 }
 
-.noire{
-  --glow:rgba(255,255,255,.07);
-  background:#090909;
+.a3{
+  background:#0a0a0a;
 }
 
-.radhe{
-  --glow:rgba(255,60,0,.15);
-  background:#0d0806;
+.a4{
+  background:#0d0805;
 }
 
-.eventbudget{
-  --glow:rgba(0,190,170,.12);
+.a5{
   background:#07100f;
 }
 
-.casa{
-  --glow:rgba(230,190,120,.11);
+.a6{
   background:#0d0a08;
 }
 
-.forma{
-  --glow:rgba(255,255,255,.07);
+.a7{
   background:#090909;
 }
 
-/* ========================================
-   PROJECT UNIVERSE
-======================================== */
+/* =========================
+   INTERLUDE
+========================= */
 
-.universe{
-  min-height:110svh;
-  padding:12vw 5vw;
-  background:var(--paper);
-  color:#090909;
-  overflow:hidden;
-}
-
-.universe-head{
+.interlude{
+  min-height:100svh;
   display:flex;
-  justify-content:space-between;
-  margin-bottom:70px;
+  align-items:center;
+  overflow:hidden;
+  background:#111;
 }
 
-.universe-title{
-  font-size:clamp(55px,10vw,150px);
+.marquee{
+  white-space:nowrap;
+  font-size:clamp(90px,18vw,280px);
   font-weight:900;
-  line-height:.78;
-  letter-spacing:-.08em;
+  letter-spacing:-.1em;
+  line-height:.75;
+  color:transparent;
+  -webkit-text-stroke:1px #555;
+  transform:translateX(var(--marquee,-20%));
+  will-change:transform;
 }
 
-.universe-title span{
+.marquee span{
   color:var(--orange);
 }
 
-.universe-stage{
-  margin-top:80px;
-  height:65vh;
-  position:relative;
-  max-width:1200px;
-  margin-left:auto;
-  margin-right:auto;
-}
+/* =========================
+   MANIFESTO 2
+========================= */
 
-.float-card{
-  position:absolute;
-  width:31%;
-  aspect-ratio:1.45;
-  background:#111;
-  box-shadow:20px 30px 60px rgba(0,0,0,.2);
-  overflow:hidden;
-  transition:transform .2s var(--ease);
-}
-
-.float-card div{
-  width:100%;
-  height:100%;
-  display:flex;
-  align-items:flex-end;
-  padding:18px;
-  font-size:clamp(18px,2.5vw,35px);
-  font-weight:900;
-  color:#fff;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255,255,255,.1),
-      transparent
-    );
-}
-
-.float-card small{
-  position:absolute;
-  left:18px;
-  top:18px;
-  font:9px "DM Mono",monospace;
-  color:#aaa;
-}
-
-.fc1{
-  left:3%;
-  top:5%;
-  transform:rotate(-6deg);
-  background:#12100c;
-}
-
-.fc2{
-  right:4%;
-  top:8%;
-  transform:rotate(6deg);
-  background:#10131c;
-}
-
-.fc3{
-  left:34%;
-  top:27%;
-  transform:rotate(2deg);
-  background:#111;
-}
-
-.fc4{
-  left:7%;
-  bottom:3%;
-  transform:rotate(5deg);
-  background:#160b07;
-}
-
-.fc5{
-  right:8%;
-  bottom:0;
-  transform:rotate(-5deg);
-  background:#07110f;
-}
-
-/* ========================================
-   CAPABILITIES
-======================================== */
-
-.capabilities{
+.why{
   min-height:100svh;
   padding:12vw 5vw;
+  background:var(--white);
+  color:#090909;
 }
 
-.cap-head{
+.why-top{
   display:flex;
   justify-content:space-between;
-  margin-bottom:80px;
 }
 
-.cap-title{
-  font-size:clamp(55px,9vw,140px);
+.why-title{
+  margin-top:90px;
+  font-size:clamp(55px,10vw,150px);
   font-weight:900;
   letter-spacing:-.08em;
   line-height:.78;
 }
 
-.cap-title span{
+.why-title span{
   color:var(--orange);
 }
 
-.cap-list{
-  margin-top:80px;
-  border-top:1px solid #222;
+.reasons{
+  margin-top:90px;
+  border-top:1px solid #bbb;
 }
 
-.cap{
-  min-height:125px;
-  border-bottom:1px solid #222;
+.reason{
+  min-height:120px;
+  border-bottom:1px solid #bbb;
   display:grid;
-  grid-template-columns:70px 1fr 50px;
+  grid-template-columns:70px 1fr 1fr;
   align-items:center;
-  position:relative;
-  overflow:hidden;
-  transition:.5s var(--ease);
+  transition:.4s var(--ease);
 }
 
-.cap:before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:var(--orange);
-  transform:translateY(101%);
-  transition:.55s var(--ease);
+.reason:hover{
+  padding-left:25px;
+  background:#e9e6de;
 }
 
-.cap:hover:before{
-  transform:translateY(0);
-}
-
-.cap > *{
-  position:relative;
-  z-index:1;
-}
-
-.cap-no{
+.reason-no{
   font:10px "DM Mono",monospace;
-  color:#555;
+  color:#888;
 }
 
-.cap-name{
-  font-size:clamp(30px,5vw,70px);
+.reason-name{
+  font-size:clamp(25px,4vw,55px);
   font-weight:800;
   letter-spacing:-.05em;
 }
 
-.cap-arrow{
-  font-size:24px;
+.reason-text{
+  max-width:330px;
+  font:10px/1.7 "DM Mono",monospace;
+  color:#777;
 }
 
-.cap:hover{
-  padding-left:25px;
-  color:#000;
-}
+/* =========================
+   SIGNATURE
+========================= */
 
-.cap:hover .cap-no{
-  color:#000;
-}
-
-/* ========================================
-   IDENTITY
-======================================== */
-
-.identity{
+.signature{
   min-height:100svh;
-  display:flex;
-  align-items:center;
   padding:10vw 5vw;
-  background:#111;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
 }
 
-.identity-inner{
-  width:100%;
-}
-
-.identity-top{
+.signature-top{
   display:flex;
   justify-content:space-between;
-  margin-bottom:90px;
 }
 
-.identity-name{
-  font-size:clamp(90px,17vw,260px);
+.signature-name{
+  margin-top:90px;
+  font-size:clamp(90px,18vw,280px);
+  line-height:.68;
   font-weight:900;
-  line-height:.7;
-  letter-spacing:-.1em;
-  overflow:hidden;
+  letter-spacing:-.11em;
 }
 
-.identity-name span{
-  display:block;
-  transform:translateY(100%);
-  transition:transform 1s var(--ease);
-}
-
-.identity.visible .identity-name span{
-  transform:translateY(0);
-}
-
-.identity-copy{
+.signature-line{
+  margin-top:80px;
   display:flex;
   justify-content:flex-end;
-  margin-top:100px;
 }
 
-.identity-copy p{
-  max-width:450px;
+.signature-copy{
+  max-width:430px;
   font:12px/2 "DM Mono",monospace;
   color:#777;
 }
 
-.identity-copy strong{
+.signature-copy strong{
   color:#fff;
   font-weight:400;
 }
 
-/* ========================================
+/* =========================
    FINAL
-======================================== */
+========================= */
 
 .final{
   min-height:100svh;
@@ -880,14 +714,14 @@ a{
   justify-content:space-between;
 }
 
-.final-title{
-  font-size:clamp(70px,13vw,205px);
+.final h2{
+  font-size:clamp(70px,14vw,215px);
   font-weight:900;
-  line-height:.74;
-  letter-spacing:-.09em;
+  line-height:.72;
+  letter-spacing:-.095em;
 }
 
-.final-title .outline{
+.final h2 .stroke{
   color:transparent;
   -webkit-text-stroke:2px #090909;
 }
@@ -900,40 +734,36 @@ a{
   align-items:flex-end;
 }
 
-.start{
-  font-size:clamp(24px,4vw,55px);
+.cta{
+  font-size:clamp(25px,4vw,55px);
   font-weight:800;
   letter-spacing:-.05em;
 }
 
-.contact{
+.details{
   text-align:right;
   font:10px/2 "DM Mono",monospace;
 }
 
-.contact a{
-  display:block;
-}
-
-/* ========================================
+/* =========================
    MOBILE
-======================================== */
+========================= */
 
 @media(max-width:800px){
 
-  .nav{
+  header{
     padding:20px;
   }
 
-  .nav-links{
-    gap:15px;
+  .menu{
+    gap:14px;
   }
 
   .hero{
-    padding:110px 20px 50px;
+    padding:100px 20px 50px;
   }
 
-  .hero-description{
+  .hero-copy{
     display:none;
   }
 
@@ -941,102 +771,93 @@ a{
     font-size:19vw;
   }
 
-  .hero-bottom{
-    margin-top:55px;
+  .hero-top{
+    margin-bottom:60px;
   }
 
-  .manifesto{
+  .statement{
     padding:100px 20px;
   }
 
-  .manifesto-title{
+  .statement-title{
     font-size:14vw;
-    margin-top:50px;
   }
 
-  .manifesto-footer{
-    margin-top:60px;
-  }
-
-  .work-intro{
+  .gallery-intro{
     padding:90px 20px;
   }
 
-  .work-title{
+  .gallery-intro h2{
     font-size:19vw;
   }
 
-  .project{
+  .art{
     min-height:90svh;
-    padding:70px 20px;
+    padding:80px 20px;
   }
 
-  .project-info{
-    top:35px;
+  .art-number{
+    top:30px;
     left:20px;
+  }
+
+  .art-category{
+    top:30px;
     right:20px;
   }
 
-  .project-window{
+  .art-window{
     width:94vw;
     aspect-ratio:4/3;
   }
 
-  .project-name{
+  .art-name{
     width:130%;
   }
 
-  .project-name h2{
+  .art-name h3{
     font-size:14vw;
   }
 
-  .project-bottom{
+  .art-footer{
+    bottom:25px;
     left:20px;
     right:20px;
-    bottom:25px;
   }
 
-  .universe{
+  .interlude{
+    min-height:65svh;
+  }
+
+  .marquee{
+    font-size:25vw;
+  }
+
+  .why{
     padding:90px 20px;
   }
 
-  .universe-stage{
-    height:70vh;
+  .why-title{
+    font-size:15vw;
+    margin-top:65px;
   }
 
-  .float-card{
-    width:52%;
+  .reason{
+    min-height:125px;
+    grid-template-columns:35px 1fr;
   }
 
-  .fc1{left:0}
-  .fc2{right:0}
-  .fc3{left:24%}
-  .fc4{left:2%}
-  .fc5{right:2%}
-
-  .capabilities{
-    padding:90px 20px;
+  .reason-text{
+    grid-column:2;
+    margin-bottom:20px;
   }
 
-  .cap{
-    min-height:95px;
-    grid-template-columns:35px 1fr 30px;
-  }
-
-  .cap-name{
-    font-size:7.5vw;
-  }
-
-  .identity{
+  .signature{
     padding:100px 20px;
   }
 
-  .identity-name{
-    font-size:22vw;
-  }
-
-  .identity-copy{
-    justify-content:flex-start;
+  .signature-name{
+    font-size:23vw;
     margin-top:70px;
   }
 
@@ -1044,7 +865,7 @@ a{
     padding:80px 20px 25px;
   }
 
-  .final-title{
+  .final h2{
     font-size:18vw;
   }
 
@@ -1054,7 +875,7 @@ a{
     gap:35px;
   }
 
-  .contact{
+  .details{
     text-align:left;
   }
 }
@@ -1063,100 +884,98 @@ a{
 
 <body>
 
-<!-- ========================================
-     LOADER
-======================================== -->
+<!-- INTRO -->
+<div class="intro" id="intro">
 
-<div class="loader" id="loader">
-  <div class="loader-inner">
+  <div class="intro-wrap">
 
-    <div class="loader-meta">
+    <div class="intro-top">
       <span>AI VISION STUDIO®</span>
-      <span>AHMEDABAD / INDIA</span>
+      <span>001 / DIGITAL GALLERY</span>
     </div>
 
-    <div class="loader-title">
+    <div class="intro-big">
       <span>KAUSTUBH</span>
       <span>× AI VISION</span>
     </div>
 
-    <div class="loader-bar">
+    <div class="intro-rule">
       <i></i>
     </div>
 
   </div>
+
 </div>
 
-<div class="grain"></div>
 
-<!-- CURSOR -->
-<div class="cursor" id="cursor">
-  <div class="cursor-ring"></div>
-  <div class="cursor-label">VIEW</div>
-</div>
+<!-- HEADER -->
+<header>
 
-<!-- NAV -->
-<nav class="nav">
-
-  <a href="#top" class="logo hover-target">
+  <a href="#home" class="logo hover">
     AI VISION STUDIO®
   </a>
 
-  <div class="nav-links">
-    <a href="#work" class="hover-target">WORK</a>
-    <a href="#capabilities" class="hover-target">CAPABILITIES</a>
-    <a href="#contact" class="hover-target">START</a>
-  </div>
+  <nav class="menu">
+    <a href="#gallery" class="hover">WORK</a>
+    <a href="#why" class="hover">WHY</a>
+    <a href="#contact" class="hover">CONTACT</a>
+  </nav>
 
-</nav>
+</header>
 
 
-<!-- ========================================
-     HERO
-======================================== -->
+<!-- CURSOR -->
+<div class="cursor" id="cursor">
+  <div class="cursor-label">VIEW</div>
+</div>
 
-<section class="hero" id="top">
 
-  <div class="hero-content">
+<!-- HERO -->
+<section class="hero" id="home">
+
+  <div class="hero-light" id="heroLight"></div>
+
+  <div class="hero-inner">
 
     <div class="hero-top">
 
-      <div class="eyebrow">
-        DIGITAL EXPERIENCES / 2026
+      <div class="mono">
+        INDEPENDENT DIGITAL STUDIO
       </div>
 
-      <div class="hero-description">
-        Websites, identities and digital experiences
-        built to make businesses impossible to ignore.
+      <div class="hero-copy">
+        We build digital experiences
+        that turn ordinary businesses
+        into memorable brands.
       </div>
 
     </div>
 
     <h1 class="hero-title">
 
-      <div class="row">
-        <span>NOT</span>
+      <div class="hero-line">
+        <span>MAKE</span>
       </div>
 
-      <div class="row">
-        <span>ANOTHER</span>
+      <div class="hero-line">
+        <span>THEM</span>
       </div>
 
-      <div class="row">
-        <span>STUDIO.</span>
+      <div class="hero-line">
+        <span>LOOK.</span>
       </div>
 
     </h1>
 
     <div class="hero-bottom">
 
-      <div class="scroll">
-        SCROLL TO ENTER
-        <i></i>
+      <div class="scroll-label">
+        ENTER THE WORK
+        <span class="scroll-line"></span>
       </div>
 
-      <div class="eyebrow">
-        00 / 07
+      <div class="hero-count">
+        AHMEDABAD / INDIA
       </div>
 
     </div>
@@ -1166,30 +985,42 @@ a{
 </section>
 
 
-<!-- ========================================
-     MANIFESTO
-======================================== -->
+<!-- STATEMENT -->
+<section class="statement">
 
-<section class="manifesto">
+  <div class="statement-inner">
 
-  <div class="manifesto-content">
-
-    <div class="eyebrow">
-      OUR POSITION / 001
+    <div class="statement-small">
+      01 — THE IDEA
     </div>
 
-    <div class="manifesto-title">
+    <div class="statement-title">
 
-      <div>WE DON'T</div>
-      <div class="outline">DESIGN.</div>
-      <div>WE CREATE</div>
-      <div class="outline">PRESENCE.</div>
+      <div class="shift">
+        YOUR WEBSITE
+      </div>
+
+      <div class="shift outline">
+        IS NOT
+      </div>
+
+      <div class="shift">
+        YOUR BRAND.
+      </div>
+
+      <div class="shift outline">
+        IT'S THE
+      </div>
+
+      <div class="shift">
+        FIRST IMPRESSION.
+      </div>
 
     </div>
 
-    <div class="manifesto-footer">
-      <span>BRAND × DIGITAL × MOTION</span>
-      <span>MOVE DIFFERENT.</span>
+    <div class="statement-footer">
+      <span>DESIGN / CODE / MOTION</span>
+      <span>FIRST IMPRESSIONS MATTER.</span>
     </div>
 
   </div>
@@ -1197,53 +1028,40 @@ a{
 </section>
 
 
-<!-- ========================================
-     WORK INTRO
-======================================== -->
+<!-- GALLERY INTRO -->
+<section class="gallery-intro" id="gallery">
 
-<section class="work-intro" id="work">
-
-  <h2 class="work-title">
-    SEVEN<br>
-    <span>WORLDS.</span>
+  <h2>
+    THE<br>
+    <span>ARCHIVE.</span>
   </h2>
 
 </section>
 
 
-<!-- ========================================
-     PROJECT 01
-======================================== -->
+<!-- PROJECT 01 -->
+<section class="art a1" data-art>
 
-<section class="project savoro" data-project>
+  <div class="art-number">01 — 07</div>
 
-  <div class="project-grid"></div>
-
-  <div class="project-info">
-
-    <div class="project-number">
-      01 / 07
-    </div>
-
-    <div class="project-type">
-      FOOD / LUXURY<br>
-      DIGITAL EXPERIENCE
-    </div>
-
+  <div class="art-category">
+    FOOD<br>
+    LUXURY EXPERIENCE
   </div>
 
-  <div class="project-stage">
+  <div class="art-center">
 
-    <div class="project-window">
+    <div class="art-window">
 
-      <iframe
-        class="project-preview"
-        src="https://savoro-puce.vercel.app/#menu"
-        loading="lazy">
-      </iframe>
+      <div class="art-placeholder">
+        <iframe
+          src="https://savoro-puce.vercel.app/#menu"
+          loading="lazy">
+        </iframe>
+      </div>
 
-      <div class="project-name">
-        <h2>SAVORO</h2>
+      <div class="art-name">
+        <h3>SAVORO</h3>
         <p>THE ART OF APPETITE</p>
       </div>
 
@@ -1251,56 +1069,44 @@ a{
 
   </div>
 
-  <div class="project-bottom">
-
-    <span>CINEMATIC FOOD EXPERIENCE</span>
+  <div class="art-footer">
+    <span>CINEMATIC DIGITAL EXPERIENCE</span>
 
     <a
       href="https://savoro-puce.vercel.app/#menu"
       target="_blank"
-      class="open hover-target"
+      class="view hover"
       data-label="OPEN">
       OPEN ↗
     </a>
-
   </div>
 
 </section>
 
 
-<!-- ========================================
-     PROJECT 02
-======================================== -->
+<!-- PROJECT 02 -->
+<section class="art a2" data-art>
 
-<section class="project nova" data-project>
+  <div class="art-number">02 — 07</div>
 
-  <div class="project-grid"></div>
-
-  <div class="project-info">
-
-    <div class="project-number">
-      02 / 07
-    </div>
-
-    <div class="project-type">
-      TECHNOLOGY / FUTURE<br>
-      DIGITAL PRODUCT
-    </div>
-
+  <div class="art-category">
+    TECHNOLOGY<br>
+    FUTURE INTERFACE
   </div>
 
-  <div class="project-stage">
+  <div class="art-center">
 
-    <div class="project-window">
+    <div class="art-window">
 
-      <iframe
-        class="project-preview"
-        src="https://nova-gilt-psi.vercel.app/"
-        loading="lazy">
-      </iframe>
+      <div class="art-placeholder">
+        <iframe
+          src="https://nova-gilt-psi.vercel.app/"
+          loading="lazy">
+        </iframe>
+      </div>
 
-      <div class="project-name">
-        <h2>NOVA</h2>
+      <div class="art-name">
+        <h3>NOVA</h3>
         <p>BUILT FOR WHAT'S NEXT</p>
       </div>
 
@@ -1308,56 +1114,44 @@ a{
 
   </div>
 
-  <div class="project-bottom">
-
-    <span>FUTURE-FORWARD INTERFACE</span>
+  <div class="art-footer">
+    <span>FUTURE DIGITAL PRODUCT</span>
 
     <a
       href="https://nova-gilt-psi.vercel.app/"
       target="_blank"
-      class="open hover-target"
+      class="view hover"
       data-label="OPEN">
       OPEN ↗
     </a>
-
   </div>
 
 </section>
 
 
-<!-- ========================================
-     PROJECT 03
-======================================== -->
+<!-- PROJECT 03 -->
+<section class="art a3" data-art>
 
-<section class="project noire" data-project>
+  <div class="art-number">03 — 07</div>
 
-  <div class="project-grid"></div>
-
-  <div class="project-info">
-
-    <div class="project-number">
-      03 / 07
-    </div>
-
-    <div class="project-type">
-      EDITORIAL / LUXURY<br>
-      ART DIRECTION
-    </div>
-
+  <div class="art-category">
+    EDITORIAL<br>
+    LUXURY IDENTITY
   </div>
 
-  <div class="project-stage">
+  <div class="art-center">
 
-    <div class="project-window">
+    <div class="art-window">
 
-      <iframe
-        class="project-preview"
-        src="https://noire-five-blond.vercel.app/"
-        loading="lazy">
-      </iframe>
+      <div class="art-placeholder">
+        <iframe
+          src="https://noire-five-blond.vercel.app/"
+          loading="lazy">
+        </iframe>
+      </div>
 
-      <div class="project-name">
-        <h2>NOIRÉ</h2>
+      <div class="art-name">
+        <h3>NOIRÉ</h3>
         <p>LESS. BUT LOUDER.</p>
       </div>
 
@@ -1365,56 +1159,44 @@ a{
 
   </div>
 
-  <div class="project-bottom">
-
-    <span>EDITORIAL DIGITAL IDENTITY</span>
+  <div class="art-footer">
+    <span>EDITORIAL DIGITAL WORLD</span>
 
     <a
       href="https://noire-five-blond.vercel.app/"
       target="_blank"
-      class="open hover-target"
+      class="view hover"
       data-label="OPEN">
       OPEN ↗
     </a>
-
   </div>
 
 </section>
 
 
-<!-- ========================================
-     PROJECT 04
-======================================== -->
+<!-- PROJECT 04 -->
+<section class="art a4" data-art>
 
-<section class="project radhe" data-project>
+  <div class="art-number">04 — 07</div>
 
-  <div class="project-grid"></div>
-
-  <div class="project-info">
-
-    <div class="project-number">
-      04 / 07
-    </div>
-
-    <div class="project-type">
-      SPORTS / ENERGY<br>
-      EXPERIENCE DESIGN
-    </div>
-
+  <div class="art-category">
+    SPORTS<br>
+    EXPERIENCE SYSTEM
   </div>
 
-  <div class="project-stage">
+  <div class="art-center">
 
-    <div class="project-window">
+    <div class="art-window">
 
-      <iframe
-        class="project-preview"
-        src="https://radhearena.vercel.app/"
-        loading="lazy">
-      </iframe>
+      <div class="art-placeholder">
+        <iframe
+          src="https://radhearena.vercel.app/"
+          loading="lazy">
+        </iframe>
+      </div>
 
-      <div class="project-name">
-        <h2>RADHE</h2>
+      <div class="art-name">
+        <h3>RADHE</h3>
         <p>PLAY WITH ATTITUDE</p>
       </div>
 
@@ -1422,56 +1204,44 @@ a{
 
   </div>
 
-  <div class="project-bottom">
-
-    <span>SPORTS EXPERIENCE SYSTEM</span>
+  <div class="art-footer">
+    <span>SPORTS DIGITAL EXPERIENCE</span>
 
     <a
       href="https://radhearena.vercel.app/"
       target="_blank"
-      class="open hover-target"
+      class="view hover"
       data-label="OPEN">
       OPEN ↗
     </a>
-
   </div>
 
 </section>
 
 
-<!-- ========================================
-     PROJECT 05
-======================================== -->
+<!-- PROJECT 05 -->
+<section class="art a5" data-art>
 
-<section class="project eventbudget" data-project>
+  <div class="art-number">05 — 07</div>
 
-  <div class="project-grid"></div>
-
-  <div class="project-info">
-
-    <div class="project-number">
-      05 / 07
-    </div>
-
-    <div class="project-type">
-      PRODUCT / SYSTEM<br>
-      EVENTBUDGET
-    </div>
-
+  <div class="art-category">
+    PRODUCT<br>
+    EVENT SYSTEM
   </div>
 
-  <div class="project-stage">
+  <div class="art-center">
 
-    <div class="project-window">
+    <div class="art-window">
 
-      <iframe
-        class="project-preview"
-        src="https://eventbudget-sooty.vercel.app/"
-        loading="lazy">
-      </iframe>
+      <div class="art-placeholder">
+        <iframe
+          src="https://eventbudget-sooty.vercel.app/"
+          loading="lazy">
+        </iframe>
+      </div>
 
-      <div class="project-name">
-        <h2>EVENTBUDGET</h2>
+      <div class="art-name">
+        <h3>EVENTBUDGET</h3>
         <p>PLAN. SIMULATE. CELEBRATE.</p>
       </div>
 
@@ -1479,56 +1249,44 @@ a{
 
   </div>
 
-  <div class="project-bottom">
-
+  <div class="art-footer">
     <span>INTERACTIVE EVENT PLATFORM</span>
 
     <a
       href="https://eventbudget-sooty.vercel.app/"
       target="_blank"
-      class="open hover-target"
+      class="view hover"
       data-label="OPEN">
       OPEN ↗
     </a>
-
   </div>
 
 </section>
 
 
-<!-- ========================================
-     PROJECT 06
-======================================== -->
+<!-- PROJECT 06 -->
+<section class="art a6" data-art>
 
-<section class="project casa" data-project>
+  <div class="art-number">06 — 07</div>
 
-  <div class="project-grid"></div>
-
-  <div class="project-info">
-
-    <div class="project-number">
-      06 / 07
-    </div>
-
-    <div class="project-type">
-      HOSPITALITY / SPACE<br>
-      DIGITAL PRESENCE
-    </div>
-
+  <div class="art-category">
+    HOSPITALITY<br>
+    DIGITAL PRESENCE
   </div>
 
-  <div class="project-stage">
+  <div class="art-center">
 
-    <div class="project-window">
+    <div class="art-window">
 
-      <iframe
-        class="project-preview"
-        src="https://casa-mira-inky.vercel.app/"
-        loading="lazy">
-      </iframe>
+      <div class="art-placeholder">
+        <iframe
+          src="https://casa-mira-inky.vercel.app/"
+          loading="lazy">
+        </iframe>
+      </div>
 
-      <div class="project-name">
-        <h2>CASA MIRA</h2>
+      <div class="art-name">
+        <h3>CASA MIRA</h3>
         <p>STAY SOMEWHERE BEAUTIFUL</p>
       </div>
 
@@ -1536,56 +1294,44 @@ a{
 
   </div>
 
-  <div class="project-bottom">
-
+  <div class="art-footer">
     <span>HOSPITALITY EXPERIENCE</span>
 
     <a
       href="https://casa-mira-inky.vercel.app/"
       target="_blank"
-      class="open hover-target"
+      class="view hover"
       data-label="OPEN">
       OPEN ↗
     </a>
-
   </div>
 
 </section>
 
 
-<!-- ========================================
-     PROJECT 07
-======================================== -->
+<!-- PROJECT 07 -->
+<section class="art a7" data-art>
 
-<section class="project forma" data-project>
+  <div class="art-number">07 — 07</div>
 
-  <div class="project-grid"></div>
-
-  <div class="project-info">
-
-    <div class="project-number">
-      07 / 07
-    </div>
-
-    <div class="project-type">
-      ARCHITECTURE / FORM<br>
-      VISUAL SYSTEM
-    </div>
-
+  <div class="art-category">
+    ARCHITECTURE<br>
+    VISUAL SYSTEM
   </div>
 
-  <div class="project-stage">
+  <div class="art-center">
 
-    <div class="project-window">
+    <div class="art-window">
 
-      <iframe
-        class="project-preview"
-        src="https://forma-ochre-nine.vercel.app/"
-        loading="lazy">
-      </iframe>
+      <div class="art-placeholder">
+        <iframe
+          src="https://forma-ochre-nine.vercel.app/"
+          loading="lazy">
+        </iframe>
+      </div>
 
-      <div class="project-name">
-        <h2>FORMA</h2>
+      <div class="art-name">
+        <h3>FORMA</h3>
         <p>FORM FOLLOWS FEELING</p>
       </div>
 
@@ -1593,182 +1339,112 @@ a{
 
   </div>
 
-  <div class="project-bottom">
-
+  <div class="art-footer">
     <span>ARCHITECTURAL DIGITAL WORLD</span>
 
     <a
       href="https://forma-ochre-nine.vercel.app/"
       target="_blank"
-      class="open hover-target"
+      class="view hover"
       data-label="OPEN">
       OPEN ↗
     </a>
-
   </div>
 
 </section>
 
 
-<!-- ========================================
-     LIGHTWEIGHT UNIVERSE
-======================================== -->
+<!-- INTERLUDE -->
+<section class="interlude">
 
-<section class="universe">
+  <div class="marquee" id="marquee">
+    DESIGN IS <span>ATTENTION.</span>
+    DESIGN IS <span>ATTENTION.</span>
+  </div>
 
-  <div class="universe-head">
+</section>
 
-    <div class="eyebrow">
-      PROJECT UNIVERSE / 002
+
+<!-- WHY -->
+<section class="why" id="why">
+
+  <div class="why-top">
+
+    <div class="mono">
+      02 — WHY AI VISION
     </div>
 
-    <div class="eyebrow">
-      MOVE YOUR MOUSE
+    <div class="mono">
+      NO GENERIC AGENCY ENERGY
     </div>
 
   </div>
 
-  <h2 class="universe-title">
-    ONE STUDIO.<br>
-    <span>MANY WORLDS.</span>
+  <h2 class="why-title">
+    WE MAKE<br>
+    <span>ORDINARY</span><br>
+    FEEL RARE.
   </h2>
 
-  <div class="universe-stage">
+  <div class="reasons">
 
-    <div class="float-card fc1">
-      <small>01 / FOOD</small>
-      <div>SAVORO</div>
-    </div>
+    <div class="reason">
 
-    <div class="float-card fc2">
-      <small>02 / FUTURE</small>
-      <div>NOVA</div>
-    </div>
+      <span class="reason-no">01</span>
 
-    <div class="float-card fc3">
-      <small>03 / EDITORIAL</small>
-      <div>NOIRÉ</div>
-    </div>
+      <span class="reason-name">
+        ORIGINAL
+      </span>
 
-    <div class="float-card fc4">
-      <small>04 / SPORTS</small>
-      <div>RADHE</div>
-    </div>
-
-    <div class="float-card fc5">
-      <small>05 / PRODUCT</small>
-      <div>EVENTBUDGET</div>
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ========================================
-     CAPABILITIES
-======================================== -->
-
-<section class="capabilities" id="capabilities">
-
-  <div class="cap-head">
-
-    <div class="eyebrow">
-      WHAT WE DO / 003
-    </div>
-
-    <div class="eyebrow">
-      NO TEMPLATE. NO COPY.
-    </div>
-
-  </div>
-
-  <h2 class="cap-title">
-    WE BUILD<br>
-    <span>ATTENTION.</span>
-  </h2>
-
-  <div class="cap-list">
-
-    <div class="cap hover-target">
-      <span class="cap-no">01</span>
-      <span class="cap-name">WEB EXPERIENCES</span>
-      <span class="cap-arrow">↗</span>
-    </div>
-
-    <div class="cap hover-target">
-      <span class="cap-no">02</span>
-      <span class="cap-name">BRAND SYSTEMS</span>
-      <span class="cap-arrow">↗</span>
-    </div>
-
-    <div class="cap hover-target">
-      <span class="cap-no">03</span>
-      <span class="cap-name">MOTION & INTERACTION</span>
-      <span class="cap-arrow">↗</span>
-    </div>
-
-    <div class="cap hover-target">
-      <span class="cap-no">04</span>
-      <span class="cap-name">AI-POWERED DESIGN</span>
-      <span class="cap-arrow">↗</span>
-    </div>
-
-    <div class="cap hover-target">
-      <span class="cap-no">05</span>
-      <span class="cap-name">DIGITAL PRESENCE</span>
-      <span class="cap-arrow">↗</span>
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ========================================
-     IDENTITY
-======================================== -->
-
-<section class="identity" id="about">
-
-  <div class="identity-inner">
-
-    <div class="identity-top">
-
-      <div class="eyebrow">
-        THE PERSON BEHIND IT / 004
-      </div>
-
-      <div class="eyebrow">
-        AHMEDABAD — INDIA
-      </div>
+      <span class="reason-text">
+        No recycled templates.
+        Every experience gets its own visual language.
+      </span>
 
     </div>
 
-    <h2 class="identity-name">
-      <span>KAUSTUBH.</span>
-    </h2>
+    <div class="reason">
 
-    <div class="identity-copy">
+      <span class="reason-no">02</span>
 
-      <p>
+      <span class="reason-name">
+        FAST
+      </span>
 
-        <strong>
-          AI Vision Studio is an independent digital studio
-          led by Kaustubh Shukla.
-        </strong>
+      <span class="reason-text">
+        Motion and interaction without turning
+        the website into a loading screen.
+      </span>
 
-        <br><br>
+    </div>
 
-        We don't believe every business needs another website.
-        It needs a digital presence people remember.
+    <div class="reason">
 
-        <br><br>
+      <span class="reason-no">03</span>
 
-        Strategy, design, motion, code and AI —
-        combined into experiences that feel bigger than the screen.
+      <span class="reason-name">
+        USEFUL
+      </span>
 
-      </p>
+      <span class="reason-text">
+        Pretty is not enough.
+        The experience has to help the business.
+      </span>
+
+    </div>
+
+    <div class="reason">
+
+      <span class="reason-no">04</span>
+
+      <span class="reason-name">
+        MEMORABLE
+      </span>
+
+      <span class="reason-text">
+        The goal isn't just a visitor.
+        The goal is the reaction after they leave.
+      </span>
 
     </div>
 
@@ -1777,26 +1453,65 @@ a{
 </section>
 
 
-<!-- ========================================
-     FINAL CTA
-======================================== -->
+<!-- SIGNATURE -->
+<section class="signature">
 
+  <div class="signature-top">
+
+    <div class="mono">
+      03 — THE PERSON
+    </div>
+
+    <div class="mono">
+      AHMEDABAD / INDIA
+    </div>
+
+  </div>
+
+  <div class="signature-name">
+    KAUSTUBH.
+  </div>
+
+  <div class="signature-line">
+
+    <div class="signature-copy">
+
+      <strong>
+        AI Vision Studio is led by Kaustubh Shukla.
+      </strong>
+
+      <br><br>
+
+      A young independent creator building
+      websites, digital identities and interactive
+      experiences for businesses that want to
+      look different.
+
+      <br><br>
+
+      Design × code × AI.
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- FINAL -->
 <section class="final" id="contact">
 
   <div>
 
     <div
-      class="eyebrow"
-      style="color:#662000;margin-bottom:55px;">
-      HAVE A BUSINESS / IDEA / BRAND?
+      class="mono"
+      style="color:#642000;margin-bottom:55px;">
+      READY WHEN YOU ARE.
     </div>
 
-    <h2 class="final-title">
-
-      YOUR BUSINESS<br>
-      COULD LOOK<br>
-      <span class="outline">LIKE THIS.</span>
-
+    <h2>
+      MAKE YOUR<br>
+      <span class="stroke">MOVE.</span>
     </h2>
 
   </div>
@@ -1804,13 +1519,13 @@ a{
   <div class="final-bottom">
 
     <a
+      class="cta hover"
       href="mailto:aivisionstudio2821@gmail.com"
-      class="start hover-target"
       data-label="EMAIL">
       START A PROJECT ↗
     </a>
 
-    <div class="contact">
+    <div class="details">
 
       <a href="tel:+919925054448">
         +91 99250 54448
@@ -1835,218 +1550,256 @@ a{
 
 <script>
 
-/* ========================================
-   LOADER
-======================================== */
+/* =========================
+   INTRO
+========================= */
 
 window.addEventListener("load",()=>{
 
   setTimeout(()=>{
     document
-      .getElementById("loader")
-      .classList.add("hide");
+      .getElementById("intro")
+      .classList.add("done");
   },2100);
 
 });
 
 
-/* ========================================
+/* =========================
    CURSOR
-======================================== */
+========================= */
 
-const cursor=document.getElementById("cursor");
+const cursor=
+  document.getElementById("cursor");
 
-let cx=innerWidth/2;
-let cy=innerHeight/2;
+let mouseX=innerWidth/2;
+let mouseY=innerHeight/2;
 
-let tx=cx;
-let ty=cy;
-
-document.addEventListener("mousemove",e=>{
-  tx=e.clientX;
-  ty=e.clientY;
-});
-
-function cursorLoop(){
-
-  cx+=(tx-cx)*.16;
-  cy+=(ty-cy)*.16;
-
-  cursor.style.left=cx+"px";
-  cursor.style.top=cy+"px";
-  cursor.style.opacity="1";
-
-  requestAnimationFrame(cursorLoop);
-}
-
-if(matchMedia("(pointer:fine)").matches){
-  cursorLoop();
-}
-
-
-/* ========================================
-   CURSOR HOVER
-======================================== */
-
-document.querySelectorAll(".hover-target")
-.forEach(el=>{
-
-  el.addEventListener("mouseenter",()=>{
-
-    cursor.classList.add("hover");
-
-    cursor.querySelector(".cursor-label")
-      .textContent=
-      el.dataset.label || "VIEW";
-
-  });
-
-  el.addEventListener("mouseleave",()=>{
-
-    cursor.classList.remove("hover");
-
-  });
-
-});
-
-
-/* ========================================
-   SMOOTH POINTER CAMERA
-======================================== */
-
-let mx=0;
-let my=0;
-
-let targetX=0;
-let targetY=0;
+let curX=mouseX;
+let curY=mouseY;
 
 if(matchMedia("(pointer:fine)").matches){
 
   document.addEventListener("mousemove",e=>{
 
-    targetX=
-      (e.clientX-innerWidth/2)/innerWidth;
+    mouseX=e.clientX;
+    mouseY=e.clientY;
 
-    targetY=
-      (e.clientY-innerHeight/2)/innerHeight;
+    const light=
+      document.getElementById("heroLight");
+
+    light.style.left=
+      e.clientX+"px";
+
+    light.style.top=
+      e.clientY+"px";
+
+  });
+
+  function cursorMove(){
+
+    curX+=(mouseX-curX)*.16;
+    curY+=(mouseY-curY)*.16;
+
+    cursor.style.left=curX+"px";
+    cursor.style.top=curY+"px";
+    cursor.style.opacity="1";
+
+    requestAnimationFrame(cursorMove);
+
+  }
+
+  cursorMove();
+
+}
+
+
+/* =========================
+   HOVER
+========================= */
+
+document
+  .querySelectorAll(".hover")
+  .forEach(el=>{
+
+    el.addEventListener(
+      "mouseenter",
+      ()=>{
+
+        cursor.classList.add("big");
+
+        cursor
+          .querySelector(".cursor-label")
+          .textContent=
+          el.dataset.label || "VIEW";
+
+      }
+    );
+
+    el.addEventListener(
+      "mouseleave",
+      ()=>{
+
+        cursor.classList.remove("big");
+
+      }
+    );
+
+  });
+
+
+/* =========================
+   STATEMENT MOTION
+========================= */
+
+const statement=
+  document.querySelector(".statement");
+
+const shifts=
+  document.querySelectorAll(
+    ".statement-title .shift"
+  );
+
+function statementMotion(){
+
+  const r=
+    statement.getBoundingClientRect();
+
+  const progress=
+    (innerHeight-r.top)/
+    (innerHeight+r.height);
+
+  const value=
+    Math.max(-1,Math.min(1,progress-.5));
+
+  shifts.forEach((el,i)=>{
+
+    const amount=
+      value*55*(i%2 ? -1 : 1);
+
+    el.style.setProperty(
+      "--shift",
+      amount+"px"
+    );
 
   });
 
 }
 
-function pointerLoop(){
 
-  mx+=(targetX-mx)*.045;
-  my+=(targetY-my)*.045;
+/* =========================
+   ART MOTION
+========================= */
 
-  document.documentElement.style
-    .setProperty("--mx",mx);
+const arts=
+  document.querySelectorAll("[data-art]");
 
-  document.documentElement.style
-    .setProperty("--my",my);
+function artMotion(){
 
-  document.querySelectorAll(".float-card")
-  .forEach((card,i)=>{
+  arts.forEach((art,i)=>{
 
-    const amount=(i%2?1:-1)*12;
-
-    card.style.translate=
-      `${mx*amount}px ${my*amount}px`;
-
-  });
-
-  requestAnimationFrame(pointerLoop);
-}
-
-pointerLoop();
-
-
-/* ========================================
-   PROJECT SCROLL ENGINE
-   ONE RAF LOOP ONLY
-======================================== */
-
-const projects=
-  [...document.querySelectorAll("[data-project]")];
-
-let scrollPos=window.scrollY;
-let ticking=false;
-
-function updateProjects(){
-
-  projects.forEach(project=>{
-
-    const rect=
-      project.getBoundingClientRect();
+    const r=
+      art.getBoundingClientRect();
 
     const center=
-      rect.top + rect.height/2;
-
-    const distance=
-      (center-innerHeight/2)/(innerHeight*.85);
+      r.top+r.height/2;
 
     const p=
-      Math.max(-1,Math.min(1,distance));
+      Math.max(
+        -1,
+        Math.min(
+          1,
+          (center-innerHeight/2)/
+          (innerHeight*.85)
+        )
+      );
 
     const windowEl=
-      project.querySelector(".project-window");
+      art.querySelector(".art-window");
 
     const name=
-      project.querySelector(".project-name");
+      art.querySelector(".art-name");
 
-    if(windowEl){
+    windowEl.style.setProperty(
+      "--move",
+      `${p*-35}px`
+    );
 
-      windowEl.style.setProperty(
-        "--px",
-        `${p*-55}px`
-      );
+    windowEl.style.setProperty(
+      "--rotate",
+      `${p*1.8}deg`
+    );
 
-      windowEl.style.setProperty(
-        "--py",
-        `${Math.abs(p)*-22}px`
-      );
+    windowEl.style.setProperty(
+      "--scale",
+      `${1-Math.abs(p)*.025}`
+    );
 
-      windowEl.style.setProperty(
-        "--ry",
-        `${p*5}deg`
-      );
+    name.style.setProperty(
+      "--name-x",
+      `${p*55}px`
+    );
 
-      windowEl.style.setProperty(
-        "--rx",
-        `${p*-2.5}deg`
-      );
-
-      windowEl.style.setProperty(
-        "--ps",
-        `${1-Math.abs(p)*.035}`
-      );
-
-    }
-
-    if(name){
-
-      name.style.setProperty(
-        "--tx",
-        `${p*75}px`
-      );
-
-      name.style.setProperty(
-        "--ty",
-        `${p*-25}px`
-      );
-
-    }
+    name.style.setProperty(
+      "--name-y",
+      `${p*-18}px`
+    );
 
   });
 
+}
+
+
+/* =========================
+   MARQUEE
+========================= */
+
+const marquee=
+  document.getElementById("marquee");
+
+function marqueeMotion(){
+
+  const r=
+    document
+      .querySelector(".interlude")
+      .getBoundingClientRect();
+
+  const p=
+    (innerHeight-r.top)/
+    (innerHeight+r.height);
+
+  const x=
+    -35+(p*70);
+
+  marquee.style.setProperty(
+    "--marquee",
+    x+"%"
+  );
+
+}
+
+
+/* =========================
+   SINGLE SCROLL LOOP
+========================= */
+
+let ticking=false;
+
+function update(){
+
+  statementMotion();
+  artMotion();
+  marqueeMotion();
+
   ticking=false;
+
 }
 
 function requestUpdate(){
 
   if(!ticking){
 
-    requestAnimationFrame(updateProjects);
+    requestAnimationFrame(update);
 
     ticking=true;
 
@@ -2063,109 +1816,9 @@ window.addEventListener(
 requestUpdate();
 
 
-/* ========================================
-   MANIFESTO SCROLL
-======================================== */
-
-const manifesto=
-  document.querySelector(".manifesto");
-
-const manifestoLines=
-  manifesto.querySelectorAll(
-    ".manifesto-title div"
-  );
-
-function manifestoUpdate(){
-
-  const r=
-    manifesto.getBoundingClientRect();
-
-  const p=
-    (innerHeight-r.top)/
-    (innerHeight+r.height);
-
-  const value=
-    Math.max(-1,Math.min(1,p-.5));
-
-  manifestoLines.forEach((line,i)=>{
-
-    const amount=
-      value*45*(i%2?-1:1);
-
-    line.style.transform=
-      `translateX(${amount}px)`;
-
-  });
-
-}
-
-window.addEventListener(
-  "scroll",
-  manifestoUpdate,
-  {passive:true}
-);
-
-
-/* ========================================
-   IDENTITY REVEAL
-======================================== */
-
-const identity=
-  document.querySelector(".identity");
-
-const observer=
-  new IntersectionObserver(
-    entries=>{
-
-      if(entries[0].isIntersecting){
-
-        identity.classList.add("visible");
-
-      }
-
-    },
-    {
-      threshold:.2
-    }
-  );
-
-observer.observe(identity);
-
-
-/* ========================================
-   HERO PARALLAX
-======================================== */
-
-const hero=
-  document.querySelector(".hero-content");
-
-function heroUpdate(){
-
-  if(window.scrollY<innerHeight){
-
-    const p=
-      window.scrollY/innerHeight;
-
-    hero.style.transform=
-      `translateY(${p*-55}px)
-       scale(${1-p*.035})`;
-
-  }
-
-}
-
-window.addEventListener(
-  "scroll",
-  heroUpdate,
-  {passive:true}
-);
-
-heroUpdate();
-
-
-/* ========================================
+/* =========================
    RESIZE
-======================================== */
+========================= */
 
 window.addEventListener(
   "resize",
