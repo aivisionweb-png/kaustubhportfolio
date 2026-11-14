@@ -2,11 +2,22 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>KAUSTUBH × AI VISION</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KAUSTUBH × AI VISION — Digital Studio</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,400;1,400&display=swap');
+:root{
+  --black:#050607;
+  --white:#f1efe9;
+  --muted:#747674;
+  --line:rgba(255,255,255,.12);
+  --gold:#c9b27a;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
 
 *{
   box-sizing:border-box;
@@ -14,133 +25,121 @@
   padding:0;
 }
 
-html,body{
-  width:100%;
-  min-height:100%;
-  background:#050505;
-  color:#f3f1eb;
-  font-family:Inter,sans-serif;
-  overflow-x:hidden;
+html{
+  scroll-behavior:smooth;
+  background:var(--black);
 }
 
 body{
+  background:var(--black);
+  color:var(--white);
+  font-family:Inter,sans-serif;
+  overflow-x:hidden;
   cursor:none;
 }
 
-button,a{
+a{
   color:inherit;
-  font:inherit;
   text-decoration:none;
 }
 
 button{
+  font:inherit;
   border:0;
   background:none;
+  color:inherit;
   cursor:none;
 }
 
-/* =====================================================
-   LOADER
-===================================================== */
+/* =========================================================
+LOADER
+========================================================= */
 
 .loader{
   position:fixed;
   inset:0;
   z-index:99999;
-  background:#050505;
+  background:#050607;
   display:flex;
   align-items:center;
   justify-content:center;
-  transition:
-    opacity 1.2s cubic-bezier(.16,1,.3,1),
-    visibility 1.2s;
+  transition:opacity 1.2s var(--ease),visibility 1.2s;
 }
 
-.loader.hide{
+.loader.done{
   opacity:0;
   visibility:hidden;
   pointer-events:none;
 }
 
-.loader-box{
-  width:min(620px,85vw);
+.loader-inner{
+  width:min(720px,86vw);
 }
 
-.loader-meta{
+.loader-top{
   display:flex;
   justify-content:space-between;
-  color:#666;
-  font:8px "DM Mono",monospace;
+  color:#656765;
+  font:9px "DM Mono",monospace;
   letter-spacing:.12em;
-  text-transform:uppercase;
-  margin-bottom:30px;
+  margin-bottom:35px;
 }
 
-.loader-title{
-  font-size:clamp(55px,10vw,130px);
-  font-weight:800;
-  line-height:.78;
-  letter-spacing:-.095em;
+.loader-name{
+  font-size:clamp(55px,10vw,145px);
+  line-height:.76;
+  font-weight:900;
+  letter-spacing:-.105em;
 }
 
-.loader-title span{
-  color:#555;
+.loader-name i{
+  color:#666;
+  font-family:"Playfair Display",serif;
+  font-weight:400;
 }
 
-.loader-status{
-  margin-top:45px;
+.loader-bottom{
   display:flex;
   justify-content:space-between;
+  margin-top:55px;
   color:#666;
   font:8px "DM Mono",monospace;
 }
 
-.load-line{
-  margin-top:14px;
+.loader-bar{
   width:100%;
   height:1px;
   background:#222;
+  margin-top:14px;
+  overflow:hidden;
 }
 
-.load-progress{
-  width:0;
+.loader-fill{
   height:100%;
+  width:0;
   background:#fff;
-  animation:load 2.2s cubic-bezier(.16,1,.3,1) forwards;
+  animation:loading 2.4s var(--ease) forwards;
 }
 
-@keyframes load{
+@keyframes loading{
   to{width:100%}
 }
 
-
-/* =====================================================
-   CANVAS
-===================================================== */
-
-#canvas{
-  position:fixed;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-}
-
-
-/* =====================================================
-   GRAIN
-===================================================== */
+/* =========================================================
+GRAIN
+========================================================= */
 
 .grain{
   position:fixed;
-  inset:-50%;
-  z-index:9990;
+  inset:-100%;
+  z-index:9000;
   pointer-events:none;
   opacity:.035;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation:grain .2s steps(2) infinite;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:noise .18s steps(2) infinite;
 }
 
-@keyframes grain{
+@keyframes noise{
   0%{transform:translate(0,0)}
   25%{transform:translate(2%,-1%)}
   50%{transform:translate(-1%,2%)}
@@ -148,25 +147,21 @@ button{
   100%{transform:translate(-2%,-2%)}
 }
 
-
-/* =====================================================
-   CURSOR
-===================================================== */
+/* =========================================================
+CURSOR
+========================================================= */
 
 .cursor{
   position:fixed;
   z-index:10000;
-  width:42px;
-  height:42px;
-  left:0;
-  top:0;
-  transform:translate(-50%,-50%);
+  width:44px;
+  height:44px;
   pointer-events:none;
+  transform:translate(-50%,-50%);
   opacity:0;
-  transition:opacity .3s;
 }
 
-.cursor.active{
+.cursor.show{
   opacity:1;
 }
 
@@ -175,552 +170,594 @@ button{
   inset:0;
   border:1px solid rgba(255,255,255,.65);
   border-radius:50%;
-  transition:
-    transform .5s cubic-bezier(.16,1,.3,1),
-    background .5s,
-    border-color .5s;
+  transition:.7s var(--ease);
 }
 
-.cursor-dot{
+.cursor-core{
   position:absolute;
   width:4px;
   height:4px;
-  background:white;
   border-radius:50%;
+  background:#fff;
   left:50%;
   top:50%;
   transform:translate(-50%,-50%);
 }
 
-.cursor-label{
+.cursor-word{
   position:absolute;
   left:50%;
   top:50%;
   transform:translate(-50%,-50%);
   font:6px "DM Mono",monospace;
-  opacity:0;
-  white-space:nowrap;
-}
-
-.cursor.big .cursor-ring{
-  transform:scale(2.1);
-  background:rgba(255,255,255,.08);
-  border-color:#fff;
-}
-
-.cursor.big .cursor-dot{
+  letter-spacing:.08em;
   opacity:0;
 }
 
-.cursor.big .cursor-label{
+.cursor.open .cursor-ring{
+  transform:scale(2);
+  background:rgba(255,255,255,.05);
+}
+
+.cursor.open .cursor-core{
+  opacity:0;
+}
+
+.cursor.open .cursor-word{
   opacity:1;
 }
 
+/* =========================================================
+NAV
+========================================================= */
 
-/* =====================================================
-   TOP
-===================================================== */
-
-.top{
+.nav{
   position:fixed;
   z-index:500;
   top:0;
   left:0;
   width:100%;
-  padding:22px 25px;
+  padding:24px 28px;
   display:flex;
   justify-content:space-between;
-  pointer-events:none;
+  align-items:center;
   mix-blend-mode:difference;
 }
 
-.logo{
+.nav-logo{
   font-size:10px;
-  font-weight:700;
-  letter-spacing:-.03em;
+  font-weight:800;
+  letter-spacing:-.04em;
 }
 
-.logo span{
-  color:#888;
+.nav-logo span{
+  color:#777;
 }
 
-.top-right{
+.nav-right{
   display:flex;
-  gap:25px;
-  font:8px "DM Mono",monospace;
+  gap:28px;
   color:#aaa;
+  font:8px "DM Mono",monospace;
+  text-transform:uppercase;
 }
 
+/* =========================================================
+HERO
+========================================================= */
 
-/* =====================================================
-   MAIN WORLD
-===================================================== */
-
-.world{
-  position:relative;
-  z-index:2;
-  min-height:100svh;
-}
-
-
-/* =====================================================
-   INTRO
-===================================================== */
-
-.intro{
+.hero{
   height:100svh;
-  min-height:650px;
+  min-height:700px;
   position:relative;
+  overflow:hidden;
   display:flex;
   align-items:center;
   justify-content:center;
-  overflow:hidden;
+  perspective:1200px;
 }
 
-.intro-copy{
+.hero-grid{
+  position:absolute;
+  inset:-20%;
+  opacity:.25;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:80px 80px;
+  transform:
+    perspective(900px)
+    rotateX(62deg)
+    translateY(22%);
+  transform-origin:center bottom;
+}
+
+.hero-glow{
+  position:absolute;
+  width:55vw;
+  height:55vw;
+  max-width:850px;
+  max-height:850px;
+  border-radius:50%;
+  background:radial-gradient(
+    circle,
+    rgba(100,115,140,.15),
+    transparent 65%
+  );
+  filter:blur(35px);
+  transform:translateZ(-200px);
+}
+
+.hero-copy{
   position:relative;
   z-index:5;
+  width:100%;
   text-align:center;
-  pointer-events:none;
-  mix-blend-mode:normal;
 }
 
-.micro{
-  color:#666;
+.hero-kicker{
   font:8px "DM Mono",monospace;
-  letter-spacing:.15em;
+  color:#686a68;
+  letter-spacing:.18em;
+  margin-bottom:34px;
   text-transform:uppercase;
-  margin-bottom:30px;
 }
 
-.intro-title{
-  font-size:clamp(55px,11vw,175px);
-  line-height:.78;
-  letter-spacing:-.105em;
-  font-weight:800;
+.hero-title{
+  font-size:clamp(80px,15vw,230px);
+  line-height:.72;
+  letter-spacing:-.12em;
+  font-weight:900;
 }
 
-.intro-title i{
+.hero-title .italic{
   font-family:"Playfair Display",serif;
   font-weight:400;
-  letter-spacing:-.06em;
+  letter-spacing:-.07em;
 }
 
-.intro-sub{
-  margin:38px auto 0;
-  width:min(420px,80vw);
-  color:#666;
-  font:9px/1.7 "DM Mono",monospace;
-  text-transform:uppercase;
+.hero-line{
+  width:1px;
+  height:100px;
+  background:linear-gradient(#555,transparent);
+  margin:45px auto 0;
 }
 
-
-/* =====================================================
-   ORBIT
-===================================================== */
-
-.orbit{
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:min(720px,80vw);
-  aspect-ratio:1;
-  transform:translate(-50%,-50%);
-  border:1px solid rgba(255,255,255,.07);
-  border-radius:50%;
-  pointer-events:none;
-}
-
-.orbit:before,
-.orbit:after{
-  content:"";
-  position:absolute;
-  inset:12%;
-  border:1px solid rgba(255,255,255,.045);
-  border-radius:50%;
-}
-
-.orbit:after{
-  inset:29%;
-}
-
-.orbit-label{
-  position:absolute;
-  top:-6px;
-  left:50%;
-  transform:translateX(-50%);
-  color:#444;
-  font:7px "DM Mono",monospace;
-}
-
-
-/* =====================================================
-   COORDINATES
-===================================================== */
-
-.coordinates{
-  position:absolute;
-  inset:0;
-  z-index:10;
-}
-
-.project-dot{
-  position:absolute;
-  width:12px;
-  height:12px;
-  border:1px solid rgba(255,255,255,.7);
-  border-radius:50%;
-  transform:translate(-50%,-50%);
-  transition:
-    width .5s cubic-bezier(.16,1,.3,1),
-    height .5s cubic-bezier(.16,1,.3,1),
-    background .5s;
-}
-
-.project-dot:after{
-  content:"";
-  position:absolute;
-  width:3px;
-  height:3px;
-  background:#fff;
-  border-radius:50%;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-}
-
-.project-dot:hover{
-  width:30px;
-  height:30px;
-  background:rgba(255,255,255,.1);
-}
-
-.project-dot span{
-  position:absolute;
-  left:25px;
-  top:50%;
-  transform:translateY(-50%);
-  white-space:nowrap;
-  color:#777;
-  font:8px "DM Mono",monospace;
-  opacity:0;
-  transition:.35s;
-}
-
-.project-dot:hover span{
-  opacity:1;
-  color:#fff;
-}
-
-.d1{left:18%;top:31%}
-.d2{left:78%;top:26%}
-.d3{left:85%;top:63%}
-.d4{left:67%;top:82%}
-.d5{left:31%;top:78%}
-.d6{left:13%;top:61%}
-.d7{left:50%;top:11%}
-
-
-/* =====================================================
-   SCROLL PROMPT
-===================================================== */
-
-.scroll-prompt{
+.hero-note{
   position:absolute;
   bottom:28px;
   left:50%;
   transform:translateX(-50%);
   color:#555;
-  font:7px "DM Mono",monospace;
-  letter-spacing:.15em;
-  text-transform:uppercase;
+  font:8px "DM Mono",monospace;
+  letter-spacing:.12em;
 }
 
-.scroll-prompt:after{
-  content:"";
-  display:block;
-  width:1px;
-  height:35px;
-  background:#555;
-  margin:12px auto 0;
-}
+/* =========================================================
+STATEMENT
+========================================================= */
 
-
-/* =====================================================
-   PROJECT EXPERIENCE
-===================================================== */
-
-.project-space{
-  position:relative;
-  height:100svh;
-  min-height:650px;
+.statement{
+  min-height:120vh;
+  display:flex;
+  align-items:center;
+  padding:12vw 7vw;
+  background:#ebe9e3;
+  color:#080909;
   overflow:hidden;
-  background:#08090b;
-  display:none;
 }
 
-.project-space.open{
-  display:block;
+.statement-inner{
+  max-width:1400px;
 }
 
-.project-bg{
+.statement-small{
+  font:8px "DM Mono",monospace;
+  color:#777;
+  margin-bottom:55px;
+  letter-spacing:.12em;
+}
+
+.statement-big{
+  font-size:clamp(55px,10vw,155px);
+  line-height:.79;
+  letter-spacing:-.105em;
+  font-weight:800;
+}
+
+.statement-big .soft{
+  color:#a8a59d;
+}
+
+.statement-big em{
+  font-family:"Playfair Display",serif;
+  font-weight:400;
+}
+
+/* =========================================================
+WORK INTRO
+========================================================= */
+
+.work-intro{
+  height:100svh;
+  min-height:700px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  padding:8vw;
+  overflow:hidden;
+}
+
+.work-index{
   position:absolute;
-  inset:-10%;
-  background:
-    radial-gradient(
-      circle at var(--mx,50%) var(--my,50%),
-      var(--accent),
-      transparent 28%
-    );
-  opacity:.35;
-  filter:blur(70px);
-  transition:background 1s;
-}
-
-.project-no{
-  position:absolute;
-  top:90px;
+  top:30px;
   left:30px;
   color:#555;
   font:8px "DM Mono",monospace;
 }
 
-.project-meta{
-  position:absolute;
-  top:90px;
-  right:30px;
-  color:#777;
-  font:8px "DM Mono",monospace;
-  text-align:right;
-  line-height:1.8;
-}
-
-.project-title{
-  position:absolute;
-  left:7vw;
-  top:50%;
-  transform:translateY(-50%);
-  z-index:5;
-}
-
-.project-title h2{
-  font-size:clamp(70px,12vw,190px);
-  line-height:.76;
+.work-heading{
+  font-size:clamp(65px,13vw,190px);
+  line-height:.72;
   letter-spacing:-.11em;
-  font-weight:800;
+  font-weight:900;
 }
 
-.project-title em{
+.work-heading span{
+  color:#555;
+}
+
+.work-heading em{
   font-family:"Playfair Display",serif;
   font-weight:400;
 }
 
-.project-desc{
+/* =========================================================
+PROJECT WORLDS
+========================================================= */
+
+.projects{
+  position:relative;
+}
+
+.project{
+  height:115svh;
+  min-height:750px;
+  position:relative;
+  overflow:hidden;
+  background:#08090a;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+.project:nth-child(even){
+  background:#0b0d10;
+}
+
+.project-number{
+  position:absolute;
+  top:28px;
+  left:30px;
+  color:#555;
+  font:8px "DM Mono",monospace;
+}
+
+.project-type{
+  position:absolute;
+  top:28px;
+  right:30px;
+  text-align:right;
+  color:#666;
+  font:8px/1.7 "DM Mono",monospace;
+}
+
+.project-word{
+  position:absolute;
+  left:5vw;
+  top:47%;
+  z-index:4;
+  transform:translateY(-50%);
+  pointer-events:none;
+}
+
+.project-word h2{
+  font-size:clamp(75px,14vw,220px);
+  line-height:.7;
+  letter-spacing:-.12em;
+  font-weight:900;
+}
+
+.project-word em{
+  font-family:"Playfair Display",serif;
+  font-weight:400;
+}
+
+.project-sub{
   margin-top:45px;
+  max-width:320px;
   color:#777;
-  font:9px/1.6 "DM Mono",monospace;
-  max-width:310px;
+  font:8px/1.7 "DM Mono",monospace;
   text-transform:uppercase;
 }
 
-.project-preview{
+.project-frame{
   position:absolute;
-  width:46vw;
+  z-index:3;
+  width:48vw;
   height:62vh;
-  max-width:720px;
-  right:5vw;
+  right:6vw;
   top:50%;
-  transform:translateY(-50%) rotate(3deg);
-  background:#111;
-  border:1px solid rgba(255,255,255,.12);
+  transform:
+    translateY(-50%)
+    rotate(5deg)
+    scale(.94);
   overflow:hidden;
-  box-shadow:0 50px 150px rgba(0,0,0,.5);
+  border:1px solid rgba(255,255,255,.15);
+  background:#111;
+  box-shadow:
+    0 60px 160px rgba(0,0,0,.65);
   transition:
-    transform 1.2s cubic-bezier(.16,1,.3,1),
-    opacity 1s;
+    transform 1.3s var(--ease);
 }
 
-.project-space.open .project-preview{
-  transform:translateY(-50%) rotate(0deg);
+.project-frame:before{
+  content:"";
+  position:absolute;
+  z-index:5;
+  inset:0;
+  pointer-events:none;
+  border:1px solid rgba(255,255,255,.06);
 }
 
-.project-preview iframe{
+.project:hover .project-frame{
+  transform:
+    translateY(-50%)
+    rotate(0deg)
+    scale(1);
+}
+
+.project-frame iframe{
   width:100%;
   height:100%;
   border:0;
+  pointer-events:none;
+  transform:scale(1.01);
 }
 
-.close-project{
+.project-enter{
   position:absolute;
-  z-index:20;
-  bottom:28px;
+  z-index:10;
   right:30px;
-  color:#888;
-  font:8px "DM Mono",monospace;
+  bottom:30px;
   border:1px solid #333;
-  padding:12px 17px;
-  transition:.3s;
+  padding:12px 18px;
+  color:#aaa;
+  font:8px "DM Mono",monospace;
+  transition:.4s;
 }
 
-.close-project:hover{
-  color:#fff;
+.project:hover .project-enter{
   border-color:#fff;
+  color:#fff;
 }
 
+/* =========================================================
+MAGIC SECTION
+========================================================= */
 
-/* =====================================================
-   INTERLUDE
-===================================================== */
-
-.interlude{
-  min-height:100svh;
-  background:#e9e7e1;
-  color:#08090b;
+.magic{
+  min-height:120svh;
+  position:relative;
+  overflow:hidden;
+  background:#050607;
   display:flex;
   align-items:center;
-  padding:10vw;
+  justify-content:center;
 }
 
-.interlude-text{
-  font-size:clamp(48px,9vw,145px);
-  line-height:.8;
-  letter-spacing:-.1em;
-  font-weight:800;
+.magic-orbit{
+  position:absolute;
+  width:70vw;
+  height:70vw;
+  max-width:950px;
+  max-height:950px;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:50%;
 }
 
-.interlude-text span{
-  color:#aaa7a0;
+.magic-orbit:nth-child(2){
+  width:50vw;
+  height:50vw;
 }
 
-.interlude-text em{
+.magic-orbit:nth-child(3){
+  width:30vw;
+  height:30vw;
+}
+
+.magic-copy{
+  position:relative;
+  z-index:5;
+  text-align:center;
+}
+
+.magic-small{
+  color:#666;
+  font:8px "DM Mono",monospace;
+  margin-bottom:35px;
+}
+
+.magic-title{
+  font-size:clamp(60px,12vw,180px);
+  line-height:.72;
+  letter-spacing:-.11em;
+  font-weight:900;
+}
+
+.magic-title em{
   font-family:"Playfair Display",serif;
   font-weight:400;
 }
 
+.magic-caption{
+  max-width:400px;
+  margin:50px auto 0;
+  color:#666;
+  font:8px/1.8 "DM Mono",monospace;
+  text-transform:uppercase;
+}
 
-/* =====================================================
-   IDENTITY
-===================================================== */
+/* =========================================================
+IDENTITY
+========================================================= */
 
 .identity{
-  min-height:100svh;
-  background:#08090b;
+  min-height:110svh;
+  background:#ebe9e3;
+  color:#080909;
+  padding:9vw 6vw;
   display:flex;
   align-items:center;
-  padding:8vw;
 }
 
 .identity-inner{
   width:100%;
 }
 
-.identity-question{
-  color:#555;
-  font:9px "DM Mono",monospace;
-  letter-spacing:.15em;
-  margin-bottom:50px;
+.identity-small{
+  font:8px "DM Mono",monospace;
+  color:#777;
+  margin-bottom:60px;
 }
 
 .identity-name{
-  font-size:clamp(60px,13vw,200px);
-  line-height:.72;
-  letter-spacing:-.11em;
-  font-weight:800;
+  font-size:clamp(75px,15vw,225px);
+  line-height:.7;
+  letter-spacing:-.12em;
+  font-weight:900;
 }
 
 .identity-name span{
-  color:#555;
+  color:#a9a69f;
 }
 
-.identity-info{
-  margin-top:70px;
+.identity-bottom{
   display:flex;
-  gap:50px;
-  color:#777;
-  font:8px/1.7 "DM Mono",monospace;
+  justify-content:space-between;
+  align-items:flex-end;
+  margin-top:90px;
+}
+
+.identity-text{
+  max-width:430px;
+  color:#6d6b66;
+  font:9px/1.8 "DM Mono",monospace;
   text-transform:uppercase;
 }
 
-.identity-info strong{
-  display:block;
-  color:#eee;
-  margin-bottom:5px;
+.identity-data{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:60px;
+  color:#777;
+  font:8px/1.6 "DM Mono",monospace;
 }
 
+.identity-data strong{
+  display:block;
+  color:#111;
+  margin-bottom:6px;
+}
 
-/* =====================================================
-   END
-===================================================== */
+/* =========================================================
+FINAL
+========================================================= */
 
-.end{
+.final{
   min-height:100svh;
-  background:#e9e7e1;
-  color:#08090b;
-  padding:45px 5vw 25px;
+  background:#050607;
   display:flex;
   flex-direction:column;
   justify-content:space-between;
+  padding:30px;
 }
 
-.end-top{
+.final-top{
   display:flex;
   justify-content:space-between;
+  color:#555;
   font:8px "DM Mono",monospace;
-  color:#777;
 }
 
-.end-center{
-  position:relative;
+.final-center{
+  padding:7vw 0;
 }
 
-.end-small{
-  color:#777;
+.final-small{
+  color:#666;
   font:8px "DM Mono",monospace;
-  margin-bottom:30px;
+  margin-bottom:45px;
 }
 
-.end-title{
-  font-size:clamp(70px,13vw,190px);
-  line-height:.72;
-  letter-spacing:-.115em;
-  font-weight:800;
+.final-title{
+  font-size:clamp(70px,15vw,230px);
+  line-height:.68;
+  letter-spacing:-.12em;
+  font-weight:900;
 }
 
-.end-title a{
-  transition:
-    transform .6s cubic-bezier(.16,1,.3,1),
-    color .4s;
+.final-title a{
   display:inline-block;
+  transition:
+    transform .8s var(--ease),
+    color .4s;
 }
 
-.end-title a:hover{
-  transform:translateX(35px);
-  color:#637bff;
+.final-title a:hover{
+  transform:translateX(5vw);
+  color:var(--gold);
 }
 
-.end-mail{
-  margin-top:45px;
+.final-mail{
+  margin-top:60px;
   font:9px "DM Mono",monospace;
+  color:#888;
 }
 
-.end-mail a{
-  border-bottom:1px solid #aaa;
-  padding-bottom:5px;
+.final-mail a{
+  color:#eee;
+  border-bottom:1px solid #555;
+  padding-bottom:6px;
 }
 
 .footer{
-  border-top:1px solid #c5c2ba;
-  padding-top:14px;
+  border-top:1px solid rgba(255,255,255,.1);
+  padding-top:15px;
   display:flex;
   justify-content:space-between;
-  color:#777;
+  color:#555;
   font:7px "DM Mono",monospace;
 }
 
+/* =========================================================
+REVEAL
+========================================================= */
 
-/* =====================================================
-   MOBILE
-===================================================== */
+.reveal{
+  opacity:0;
+  transform:translateY(60px);
+  transition:
+    opacity 1.2s var(--ease),
+    transform 1.2s var(--ease);
+}
+
+.reveal.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* =========================================================
+MOBILE
+========================================================= */
 
 @media(max-width:800px){
 
@@ -732,150 +769,197 @@ button{
     display:none;
   }
 
-  .top{
+  .nav{
     padding:18px 16px;
   }
 
-  .top-right{
+  .nav-right{
     gap:12px;
   }
 
-  .intro{
+  .hero{
     min-height:100svh;
   }
 
-  .intro-title{
-    font-size:18vw;
+  .hero-title{
+    font-size:21vw;
   }
 
-  .orbit{
-    width:110vw;
+  .hero-grid{
+    background-size:50px 50px;
   }
 
-  .project-dot span{
-    display:none;
-  }
-
-  .project-space{
+  .statement{
     min-height:100svh;
-  }
-
-  .project-title{
-    left:18px;
-    top:30%;
-  }
-
-  .project-title h2{
-    font-size:20vw;
-  }
-
-  .project-preview{
-    width:86vw;
-    height:42vh;
-    right:7vw;
-    top:67%;
-  }
-
-  .project-desc{
-    margin-top:30px;
-    font-size:7px;
-    max-width:260px;
-  }
-
-  .project-meta{
-    top:90px;
-    right:18px;
-  }
-
-  .project-no{
-    left:18px;
-  }
-
-  .interlude{
     padding:18px;
   }
 
-  .interlude-text{
-    font-size:15vw;
+  .statement-big{
+    font-size:17vw;
+  }
+
+  .work-intro{
+    min-height:100svh;
+    padding:18px;
+  }
+
+  .work-heading{
+    font-size:20vw;
+  }
+
+  .project{
+    height:100svh;
+    min-height:700px;
+  }
+
+  .project-word{
+    left:18px;
+    top:27%;
+  }
+
+  .project-word h2{
+    font-size:19vw;
+  }
+
+  .project-sub{
+    margin-top:28px;
+    max-width:240px;
+    font-size:7px;
+  }
+
+  .project-frame{
+    width:88vw;
+    height:43vh;
+    right:6vw;
+    top:69%;
+    transform:
+      translateY(-50%)
+      rotate(2deg)
+      scale(.97);
+  }
+
+  .project:hover .project-frame{
+    transform:
+      translateY(-50%)
+      rotate(0)
+      scale(1);
+  }
+
+  .project-type{
+    right:18px;
+  }
+
+  .project-number{
+    left:18px;
+  }
+
+  .project-enter{
+    right:18px;
+    bottom:18px;
+  }
+
+  .magic{
+    min-height:100svh;
+  }
+
+  .magic-title{
+    font-size:19vw;
+  }
+
+  .magic-orbit{
+    width:120vw;
+    height:120vw;
+  }
+
+  .magic-orbit:nth-child(2){
+    width:90vw;
+    height:90vw;
+  }
+
+  .magic-orbit:nth-child(3){
+    width:60vw;
+    height:60vw;
   }
 
   .identity{
+    min-height:100svh;
     padding:18px;
   }
 
   .identity-name{
-    font-size:18vw;
+    font-size:20vw;
   }
 
-  .identity-info{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:25px;
-    margin-top:55px;
+  .identity-bottom{
+    display:block;
+    margin-top:60px;
   }
 
-  .end{
-    padding:35px 18px 18px;
+  .identity-data{
+    margin-top:45px;
+    gap:20px;
   }
 
-  .end-title{
-    font-size:19vw;
+  .final{
+    min-height:100svh;
+    padding:20px 18px;
+  }
+
+  .final-title{
+    font-size:21vw;
   }
 
   .footer{
-    gap:10px;
     flex-wrap:wrap;
+    gap:12px;
   }
-
 }
 
-
-/* =====================================================
-   REDUCED MOTION
-===================================================== */
+/* =========================================================
+REDUCED MOTION
+========================================================= */
 
 @media(prefers-reduced-motion:reduce){
 
   *,
-  *:before,
-  *:after{
+  *::before,
+  *::after{
     animation:none!important;
     transition:none!important;
+    scroll-behavior:auto!important;
   }
 
 }
 </style>
 </head>
 
-
 <body>
 
-
 <!-- =====================================================
-     LOADING
+LOADER
 ===================================================== -->
 
 <div class="loader" id="loader">
 
-  <div class="loader-box">
+  <div class="loader-inner">
 
-    <div class="loader-meta">
+    <div class="loader-top">
       <span>KAUSTUBH × AI VISION</span>
-      <span>001</span>
+      <span>001 / 001</span>
     </div>
 
-    <div class="loader-title">
+    <div class="loader-name">
       KAUSTUBH<br>
-      <span>× AI VISION</span>
+      <i>× AI VISION</i>
     </div>
 
-    <div class="loader-status">
-      <span>INITIALIZING A POINT OF VIEW</span>
-      <span id="counter">00</span>
+    <div class="loader-bottom">
+      <span>INITIALIZING A DIGITAL POINT OF VIEW</span>
+      <span id="percent">00</span>
     </div>
 
-    <div class="load-line">
-      <div class="load-progress"></div>
+    <div class="loader-bar">
+      <div class="loader-fill"></div>
     </div>
 
   </div>
@@ -883,458 +967,463 @@ button{
 </div>
 
 
-<!-- =====================================================
-     FX
-===================================================== -->
-
-<canvas id="canvas"></canvas>
 <div class="grain"></div>
 
 
 <!-- =====================================================
-     CURSOR
+CURSOR
 ===================================================== -->
 
 <div class="cursor" id="cursor">
-
   <div class="cursor-ring"></div>
-
-  <div class="cursor-dot"></div>
-
-  <div class="cursor-label">
-    ENTER
-  </div>
-
+  <div class="cursor-core"></div>
+  <div class="cursor-word">OPEN</div>
 </div>
 
 
 <!-- =====================================================
-     TOP NAV
+NAV
 ===================================================== -->
 
-<header class="top">
+<nav class="nav">
 
-  <div class="logo">
+  <div class="nav-logo">
     KAUSTUBH <span>× AI VISION</span>
   </div>
 
-  <div class="top-right">
-    <span>AHMEDABAD / INDIA</span>
+  <div class="nav-right">
+    <span>AHMEDABAD</span>
     <span>2026</span>
   </div>
 
-</header>
+</nav>
 
 
-<main class="world">
+<main>
 
 
 <!-- =====================================================
-     INTRO WORLD
+HERO
 ===================================================== -->
 
-<section class="intro" id="intro">
+<section class="hero">
 
-  <div class="orbit">
-    <div class="orbit-label">
-      MOVE THROUGH THE WORK
-    </div>
-  </div>
+  <div class="hero-grid" id="heroGrid"></div>
 
+  <div class="hero-glow" id="heroGlow"></div>
 
-  <div class="coordinates">
+  <div class="hero-copy reveal">
 
-    <button class="project-dot d1"
-      data-project="eventbudget">
-
-      <span>01 / EVENTBUDGET</span>
-
-    </button>
-
-
-    <button class="project-dot d2"
-      data-project="nova">
-
-      <span>02 / NOVA</span>
-
-    </button>
-
-
-    <button class="project-dot d3"
-      data-project="noire">
-
-      <span>03 / NOIRÉ</span>
-
-    </button>
-
-
-    <button class="project-dot d4"
-      data-project="forma">
-
-      <span>04 / FORMA</span>
-
-    </button>
-
-
-    <button class="project-dot d5"
-      data-project="savoro">
-
-      <span>05 / SAVORO</span>
-
-    </button>
-
-
-    <button class="project-dot d6"
-      data-project="radhe">
-
-      <span>06 / RADHE ARENA</span>
-
-    </button>
-
-
-    <button class="project-dot d7"
-      data-project="casa">
-
-      <span>07 / CASA MIRA</span>
-
-    </button>
-
-  </div>
-
-
-  <div class="intro-copy">
-
-    <div class="micro">
+    <div class="hero-kicker">
       INDEPENDENT DIGITAL STUDIO
     </div>
 
-    <h1 class="intro-title">
-      A <i>point</i><br>
-      of view.
+    <h1 class="hero-title">
+      NOT<br>
+      <span class="italic">ANOTHER</span><br>
+      STUDIO.
     </h1>
 
-    <div class="intro-sub">
-      Move around.<br>
-      There are things hidden here.
-    </div>
+    <div class="hero-line"></div>
 
   </div>
 
-
-  <div class="scroll-prompt">
-    SCROLL TO ENTER
+  <div class="hero-note">
+    SCROLL / EXPERIENCE / EXPLORE
   </div>
 
 </section>
 
 
 <!-- =====================================================
-     PROJECT WORLDS
+STATEMENT
 ===================================================== -->
 
-<section class="project-space"
-  id="eventbudget"
-  data-accent="#657bff">
+<section class="statement">
 
-  <div class="project-bg"></div>
+  <div class="statement-inner reveal">
 
-  <div class="project-no">
-    01 / 07
+    <div class="statement-small">
+      001 — THE APPROACH
+    </div>
+
+    <div class="statement-big">
+      WE DON'T<br>
+      <span class="soft">DESIGN</span><br>
+      <em>WE CREATE</em><br>
+      PRESENCE.
+    </div>
+
   </div>
 
-  <div class="project-meta">
+</section>
+
+
+<!-- =====================================================
+WORK INTRO
+===================================================== -->
+
+<section class="work-intro">
+
+  <div class="work-index">
+    002 — SELECTED WORK
+  </div>
+
+  <div class="work-heading reveal">
+    SEVEN<br>
+    <span>DIFFERENT</span><br>
+    <em>WORLDS.</em>
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+PROJECTS
+===================================================== -->
+
+<section class="projects">
+
+
+<!-- EVENTBUDGET -->
+
+<article class="project">
+
+  <div class="project-number">01 / 07</div>
+
+  <div class="project-type">
     DIGITAL PRODUCT<br>
-    EVENT PLANNING<br>
-    2026
+    SYSTEM / EXPERIENCE
   </div>
 
-  <div class="project-title">
+  <div class="project-word reveal">
 
     <h2>
       EVENT<br>
       <em>BUDGET</em>
     </h2>
 
-    <div class="project-desc">
-      A digital planning experience
-      built around budgets,
-      decisions and celebration.
+    <div class="project-sub">
+      Turning event planning into
+      an experience instead of
+      another spreadsheet.
     </div>
 
   </div>
 
-  <div class="project-preview">
-    <iframe src="https://eventbudget-sooty.vercel.app/"></iframe>
+  <div class="project-frame">
+
+    <iframe
+      src="https://eventbudget-sooty.vercel.app/"
+      loading="lazy">
+    </iframe>
+
   </div>
 
-  <button class="close-project">
-    CLOSE ×
-  </button>
+  <a
+    class="project-enter"
+    href="https://eventbudget-sooty.vercel.app/"
+    target="_blank">
+    ENTER ↗
+  </a>
 
-</section>
+</article>
 
 
-<section class="project-space"
-  id="nova"
-  data-accent="#8298ff">
+<!-- NOVA -->
 
-  <div class="project-bg"></div>
+<article class="project">
 
-  <div class="project-no">
-    02 / 07
-  </div>
+  <div class="project-number">02 / 07</div>
 
-  <div class="project-meta">
+  <div class="project-type">
     DIGITAL EXPERIENCE<br>
-    ART DIRECTION<br>
-    2026
+    ART DIRECTION
   </div>
 
-  <div class="project-title">
+  <div class="project-word reveal">
 
     <h2>
       <em>NOVA</em>
     </h2>
 
-    <div class="project-desc">
-      A minimal digital world
-      designed around atmosphere,
-      precision and movement.
+    <div class="project-sub">
+      A digital environment built
+      around precision, atmosphere
+      and movement.
     </div>
 
   </div>
 
-  <div class="project-preview">
-    <iframe src="https://nova-gilt-psi.vercel.app/"></iframe>
+  <div class="project-frame">
+
+    <iframe
+      src="https://nova-gilt-psi.vercel.app/"
+      loading="lazy">
+    </iframe>
+
   </div>
 
-  <button class="close-project">
-    CLOSE ×
-  </button>
+  <a
+    class="project-enter"
+    href="https://nova-gilt-psi.vercel.app/"
+    target="_blank">
+    ENTER ↗
+  </a>
 
-</section>
+</article>
 
 
-<section class="project-space"
-  id="noire"
-  data-accent="#b8b0a0">
+<!-- NOIRE -->
 
-  <div class="project-bg"></div>
+<article class="project">
 
-  <div class="project-no">
-    03 / 07
-  </div>
+  <div class="project-number">03 / 07</div>
 
-  <div class="project-meta">
+  <div class="project-type">
     EDITORIAL<br>
-    DIGITAL IDENTITY<br>
-    2026
+    DIGITAL IDENTITY
   </div>
 
-  <div class="project-title">
+  <div class="project-word reveal">
 
     <h2>
       <em>NOIRÉ</em>
     </h2>
 
-    <div class="project-desc">
-      An editorial digital identity
-      where typography becomes
-      part of the atmosphere.
+    <div class="project-sub">
+      Typography, darkness and
+      restraint transformed into
+      a digital identity.
     </div>
 
   </div>
 
-  <div class="project-preview">
-    <iframe src="https://noire-five-blond.vercel.app/"></iframe>
+  <div class="project-frame">
+
+    <iframe
+      src="https://noire-five-blond.vercel.app/"
+      loading="lazy">
+    </iframe>
+
   </div>
 
-  <button class="close-project">
-    CLOSE ×
-  </button>
+  <a
+    class="project-enter"
+    href="https://noire-five-blond.vercel.app/"
+    target="_blank">
+    ENTER ↗
+  </a>
 
-</section>
+</article>
 
 
-<section class="project-space"
-  id="forma"
-  data-accent="#c1a47a">
+<!-- FORMA -->
 
-  <div class="project-bg"></div>
+<article class="project">
 
-  <div class="project-no">
-    04 / 07
+  <div class="project-number">04 / 07</div>
+
+  <div class="project-type">
+    DIGITAL BRAND<br>
+    ARCHITECTURE
   </div>
 
-  <div class="project-meta">
-    BRAND EXPERIENCE<br>
-    DIGITAL DESIGN<br>
-    2026
-  </div>
-
-  <div class="project-title">
+  <div class="project-word reveal">
 
     <h2>
       <em>FORMA</em>
     </h2>
 
-    <div class="project-desc">
-      Structure, proportion and
-      digital architecture translated
-      into a visual experience.
+    <div class="project-sub">
+      Digital architecture where
+      proportion becomes identity.
     </div>
 
   </div>
 
-  <div class="project-preview">
-    <iframe src="https://forma-ochre-nine.vercel.app/"></iframe>
+  <div class="project-frame">
+
+    <iframe
+      src="https://forma-ochre-nine.vercel.app/"
+      loading="lazy">
+    </iframe>
+
   </div>
 
-  <button class="close-project">
-    CLOSE ×
-  </button>
+  <a
+    class="project-enter"
+    href="https://forma-ochre-nine.vercel.app/"
+    target="_blank">
+    ENTER ↗
+  </a>
 
-</section>
+</article>
 
 
-<section class="project-space"
-  id="savoro"
-  data-accent="#d68b51">
+<!-- SAVORO -->
 
-  <div class="project-bg"></div>
+<article class="project">
 
-  <div class="project-no">
-    05 / 07
+  <div class="project-number">05 / 07</div>
+
+  <div class="project-type">
+    HOSPITALITY<br>
+    DIGITAL EXPERIENCE
   </div>
 
-  <div class="project-meta">
-    RESTAURANT<br>
-    DIGITAL EXPERIENCE<br>
-    2026
-  </div>
-
-  <div class="project-title">
+  <div class="project-word reveal">
 
     <h2>
       <em>SAVORO</em>
     </h2>
 
-    <div class="project-desc">
-      A digital dining experience
-      designed to feel as rich
-      as the food itself.
+    <div class="project-sub">
+      A restaurant experience
+      designed to make the screen
+      feel almost edible.
     </div>
 
   </div>
 
-  <div class="project-preview">
-    <iframe src="https://savoro-puce.vercel.app/#menu"></iframe>
+  <div class="project-frame">
+
+    <iframe
+      src="https://savoro-puce.vercel.app/#menu"
+      loading="lazy">
+    </iframe>
+
   </div>
 
-  <button class="close-project">
-    CLOSE ×
-  </button>
+  <a
+    class="project-enter"
+    href="https://savoro-puce.vercel.app/#menu"
+    target="_blank">
+    ENTER ↗
+  </a>
 
-</section>
+</article>
 
 
-<section class="project-space"
-  id="radhe"
-  data-accent="#d84b42">
+<!-- RADHE -->
 
-  <div class="project-bg"></div>
+<article class="project">
 
-  <div class="project-no">
-    06 / 07
-  </div>
+  <div class="project-number">06 / 07</div>
 
-  <div class="project-meta">
+  <div class="project-type">
     SPORTS<br>
-    DIGITAL EXPERIENCE<br>
-    2026
+    DIGITAL EXPERIENCE
   </div>
 
-  <div class="project-title">
+  <div class="project-word reveal">
 
     <h2>
       RADHE<br>
       <em>ARENA</em>
     </h2>
 
-    <div class="project-desc">
-      Energy translated into
-      a digital environment
-      for a new sports venue.
+    <div class="project-sub">
+      Energy, movement and sport
+      translated into a digital
+      environment.
     </div>
 
   </div>
 
-  <div class="project-preview">
-    <iframe src="https://radhearena.vercel.app/"></iframe>
+  <div class="project-frame">
+
+    <iframe
+      src="https://radhearena.vercel.app/"
+      loading="lazy">
+    </iframe>
+
   </div>
 
-  <button class="close-project">
-    CLOSE ×
-  </button>
+  <a
+    class="project-enter"
+    href="https://radhearena.vercel.app/"
+    target="_blank">
+    ENTER ↗
+  </a>
 
-</section>
+</article>
 
 
-<section class="project-space"
-  id="casa"
-  data-accent="#9d987d">
+<!-- CASA MIRA -->
 
-  <div class="project-bg"></div>
+<article class="project">
 
-  <div class="project-no">
-    07 / 07
-  </div>
+  <div class="project-number">07 / 07</div>
 
-  <div class="project-meta">
+  <div class="project-type">
     HOSPITALITY<br>
-    DIGITAL IDENTITY<br>
-    2026
+    DIGITAL IDENTITY
   </div>
 
-  <div class="project-title">
+  <div class="project-word reveal">
 
     <h2>
       CASA<br>
       <em>MIRA</em>
     </h2>
 
-    <div class="project-desc">
-      Hospitality translated
-      into a quiet, immersive
-      digital environment.
+    <div class="project-sub">
+      A quieter digital world
+      built around hospitality,
+      space and mood.
     </div>
 
   </div>
 
-  <div class="project-preview">
-    <iframe src="https://casa-mira-inky.vercel.app/"></iframe>
+  <div class="project-frame">
+
+    <iframe
+      src="https://casa-mira-inky.vercel.app/"
+      loading="lazy">
+    </iframe>
+
   </div>
 
-  <button class="close-project">
-    CLOSE ×
-  </button>
+  <a
+    class="project-enter"
+    href="https://casa-mira-inky.vercel.app/"
+    target="_blank">
+    ENTER ↗
+  </a>
+
+</article>
 
 </section>
 
 
 <!-- =====================================================
-     INTERLUDE
+MAGIC
 ===================================================== -->
 
-<section class="interlude">
+<section class="magic">
 
-  <div class="interlude-text">
+  <div class="magic-orbit"></div>
+  <div class="magic-orbit"></div>
+  <div class="magic-orbit"></div>
 
-    GOOD DESIGN<br>
+  <div class="magic-copy reveal">
 
-    <span>IS NOT LOUD.</span><br>
+    <div class="magic-small">
+      003 — THE BELIEF
+    </div>
 
-    IT IS <em>UNEXPECTED.</em>
+    <div class="magic-title">
+      GOOD<br>
+      <em>IS</em><br>
+      BORING.
+    </div>
+
+    <div class="magic-caption">
+      The internet already has enough
+      beautiful websites. We want to make
+      the ones people remember.
+    </div>
 
   </div>
 
@@ -1342,41 +1431,48 @@ button{
 
 
 <!-- =====================================================
-     IDENTITY
+IDENTITY
 ===================================================== -->
 
 <section class="identity">
 
-  <div class="identity-inner">
+  <div class="identity-inner reveal">
 
-    <div class="identity-question">
-      WHO BUILT THIS?
+    <div class="identity-small">
+      004 — THE PERSON BEHIND THE WORK
     </div>
 
     <div class="identity-name">
       KAU<span>STUBH.</span>
     </div>
 
-    <div class="identity-info">
+    <div class="identity-bottom">
 
-      <div>
-        <strong>BASED</strong>
-        AHMEDABAD / INDIA
+      <div class="identity-text">
+        A young designer, builder and
+        experimenter from Ahmedabad.
+        Creating digital experiences
+        where design and technology
+        stop feeling separate.
       </div>
 
-      <div>
-        <strong>FOCUS</strong>
-        DESIGN / CODE / MOTION
-      </div>
+      <div class="identity-data">
 
-      <div>
-        <strong>STUDIO</strong>
-        AI VISION
-      </div>
+        <div>
+          <strong>BASED</strong>
+          AHMEDABAD
+        </div>
 
-      <div>
-        <strong>AGE</strong>
-        16
+        <div>
+          <strong>FOCUS</strong>
+          DESIGN / CODE
+        </div>
+
+        <div>
+          <strong>STUDIO</strong>
+          AI VISION
+        </div>
+
       </div>
 
     </div>
@@ -1387,23 +1483,23 @@ button{
 
 
 <!-- =====================================================
-     END
+FINAL
 ===================================================== -->
 
-<section class="end">
+<section class="final">
 
-  <div class="end-top">
-    <span>THE END / OR THE BEGINNING</span>
+  <div class="final-top">
+    <span>005 — BEGIN SOMETHING</span>
     <span>KAUSTUBH × AI VISION</span>
   </div>
 
-  <div class="end-center">
+  <div class="final-center reveal">
 
-    <div class="end-small">
-      HAVE SOMETHING WORTH BUILDING?
+    <div class="final-small">
+      YOUR BUSINESS COULD LOOK DIFFERENT.
     </div>
 
-    <div class="end-title">
+    <div class="final-title">
 
       <a href="mailto:aivisionstudio2821@gmail.com">
         LET'S
@@ -1417,16 +1513,16 @@ button{
 
     </div>
 
-    <div class="end-mail">
+    <div class="final-mail">
 
       <a href="mailto:aivisionstudio2821@gmail.com">
         aivisionstudio2821@gmail.com
       </a>
 
-      &nbsp; / &nbsp;
+      &nbsp;&nbsp; / &nbsp;&nbsp;
 
-      <a href="tel:9925054448">
-        9925054448
+      <a href="https://instagram.com/aivisionstudioahmedabad_" target="_blank">
+        INSTAGRAM ↗
       </a>
 
     </div>
@@ -1436,83 +1532,77 @@ button{
   <footer class="footer">
 
     <span>KAUSTUBH × AI VISION</span>
-
-    <a href="https://instagram.com/aivisionstudioahmedabad_"
-       target="_blank">
-      INSTAGRAM ↗
-    </a>
-
     <span>AHMEDABAD / INDIA</span>
-
     <span>© 2026</span>
 
   </footer>
 
 </section>
 
+
 </main>
 
 
 <script>
 
-/* =====================================================
-   LOADER
-===================================================== */
+/* =========================================================
+LOADER
+========================================================= */
 
-const loader=document.getElementById("loader");
-const counter=document.getElementById("counter");
+const loader = document.getElementById("loader");
+const percent = document.getElementById("percent");
 
-let count=0;
+let p = 0;
 
-const loading=setInterval(()=>{
+const loadTimer = setInterval(() => {
 
-  count++;
+  p += Math.floor(Math.random() * 5) + 1;
 
-  counter.textContent=
-    String(count).padStart(2,"0");
+  if(p > 100) p = 100;
 
-  if(count>=100){
-    clearInterval(loading);
+  percent.textContent =
+    String(p).padStart(2,"0");
+
+  if(p >= 100){
+    clearInterval(loadTimer);
+
+    setTimeout(() => {
+      loader.classList.add("done");
+    },500);
   }
 
-},20);
-
-window.addEventListener("load",()=>{
-
-  setTimeout(()=>{
-    loader.classList.add("hide");
-  },2300);
-
-});
+},35);
 
 
-/* =====================================================
-   CURSOR
-===================================================== */
+/* =========================================================
+CURSOR
+========================================================= */
 
-const cursor=document.getElementById("cursor");
+const cursor = document.getElementById("cursor");
 
-let mx=innerWidth/2;
-let my=innerHeight/2;
-let cx=mx;
-let cy=my;
+let mouseX = innerWidth / 2;
+let mouseY = innerHeight / 2;
 
-window.addEventListener("mousemove",e=>{
+let cursorX = mouseX;
+let cursorY = mouseY;
 
-  mx=e.clientX;
-  my=e.clientY;
+window.addEventListener("mousemove",(e)=>{
 
-  cursor.classList.add("active");
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+
+  cursor.classList.add("show");
 
 });
+
 
 function cursorLoop(){
 
-  cx+=(mx-cx)*.13;
-  cy+=(my-cy)*.13;
+  cursorX += (mouseX - cursorX) * .12;
+  cursorY += (mouseY - cursorY) * .12;
 
-  cursor.style.left=cx+"px";
-  cursor.style.top=cy+"px";
+  cursor.style.left = cursorX + "px";
+  cursor.style.top = cursorY + "px";
 
   requestAnimationFrame(cursorLoop);
 
@@ -1521,272 +1611,217 @@ function cursorLoop(){
 cursorLoop();
 
 
-document.querySelectorAll(
-  ".project-dot,.close-project,a"
-).forEach(el=>{
+document.querySelectorAll("a,.project").forEach(el=>{
 
   el.addEventListener("mouseenter",()=>{
-    cursor.classList.add("big");
+    cursor.classList.add("open");
   });
 
   el.addEventListener("mouseleave",()=>{
-    cursor.classList.remove("big");
+    cursor.classList.remove("open");
   });
 
 });
 
 
-/* =====================================================
-   MOUSE LIGHT / CANVAS
-===================================================== */
+/* =========================================================
+HERO PARALLAX
+========================================================= */
 
-const canvas=document.getElementById("canvas");
-const ctx=canvas.getContext("2d");
+const hero = document.querySelector(".hero");
+const heroGrid = document.getElementById("heroGrid");
+const heroGlow = document.getElementById("heroGlow");
 
-let W,H;
+window.addEventListener("mousemove",(e)=>{
 
-function resize(){
+  if(!hero) return;
 
-  W=canvas.width=innerWidth;
-  H=canvas.height=innerHeight;
+  const x =
+    e.clientX / innerWidth - .5;
 
-}
+  const y =
+    e.clientY / innerHeight - .5;
 
-resize();
+  heroGrid.style.transform =
+    `perspective(900px)
+     rotateX(${62 + y * 4}deg)
+     rotateY(${x * 4}deg)
+     translateY(22%)`;
 
-window.addEventListener("resize",resize);
-
-
-const particles=[];
-
-let lastX=innerWidth/2;
-let lastY=innerHeight/2;
-
-window.addEventListener("mousemove",e=>{
-
-  const distance=Math.hypot(
-    e.clientX-lastX,
-    e.clientY-lastY
-  );
-
-  if(distance>8){
-
-    particles.push({
-      x:e.clientX,
-      y:e.clientY,
-      life:1,
-      size:Math.random()*2+.5
-    });
-
-    lastX=e.clientX;
-    lastY=e.clientY;
-
-  }
+  heroGlow.style.transform =
+    `translate3d(${x*45}px,${y*45}px,-200px)`;
 
 });
 
 
-function drawParticles(){
+/* =========================================================
+SCROLL REVEALS
+========================================================= */
 
-  ctx.clearRect(0,0,W,H);
+const revealObserver =
+  new IntersectionObserver(
+    (entries)=>{
 
-  for(let i=particles.length-1;i>=0;i--){
+      entries.forEach(entry=>{
 
-    const p=particles[i];
+        if(entry.isIntersecting){
 
-    p.life-=.018;
+          entry.target.classList.add("visible");
 
-    if(p.life<=0){
+        }
 
-      particles.splice(i,1);
-      continue;
-
-    }
-
-    ctx.beginPath();
-
-    ctx.arc(
-      p.x,
-      p.y,
-      p.size*p.life,
-      0,
-      Math.PI*2
-    );
-
-    ctx.fillStyle=
-      `rgba(255,255,255,${p.life*.25})`;
-
-    ctx.fill();
-
-  }
-
-  requestAnimationFrame(drawParticles);
-
-}
-
-drawParticles();
-
-
-/* =====================================================
-   PROJECT WORLDS
-===================================================== */
-
-const dots=
-  document.querySelectorAll(".project-dot");
-
-const spaces=
-  document.querySelectorAll(".project-space");
-
-let current=null;
-
-
-dots.forEach(dot=>{
-
-  dot.addEventListener("click",()=>{
-
-    const id=dot.dataset.project;
-
-    openProject(id);
-
-  });
-
-});
-
-
-function openProject(id){
-
-  const target=document.getElementById(id);
-
-  if(!target)return;
-
-  spaces.forEach(s=>{
-    s.classList.remove("open");
-  });
-
-  target.classList.add("open");
-
-  const accent=
-    target.dataset.accent;
-
-  target.style.setProperty(
-    "--accent",
-    accent
-  );
-
-  current=target;
-
-  document.body.style.overflow="hidden";
-
-  window.scrollTo({
-    top:target.offsetTop,
-    behavior:"smooth"
-  });
-
-}
-
-
-/* =====================================================
-   CLOSE
-===================================================== */
-
-document.querySelectorAll(
-  ".close-project"
-).forEach(btn=>{
-
-  btn.addEventListener("click",()=>{
-
-    spaces.forEach(s=>{
-      s.classList.remove("open");
-    });
-
-    current=null;
-
-    document.body.style.overflow="auto";
-
-    document.getElementById("intro")
-      .scrollIntoView({
-        behavior:"smooth"
       });
 
+    },
+    {
+      threshold:.12
+    }
+  );
+
+
+document.querySelectorAll(".reveal")
+  .forEach(el=>{
+    revealObserver.observe(el);
+  });
+
+
+/* =========================================================
+PROJECT MOUSE DEPTH
+========================================================= */
+
+document.querySelectorAll(".project")
+.forEach(project=>{
+
+  const frame =
+    project.querySelector(".project-frame");
+
+  const word =
+    project.querySelector(".project-word");
+
+  project.addEventListener("mousemove",(e)=>{
+
+    const r =
+      project.getBoundingClientRect();
+
+    const x =
+      (e.clientX-r.left)/r.width-.5;
+
+    const y =
+      (e.clientY-r.top)/r.height-.5;
+
+    frame.style.transform =
+      `translate(
+        ${x*22}px,
+        calc(-50% + ${y*18}px)
+      )
+      rotate(${x*2.2}deg)
+      scale(1)`;
+
+    word.style.transform =
+      `translate(
+        ${x*-10}px,
+        calc(-50% + ${y*-7}px)
+      )`;
+
+  });
+
+  project.addEventListener("mouseleave",()=>{
+
+    frame.style.transform =
+      "translateY(-50%) rotate(5deg) scale(.94)";
+
+    word.style.transform =
+      "translateY(-50%)";
+
   });
 
 });
 
 
-/* =====================================================
-   PROJECT PARALLAX
-===================================================== */
+/* =========================================================
+MAGIC ORBITS
+========================================================= */
 
-document.querySelectorAll(
-  ".project-space"
-).forEach(space=>{
+const magic =
+  document.querySelector(".magic");
 
-  space.addEventListener(
-    "mousemove",
-    e=>{
+const orbits =
+  document.querySelectorAll(".magic-orbit");
 
-      const rect=
-        space.getBoundingClientRect();
+window.addEventListener("scroll",()=>{
 
-      const x=
-        (e.clientX-rect.left)/rect.width-.5;
+  if(!magic) return;
 
-      const y=
-        (e.clientY-rect.top)/rect.height-.5;
+  const rect =
+    magic.getBoundingClientRect();
 
-      space.style.setProperty(
-        "--mx",
-        `${50+x*50}%`
-      );
+  const progress =
+    -rect.top / magic.offsetHeight;
 
-      space.style.setProperty(
-        "--my",
-        `${50+y*50}%`
-      );
+  orbits.forEach((orbit,i)=>{
 
-      const preview=
-        space.querySelector(
-          ".project-preview"
-        );
+    orbit.style.transform =
+      `rotate(${progress*(35+i*25)}deg)
+       scale(${1+progress*(.08+i*.03)})`;
 
-      if(preview){
-
-        preview.style.transform=
-          `translate(
-            ${x*20}px,
-            calc(-50% + ${y*20}px)
-          ) rotate(${x*2}deg)`;
-
-      }
-
-    }
-  );
+  });
 
 });
 
 
-/* =====================================================
-   ESCAPE
-===================================================== */
+/* =========================================================
+MAGNETIC FINAL LINKS
+========================================================= */
 
-window.addEventListener("keydown",e=>{
+document.querySelectorAll(".final-title a")
+.forEach(link=>{
 
-  if(e.key==="Escape" && current){
+  link.addEventListener("mousemove",(e)=>{
 
-    current.classList.remove("open");
+    const r =
+      link.getBoundingClientRect();
 
-    current=null;
+    const x =
+      e.clientX-r.left-r.width/2;
 
-    document.body.style.overflow="auto";
+    const y =
+      e.clientY-r.top-r.height/2;
+
+    link.style.transform =
+      `translate(${x*.08}px,${y*.08}px)`;
+
+  });
+
+  link.addEventListener("mouseleave",()=>{
+
+    link.style.transform="translate(0,0)";
+
+  });
+
+});
+
+
+/* =========================================================
+ESC
+========================================================= */
+
+window.addEventListener("keydown",(e)=>{
+
+  if(e.key === "Escape"){
+
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
 
   }
 
 });
 
 
-/* =====================================================
-   MOBILE TOUCH
-===================================================== */
+/* =========================================================
+MOBILE
+========================================================= */
 
 if(
   window.matchMedia("(pointer:coarse)").matches
