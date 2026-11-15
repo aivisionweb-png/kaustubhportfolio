@@ -1,1 +1,1783 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AI VISION — Creative Digital Studio</title>
+
+  <meta
+    name="description"
+    content="AI Vision Studio — websites, digital experiences and creative technology."
+  >
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --black: #050505;
+      --black-2: #0a0a0a;
+      --white: #f4f4ef;
+      --gray: #777;
+      --gray-2: #444;
+      --line: rgba(255,255,255,.11);
+      --lime: #c8ff20;
+      --mono: "DM Mono", monospace;
+      --sans: "Manrope", sans-serif;
+      --ease: cubic-bezier(.16,1,.3,1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--black);
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--sans);
+      overflow-x: hidden;
+    }
+
+    body::selection {
+      background: var(--lime);
+      color: #000;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      border: 0;
+      background: none;
+      color: inherit;
+    }
+
+    /* =========================
+       NOISE
+    ========================= */
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: .045;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* =========================
+       LOADER
+    ========================= */
+
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: #050505;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition:
+        opacity 1s var(--ease),
+        visibility 1s;
+    }
+
+    #loader.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .loader-inner {
+      width: min(500px, 80vw);
+    }
+
+    .loader-top {
+      display: flex;
+      justify-content: space-between;
+      color: #666;
+      font: 10px var(--mono);
+      letter-spacing: .12em;
+      margin-bottom: 18px;
+    }
+
+    .loader-title {
+      font-size: clamp(50px, 12vw, 130px);
+      font-weight: 800;
+      letter-spacing: -.08em;
+      line-height: .8;
+      overflow: hidden;
+    }
+
+    .loader-title span {
+      display: block;
+      transform: translateY(110%);
+      animation: loaderText 1.2s .2s var(--ease) forwards;
+    }
+
+    .loader-line {
+      margin-top: 35px;
+      height: 1px;
+      width: 100%;
+      background: #222;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .loader-line::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--lime);
+      transform: translateX(-100%);
+      animation: loaderLine 2s .2s var(--ease) forwards;
+      box-shadow: 0 0 20px var(--lime);
+    }
+
+    .loader-bottom {
+      margin-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      color: #555;
+      font: 9px var(--mono);
+      letter-spacing: .1em;
+    }
+
+    @keyframes loaderText {
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes loaderLine {
+      to {
+        transform: translateX(0);
+      }
+    }
+
+    /* =========================
+       CURSOR
+    ========================= */
+
+    .cursor {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      border: 1px solid var(--lime);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: difference;
+      transition:
+        width .3s,
+        height .3s,
+        background .3s;
+    }
+
+    .cursor.big {
+      width: 45px;
+      height: 45px;
+      background: rgba(200,255,32,.08);
+    }
+
+    /* =========================
+       SCROLL BAR
+    ========================= */
+
+    .progress {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--lime);
+      transform-origin: left;
+      transform: scaleX(0);
+      z-index: 9997;
+      box-shadow: 0 0 18px var(--lime);
+    }
+
+    /* =========================
+       NAV
+    ========================= */
+
+    nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 78px;
+      padding: 0 4vw;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      z-index: 500;
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(5,5,5,.92),
+          rgba(5,5,5,.45),
+          transparent
+        );
+
+      backdrop-filter: blur(12px);
+    }
+
+    .brand {
+      font: 500 12px var(--mono);
+      letter-spacing: .14em;
+    }
+
+    .brand span {
+      color: var(--lime);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      font: 10px var(--mono);
+      color: #888;
+      letter-spacing: .08em;
+    }
+
+    .nav-links a {
+      transition: .3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--lime);
+    }
+
+    .nav-button {
+      padding: 12px 17px;
+      border: 1px solid var(--line);
+      font: 10px var(--mono);
+      letter-spacing: .08em;
+      transition: .35s;
+    }
+
+    .nav-button:hover {
+      color: #000;
+      background: var(--lime);
+      border-color: var(--lime);
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      min-height: 100svh;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+      padding: 150px 0 65px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+
+      background-image:
+        linear-gradient(
+          rgba(255,255,255,.045) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255,255,255,.045) 1px,
+          transparent 1px
+        );
+
+      background-size: 90px 90px;
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          black,
+          transparent 90%
+        );
+
+      opacity: .5;
+    }
+
+    .hero-orbit {
+      position: absolute;
+      width: 750px;
+      height: 750px;
+      right: -230px;
+      top: -180px;
+      border-radius: 50%;
+      border: 1px solid rgba(200,255,32,.15);
+      animation: orbit 22s linear infinite;
+    }
+
+    .hero-orbit::before,
+    .hero-orbit::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .hero-orbit::before {
+      inset: 14%;
+    }
+
+    .hero-orbit::after {
+      inset: 28%;
+    }
+
+    @keyframes orbit {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .hero-light {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      right: 0;
+      top: 25%;
+      border-radius: 50%;
+      background: rgba(200,255,32,.06);
+      filter: blur(100px);
+    }
+
+    .container {
+      width: min(1320px, 92vw);
+      margin: auto;
+      position: relative;
+    }
+
+    .hero-label {
+      color: #777;
+      font: 10px var(--mono);
+      letter-spacing: .2em;
+      margin-bottom: 32px;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      display: inline-block;
+      border-radius: 50%;
+      background: var(--lime);
+      box-shadow: 0 0 15px var(--lime);
+      margin-right: 8px;
+    }
+
+    .hero-title {
+      font-size: clamp(72px, 12vw, 185px);
+      line-height: .76;
+      letter-spacing: -.09em;
+      font-weight: 800;
+      max-width: 1200px;
+    }
+
+    .hero-title .outline {
+      color: transparent;
+      -webkit-text-stroke: 1px #666;
+    }
+
+    .hero-title .lime {
+      color: var(--lime);
+    }
+
+    .hero-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      margin-top: 60px;
+    }
+
+    .hero-description {
+      max-width: 480px;
+      color: #929292;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .hero-info {
+      color: #555;
+      font: 9px/1.8 var(--mono);
+      text-align: right;
+      letter-spacing: .08em;
+    }
+
+    /* =========================
+       SECTIONS
+    ========================= */
+
+    section {
+      padding: 150px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      color: var(--lime);
+      font: 10px var(--mono);
+      letter-spacing: .18em;
+      margin-bottom: 50px;
+    }
+
+    /* =========================
+       INTRO
+    ========================= */
+
+    .intro {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 50px;
+    }
+
+    .intro h2 {
+      font-size: clamp(45px, 6vw, 85px);
+      letter-spacing: -.07em;
+      line-height: .88;
+    }
+
+    .intro-copy {
+      max-width: 700px;
+      color: #999;
+      font-size: 18px;
+      line-height: 1.75;
+    }
+
+    .intro-copy strong {
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      margin-top: 90px;
+      border: 1px solid var(--line);
+    }
+
+    .stat {
+      padding: 32px;
+      min-height: 170px;
+      border-right: 1px solid var(--line);
+    }
+
+    .stat:last-child {
+      border-right: 0;
+    }
+
+    .stat-number {
+      color: var(--lime);
+      font-size: 45px;
+      font-weight: 700;
+      letter-spacing: -.06em;
+    }
+
+    .stat-label {
+      margin-top: 18px;
+      color: #666;
+      font: 9px var(--mono);
+      line-height: 1.7;
+    }
+
+    /* =========================
+       WORK
+    ========================= */
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      margin-bottom: 55px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(50px, 8vw, 105px);
+      letter-spacing: -.08em;
+      line-height: .8;
+    }
+
+    .section-head p {
+      max-width: 250px;
+      color: #666;
+      font: 9px/1.7 var(--mono);
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(12,1fr);
+      gap: 14px;
+    }
+
+    .project {
+      position: relative;
+      min-height: 510px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #090909;
+      isolation: isolate;
+      transition:
+        transform .7s var(--ease),
+        border-color .4s;
+    }
+
+    .project:nth-child(1) {
+      grid-column: span 7;
+    }
+
+    .project:nth-child(2) {
+      grid-column: span 5;
+    }
+
+    .project:nth-child(3) {
+      grid-column: span 5;
+    }
+
+    .project:nth-child(4) {
+      grid-column: span 7;
+    }
+
+    .project:nth-child(5) {
+      grid-column: span 7;
+    }
+
+    .project:nth-child(6) {
+      grid-column: span 5;
+    }
+
+    .project:hover {
+      transform: translateY(-8px);
+      border-color: rgba(200,255,32,.45);
+    }
+
+    .project-bg {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(
+          circle at 65% 35%,
+          rgba(200,255,32,.12),
+          transparent 35%
+        ),
+        linear-gradient(145deg,#161616,#070707);
+    }
+
+    .project-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          45deg,
+          transparent 0 40px,
+          rgba(255,255,255,.015) 41px 42px
+        );
+    }
+
+    .project-number {
+      position: absolute;
+      left: 23px;
+      top: 21px;
+      color: #555;
+      font: 9px var(--mono);
+    }
+
+    .project-type {
+      position: absolute;
+      right: 23px;
+      top: 21px;
+      color: #555;
+      font: 9px var(--mono);
+    }
+
+    .mockup {
+      position: absolute;
+      width: 65%;
+      height: 58%;
+      left: 50%;
+      top: 46%;
+      transform:
+        translate(-50%,-50%)
+        rotate(-5deg);
+
+      border: 1px solid rgba(255,255,255,.14);
+      background: #101010;
+      box-shadow:
+        20px 30px 80px rgba(0,0,0,.65);
+
+      transition:
+        transform 1s var(--ease),
+        border-color .5s;
+    }
+
+    .mockup::before {
+      content: "●  ●  ●";
+      position: absolute;
+      left: 14px;
+      top: 10px;
+      color: #555;
+      font: 7px var(--mono);
+    }
+
+    .mockup::after {
+      content: "";
+      position: absolute;
+      width: 32%;
+      height: 32%;
+      left: 50%;
+      top: 52%;
+      transform: translate(-50%,-50%) rotate(25deg);
+      border: 1px solid rgba(200,255,32,.55);
+      box-shadow: 0 0 50px rgba(200,255,32,.08);
+    }
+
+    .project:nth-child(even) .mockup {
+      transform:
+        translate(-50%,-50%)
+        rotate(5deg);
+    }
+
+    .project:nth-child(3) .mockup::after {
+      border-radius: 50%;
+      transform: translate(-50%,-50%);
+    }
+
+    .project:nth-child(4) .mockup::after {
+      width: 55%;
+      height: 12%;
+      transform: translate(-50%,-50%) skewX(-20deg);
+    }
+
+    .project:nth-child(5) .mockup::after {
+      border-radius: 50% 50% 0 0;
+      transform: translate(-50%,-50%) scale(.8);
+    }
+
+    .project:hover .mockup {
+      transform:
+        translate(-50%,-50%)
+        rotate(0deg)
+        scale(1.08);
+      border-color: rgba(200,255,32,.4);
+    }
+
+    .project-info {
+      position: absolute;
+      left: 25px;
+      right: 25px;
+      bottom: 24px;
+    }
+
+    .project-info h3 {
+      font-size: 31px;
+      letter-spacing: -.05em;
+    }
+
+    .project-info p {
+      color: #666;
+      font: 9px var(--mono);
+      margin-top: 8px;
+    }
+
+    .project-arrow {
+      position: absolute;
+      right: 25px;
+      bottom: 25px;
+      color: var(--lime);
+      font-size: 25px;
+      transition: .4s;
+    }
+
+    .project:hover .project-arrow {
+      transform: translate(7px,-7px);
+    }
+
+    /* =========================
+       SERVICES
+    ========================= */
+
+    .services {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+    }
+
+    .services-title {
+      font-size: clamp(50px,7vw,100px);
+      line-height: .82;
+      letter-spacing: -.08em;
+    }
+
+    .services-title span {
+      color: var(--lime);
+    }
+
+    .service-list {
+      border-top: 1px solid var(--line);
+    }
+
+    .service {
+      display: grid;
+      grid-template-columns: 65px 1fr 30px;
+      align-items: center;
+
+      padding: 30px 0;
+      border-bottom: 1px solid var(--line);
+
+      transition:
+        padding .5s var(--ease),
+        color .3s;
+    }
+
+    .service-number {
+      color: #555;
+      font: 9px var(--mono);
+    }
+
+    .service h3 {
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .service-arrow {
+      color: #555;
+      transition: .3s;
+    }
+
+    .service:hover {
+      padding-left: 20px;
+    }
+
+    .service:hover h3,
+    .service:hover .service-arrow {
+      color: var(--lime);
+    }
+
+    .service:hover .service-arrow {
+      transform: rotate(45deg);
+    }
+
+    /* =========================
+       ABOUT
+    ========================= */
+
+    .about {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 100px;
+      align-items: end;
+    }
+
+    .about-title {
+      font-size: clamp(60px,9vw,130px);
+      line-height: .77;
+      letter-spacing: -.09em;
+    }
+
+    .about-title span {
+      color: var(--lime);
+    }
+
+    .about-copy {
+      color: #929292;
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    .about-copy p + p {
+      margin-top: 25px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 35px;
+    }
+
+    .tag {
+      border: 1px solid var(--line);
+      padding: 9px 11px;
+      color: #777;
+      font: 8px var(--mono);
+      letter-spacing: .08em;
+    }
+
+    /* =========================
+       CTA
+    ========================= */
+
+    .cta {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-ring {
+      position: absolute;
+      width: 650px;
+      height: 650px;
+      right: -180px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      border: 1px solid rgba(200,255,32,.14);
+    }
+
+    .cta-ring::before,
+    .cta-ring::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.06);
+    }
+
+    .cta-ring::before {
+      inset: 15%;
+    }
+
+    .cta-ring::after {
+      inset: 30%;
+    }
+
+    .cta h2 {
+      font-size: clamp(70px,12vw,175px);
+      line-height: .75;
+      letter-spacing: -.1em;
+    }
+
+    .cta h2 span {
+      color: var(--lime);
+    }
+
+    .cta-bottom {
+      margin-top: 60px;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 25px;
+
+      padding: 19px 23px;
+
+      border: 1px solid var(--lime);
+      color: var(--lime);
+
+      font: 10px var(--mono);
+      letter-spacing: .1em;
+
+      transition: .4s;
+    }
+
+    .cta-button:hover {
+      color: #000;
+      background: var(--lime);
+      box-shadow: 0 0 50px rgba(200,255,32,.15);
+    }
+
+    .contact-details {
+      color: #666;
+      font: 9px/1.8 var(--mono);
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 25px 4vw;
+
+      display: flex;
+      justify-content: space-between;
+
+      color: #555;
+      font: 9px var(--mono);
+      letter-spacing: .05em;
+    }
+
+    /* =========================
+       REVEAL
+    ========================= */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      filter: blur(7px);
+
+      transition:
+        opacity 1s var(--ease),
+        transform 1s var(--ease),
+        filter 1s var(--ease);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media(max-width: 800px) {
+
+      nav {
+        height: 65px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-button {
+        padding: 9px 12px;
+      }
+
+      .hero {
+        padding-top: 130px;
+      }
+
+      .hero-title {
+        font-size: 19vw;
+      }
+
+      .hero-footer {
+        display: block;
+      }
+
+      .hero-info {
+        text-align: left;
+        margin-top: 30px;
+      }
+
+      section {
+        padding: 100px 0;
+      }
+
+      .intro,
+      .services,
+      .about {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+
+      .intro-copy {
+        font-size: 16px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .stat {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .stat:last-child {
+        border-bottom: 0;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-head p {
+        margin-top: 25px;
+      }
+
+      .projects {
+        display: block;
+      }
+
+      .project {
+        min-height: 430px;
+        margin-bottom: 12px;
+      }
+
+      .services-title {
+        font-size: 18vw;
+      }
+
+      .service {
+        grid-template-columns: 45px 1fr 20px;
+      }
+
+      .service h3 {
+        font-size: 17px;
+      }
+
+      .about-title {
+        font-size: 18vw;
+      }
+
+      .cta-ring {
+        width: 500px;
+        height: 500px;
+        right: -300px;
+      }
+
+      .cta-bottom {
+        display: block;
+      }
+
+      .contact-details {
+        margin-top: 25px;
+      }
+
+      footer {
+        display: block;
+        line-height: 2;
+      }
+
+      footer span:last-child {
+        display: block;
+      }
+
+      .cursor {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="noise"></div>
+<div class="progress"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-inner">
+
+    <div class="loader-top">
+      <span>AI VISION STUDIO</span>
+      <span>2026</span>
+    </div>
+
+    <div class="loader-title">
+      <span>AI</span>
+      <span>VISION</span>
+    </div>
+
+    <div class="loader-line"></div>
+
+    <div class="loader-bottom">
+      <span>INITIALIZING EXPERIENCE</span>
+      <span id="loaderPercent">00%</span>
+    </div>
+
+  </div>
+</div>
+
+<div class="cursor"></div>
+
+<!-- NAV -->
+<nav>
+
+  <a href="#" class="brand">
+    <span>AI</span> VISION / STUDIO
+  </a>
+
+  <div class="nav-links">
+    <a href="#work">WORK</a>
+    <a href="#services">CAPABILITIES</a>
+    <a href="#about">ABOUT</a>
+  </div>
+
+  <a href="#contact" class="nav-button">
+    START A PROJECT ↗
+  </a>
+
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+
+  <div class="hero-grid"></div>
+  <div class="hero-orbit"></div>
+  <div class="hero-light"></div>
+
+  <div class="container">
+
+    <div class="hero-label reveal">
+      <span class="dot"></span>
+      INDEPENDENT CREATIVE-TECH STUDIO · AHMEDABAD / INDIA
+    </div>
+
+    <h1 class="hero-title reveal">
+      WE BUILD<br>
+      <span class="outline">DIGITAL</span><br>
+      <span class="lime">ATTENTION.</span>
+    </h1>
+
+    <div class="hero-footer reveal">
+
+      <p class="hero-description">
+        Websites, interfaces and digital experiences for businesses
+        that want to look impossible to ignore.
+      </p>
+
+      <div class="hero-info">
+        CURRENTLY BUILDING<br>
+        WEB / BRAND / INTERACTION<br>
+        <br>
+        2026 — PRESENT
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
+
+<!-- INTRO -->
+<section>
+
+  <div class="container">
+
+    <div class="eyebrow">
+      01 — THE IDEA
+    </div>
+
+    <div class="intro">
+
+      <h2 class="reveal">
+        NOT A<br>
+        WEBSITE.<br>
+        A PRESENCE.
+      </h2>
+
+      <div class="intro-copy reveal">
+
+        We don't believe a business needs another
+        <strong>generic website.</strong>
+
+        <br><br>
+
+        It needs a digital presence that instantly communicates
+        what it is, why it matters and what someone should do next.
+
+        <br><br>
+
+        AI Vision combines <strong>visual direction, interaction,
+        technology and strategy</strong> into one experience.
+
+      </div>
+
+    </div>
+
+    <div class="stats reveal">
+
+      <div class="stat">
+        <div class="stat-number">01</div>
+        <div class="stat-label">
+          ONE STRONG<br>
+          VISUAL DIRECTION
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-number">∞</div>
+        <div class="stat-label">
+          ROOM FOR<br>
+          IDEAS
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-number">24/7</div>
+        <div class="stat-label">
+          YOUR DIGITAL<br>
+          PRESENCE
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- WORK -->
+<section id="work">
+
+  <div class="container">
+
+    <div class="eyebrow">
+      02 — SELECTED WORK
+    </div>
+
+    <div class="section-head reveal">
+
+      <h2>
+        BUILT<br>
+        FOR REAL.
+      </h2>
+
+      <p>
+        A selection of digital experiences
+        created for real-world brands,
+        products and ideas.
+      </p>
+
+    </div>
+
+    <div class="projects">
+
+      <!-- PROJECT 01 -->
+      <a
+        href="https://savoro-puce.vercel.app/#menu"
+        target="_blank"
+        class="project reveal"
+      >
+
+        <div class="project-bg"></div>
+
+        <span class="project-number">01</span>
+        <span class="project-type">FOOD / WEB</span>
+
+        <div class="mockup"></div>
+
+        <div class="project-info">
+          <h3>Savoro</h3>
+          <p>MENU EXPERIENCE · ORDER FLOW</p>
+        </div>
+
+        <span class="project-arrow">↗</span>
+
+      </a>
+
+      <!-- PROJECT 02 -->
+      <a
+        href="https://nova-gilt-psi.vercel.app/"
+        target="_blank"
+        class="project reveal"
+      >
+
+        <div class="project-bg"></div>
+
+        <span class="project-number">02</span>
+        <span class="project-type">DIGITAL / UI</span>
+
+        <div class="mockup"></div>
+
+        <div class="project-info">
+          <h3>Nova</h3>
+          <p>MODERN DIGITAL EXPERIENCE</p>
+        </div>
+
+        <span class="project-arrow">↗</span>
+
+      </a>
+
+      <!-- PROJECT 03 -->
+      <a
+        href="https://noire-five-blond.vercel.app/"
+        target="_blank"
+        class="project reveal"
+      >
+
+        <div class="project-bg"></div>
+
+        <span class="project-number">03</span>
+        <span class="project-type">BRAND / WEB</span>
+
+        <div class="mockup"></div>
+
+        <div class="project-info">
+          <h3>Noire</h3>
+          <p>EDITORIAL BRAND PRESENCE</p>
+        </div>
+
+        <span class="project-arrow">↗</span>
+
+      </a>
+
+      <!-- PROJECT 04 -->
+      <a
+        href="https://radhearena.vercel.app/"
+        target="_blank"
+        class="project reveal"
+      >
+
+        <div class="project-bg"></div>
+
+        <span class="project-number">04</span>
+        <span class="project-type">SPORT / BOOKING</span>
+
+        <div class="mockup"></div>
+
+        <div class="project-info">
+          <h3>Radhe Arena</h3>
+          <p>SPORTS VENUE EXPERIENCE</p>
+        </div>
+
+        <span class="project-arrow">↗</span>
+
+      </a>
+
+      <!-- PROJECT 05 -->
+      <a
+        href="https://eventbudget-sooty.vercel.app/"
+        target="_blank"
+        class="project reveal"
+      >
+
+        <div class="project-bg"></div>
+
+        <span class="project-number">05</span>
+        <span class="project-type">PRODUCT / WEB APP</span>
+
+        <div class="mockup"></div>
+
+        <div class="project-info">
+          <h3>EventBudget</h3>
+          <p>PLAN · SIMULATE · CELEBRATE</p>
+        </div>
+
+        <span class="project-arrow">↗</span>
+
+      </a>
+
+      <!-- PROJECT 06 -->
+      <a
+        href="https://casa-mira-inky.vercel.app/"
+        target="_blank"
+        class="project reveal"
+      >
+
+        <div class="project-bg"></div>
+
+        <span class="project-number">06</span>
+        <span class="project-type">HOSPITALITY / WEB</span>
+
+        <div class="mockup"></div>
+
+        <div class="project-info">
+          <h3>Casa Mira</h3>
+          <p>HOSPITALITY DIGITAL PRESENCE</p>
+        </div>
+
+        <span class="project-arrow">↗</span>
+
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+
+  <div class="container">
+
+    <div class="eyebrow">
+      03 — CAPABILITIES
+    </div>
+
+    <div class="services">
+
+      <h2 class="services-title reveal">
+        WHAT WE<br>
+        CAN MAKE<br>
+        <span>MOVE.</span>
+      </h2>
+
+      <div class="service-list reveal">
+
+        <div class="service">
+          <span class="service-number">01</span>
+          <h3>Premium Business Websites</h3>
+          <span class="service-arrow">↗</span>
+        </div>
+
+        <div class="service">
+          <span class="service-number">02</span>
+          <h3>High-Impact Landing Pages</h3>
+          <span class="service-arrow">↗</span>
+        </div>
+
+        <div class="service">
+          <span class="service-number">03</span>
+          <h3>Booking & Enquiry Systems</h3>
+          <span class="service-arrow">↗</span>
+        </div>
+
+        <div class="service">
+          <span class="service-number">04</span>
+          <h3>Menus & Product Experiences</h3>
+          <span class="service-arrow">↗</span>
+        </div>
+
+        <div class="service">
+          <span class="service-number">05</span>
+          <h3>Creative UI / UX</h3>
+          <span class="service-arrow">↗</span>
+        </div>
+
+        <div class="service">
+          <span class="service-number">06</span>
+          <h3>Launch & Digital Iteration</h3>
+          <span class="service-arrow">↗</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+
+  <div class="container">
+
+    <div class="eyebrow">
+      04 — THE STUDIO
+    </div>
+
+    <div class="about">
+
+      <h2 class="about-title reveal">
+        SMALL<br>
+        TEAM.<br>
+        <span>BIG</span><br>
+        ENERGY.
+      </h2>
+
+      <div class="about-copy reveal">
+
+        <p>
+          AI Vision Studio is an independent
+          creative-tech studio focused on making
+          ambitious digital work accessible.
+        </p>
+
+        <p>
+          Design and development happen together,
+          so the final result feels like one idea —
+          not a design handed to a developer.
+        </p>
+
+        <div class="tags">
+          <span class="tag">UI / UX</span>
+          <span class="tag">HTML / CSS / JS</span>
+          <span class="tag">AI WORKFLOWS</span>
+          <span class="tag">VERCEL</span>
+          <span class="tag">GITHUB</span>
+          <span class="tag">CREATIVE TECH</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+
+  <div class="cta-ring"></div>
+
+  <div class="container">
+
+    <div class="eyebrow">
+      05 — LET'S BUILD
+    </div>
+
+    <h2 class="reveal">
+      GOT A<br>
+      <span>PROJECT?</span>
+    </h2>
+
+    <div class="cta-bottom reveal">
+
+      <a
+        href="mailto:aivisionstudio2821@gmail.com"
+        class="cta-button"
+      >
+        START A CONVERSATION
+        <span>↗</span>
+      </a>
+
+      <div class="contact-details">
+        EMAIL<br>
+        aivisionstudio2821@gmail.com
+        <br><br>
+        INSTAGRAM<br>
+        @aivisionstudioahmedabad_
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<footer>
+
+  <span>
+    © 2026 AI VISION STUDIO
+  </span>
+
+  <span>
+    DESIGNED + BUILT WITH INTENT · AHMEDABAD
+  </span>
+
+</footer>
+
+<script>
+
+  /* =========================
+     LOADER
+  ========================= */
+
+  let loaderPercent = 0;
+
+  const percent = document.getElementById("loaderPercent");
+  const loader = document.getElementById("loader");
+
+  const loaderTimer = setInterval(() => {
+
+    loaderPercent += Math.floor(Math.random() * 9) + 3;
+
+    if (loaderPercent >= 100) {
+
+      loaderPercent = 100;
+
+      clearInterval(loaderTimer);
+
+      setTimeout(() => {
+        loader.classList.add("hide");
+      }, 350);
+
+    }
+
+    percent.textContent =
+      String(loaderPercent).padStart(2,"0") + "%";
+
+  }, 100);
+
+  /* =========================
+     CURSOR
+  ========================= */
+
+  const cursor = document.querySelector(".cursor");
+
+  let mouseX = innerWidth / 2;
+  let mouseY = innerHeight / 2;
+
+  let cursorX = mouseX;
+  let cursorY = mouseY;
+
+  window.addEventListener("mousemove", e => {
+
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+  });
+
+  function animateCursor() {
+
+    cursorX += (mouseX - cursorX) * .16;
+    cursorY += (mouseY - cursorY) * .16;
+
+    cursor.style.left = cursorX + "px";
+    cursor.style.top = cursorY + "px";
+
+    requestAnimationFrame(animateCursor);
+  }
+
+  animateCursor();
+
+  document
+    .querySelectorAll("a,.project,.service")
+    .forEach(element => {
+
+      element.addEventListener("mouseenter", () => {
+        cursor.classList.add("big");
+      });
+
+      element.addEventListener("mouseleave", () => {
+        cursor.classList.remove("big");
+      });
+
+    });
+
+  /* =========================
+     REVEAL
+  ========================= */
+
+  const observer =
+    new IntersectionObserver(
+      entries => {
+
+        entries.forEach(entry => {
+
+          if (entry.isIntersecting) {
+
+            entry.target.classList.add("active");
+
+            observer.unobserve(entry.target);
+
+          }
+
+        });
+
+      },
+      {
+        threshold: .12
+      }
+    );
+
+  document
+    .querySelectorAll(".reveal")
+    .forEach(element => {
+      observer.observe(element);
+    });
+
+  /* =========================
+     SCROLL PROGRESS
+  ========================= */
+
+  const progress =
+    document.querySelector(".progress");
+
+  window.addEventListener(
+    "scroll",
+    () => {
+
+      const total =
+        document.documentElement.scrollHeight -
+        window.innerHeight;
+
+      const value =
+        total > 0
+          ? window.scrollY / total
+          : 0;
+
+      progress.style.transform =
+        `scaleX(${value})`;
+
+    },
+    {
+      passive: true
+    }
+  );
+
+  /* =========================
+     PROJECT MAGNETIC TILT
+  ========================= */
+
+  document
+    .querySelectorAll(".project")
+    .forEach(project => {
+
+      project.addEventListener("mousemove", e => {
+
+        if (window.innerWidth < 800) return;
+
+        const rect =
+          project.getBoundingClientRect();
+
+        const x =
+          e.clientX - rect.left;
+
+        const y =
+          e.clientY - rect.top;
+
+        const rotateY =
+          ((x / rect.width) - .5) * 3;
+
+        const rotateX =
+          ((y / rect.height) - .5) * -3;
+
+        project.style.transform =
+          `
+          perspective(1000px)
+          rotateX(${rotateX}deg)
+          rotateY(${rotateY}deg)
+          translateY(-8px)
+          `;
+
+      });
+
+      project.addEventListener("mouseleave", () => {
+
+        project.style.transform = "";
+
+      });
+
+    });
+
+  /* =========================
+     SMOOTH ANCHORS
+  ========================= */
+
+  document
+    .querySelectorAll('a[href^="#"]')
+    .forEach(link => {
+
+      link.addEventListener("click", e => {
+
+        const target =
+          document.querySelector(
+            link.getAttribute("href")
+          );
+
+        if (!target) return;
+
+        e.preventDefault();
+
+        target.scrollIntoView({
+          behavior: "smooth"
+        });
+
+      });
+
+    });
+
+</script>
+
+</body>
+</html>
