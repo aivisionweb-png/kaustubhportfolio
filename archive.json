@@ -1,0 +1,93 @@
+[
+  {
+    "key": "wafflora",
+    "title": "WAFFLORA",
+    "category": "brand",
+    "label": "FOOD BRAND",
+    "images": [
+      "assets/work/page-01.jpg"
+    ]
+  },
+  {
+    "key": "mexican",
+    "title": "MEXICAN PIZZA PARLOUR",
+    "category": "food",
+    "label": "MENU / FOOD / QR",
+    "images": [
+      "assets/work/page-02.jpg",
+      "assets/work/page-03.jpg",
+      "assets/work/page-04.jpg",
+      "assets/work/page-05.jpg",
+      "assets/work/page-06.jpg",
+      "assets/work/page-07.jpg",
+      "assets/work/page-35.jpg",
+      "assets/work/page-36.jpg",
+      "assets/work/page-37.jpg",
+      "assets/work/page-38.jpg",
+      "assets/work/page-39.jpg",
+      "assets/work/page-40.jpg",
+      "assets/work/page-41.jpg",
+      "assets/work/page-42.jpg",
+      "assets/work/page-43.jpg",
+      "assets/work/page-44.jpg",
+      "assets/work/page-45.jpg",
+      "assets/work/page-47.jpg",
+      "assets/work/page-48.jpg"
+    ]
+  },
+  {
+    "key": "funwave",
+    "title": "FUNWAVE",
+    "category": "funwave",
+    "label": "BRAND / PACKAGING / CHARACTERS",
+    "images": [
+      "assets/work/page-08.jpg",
+      "assets/work/page-09.jpg",
+      "assets/work/page-10.jpg",
+      "assets/work/page-11.jpg",
+      "assets/work/page-12.jpg",
+      "assets/work/page-13.jpg",
+      "assets/work/page-14.jpg",
+      "assets/work/page-15.jpg",
+      "assets/work/page-16.jpg",
+      "assets/work/page-17.jpg",
+      "assets/work/page-18.jpg",
+      "assets/work/page-19.jpg",
+      "assets/work/page-20.jpg",
+      "assets/work/page-21.jpg",
+      "assets/work/page-22.jpg",
+      "assets/work/page-23.jpg",
+      "assets/work/page-24.jpg",
+      "assets/work/page-25.jpg",
+      "assets/work/page-26.jpg",
+      "assets/work/page-27.jpg",
+      "assets/work/page-28.jpg",
+      "assets/work/page-29.jpg",
+      "assets/work/page-30.jpg",
+      "assets/work/page-31.jpg",
+      "assets/work/page-32.jpg",
+      "assets/work/page-33.jpg",
+      "assets/work/page-34.jpg"
+    ]
+  },
+  {
+    "key": "ks",
+    "title": "KS ENTERPRISE",
+    "category": "event",
+    "label": "CORPORATE / FESTIVE",
+    "images": [
+      "assets/work/page-46.jpg"
+    ]
+  },
+  {
+    "key": "events",
+    "title": "EVENT & INVITATION DESIGN",
+    "category": "event",
+    "label": "EVENT / INVITATION",
+    "images": [
+      "assets/work/page-49.jpg",
+      "assets/work/page-50.jpg",
+      "assets/work/page-51.jpg"
+    ]
+  }
+]
