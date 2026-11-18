@@ -567,3 +567,36 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
+// =========================================
+// COPY EMAIL
+// =========================================
+
+const copyEmail = document.getElementById("copyEmail");
+
+if (copyEmail) {
+
+  copyEmail.addEventListener("click", async () => {
+
+    const email = "aivisionstudio2821@gmail.com";
+
+    try {
+
+      await navigator.clipboard.writeText(email);
+
+      copyEmail.innerHTML =
+        'COPIED <span>✓</span>';
+
+      setTimeout(() => {
+        copyEmail.innerHTML =
+          'COPY EMAIL <span>+</span>';
+      }, 1800);
+
+    } catch (error) {
+
+      window.location.href =
+        "mailto:" + email;
+    }
+
+  });
+
+}
