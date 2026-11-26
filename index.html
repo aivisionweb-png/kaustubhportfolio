@@ -31,6 +31,9 @@ a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;backgroun
 .rv{opacity:0;transform:translateY(40px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .rv.in{opacity:1;transform:none}
 /* loader */
+/* loader hard failsafe */
+#ld{animation:ldAutoExit 2.6s cubic-bezier(.77,0,.18,1) 1.2s forwards}
+@keyframes ldAutoExit{to{clip-path:inset(0 0 100% 0);pointer-events:none}}
 #ld{position:fixed;inset:0;z-index:100;background:var(--ink);color:var(--ivory);display:flex;flex-direction:column;justify-content:space-between;padding:28px;transition:clip-path 1s var(--ease);clip-path:inset(0 0 0 0)}
 #ld.off{clip-path:inset(0 0 100% 0);pointer-events:none}
 #ld h2{font-size:clamp(40px,10vw,150px)}
@@ -211,7 +214,27 @@ body.velocity .work .vis{filter:blur(.8px)}
   <h2 class="big">Kaustubh Shukla<br><span class="serif out">/ AI Vision Studio</span></h2>
   <div class="row mono"><span id="ldn">00</span><span>— 100%</span></div>
 </div>
-<div id="cur" aria-hidden="true"><span></span></div>
+<div id="cur" aria-hidden="true"><span></span></div><script>
+(function(){
+  function bootPortfolio(){
+    var l=document.getElementById("ld");
+    if(!l)return;
+    document.body.classList.add("ready");
+    var n=document.getElementById("ldn"),v=0;
+    var timer=setInterval(function(){
+      v=Math.min(100,v+5);
+      if(n)n.textContent=String(v).padStart(2,"0");
+      if(v>=100)clearInterval(timer);
+    },45);
+    setTimeout(function(){
+      l.classList.add("off");
+      document.body.classList.add("ready");
+    },1800);
+  }
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",bootPortfolio);
+  else bootPortfolio();
+})();
+</script>
 
 <nav aria-label="Main">
   <a href="#top" class="logo" data-cur="h">KS®</a>
