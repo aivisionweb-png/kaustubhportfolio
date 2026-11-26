@@ -6,6 +6,9 @@
 <title>KAUSTUBH SHUKLA — Visual Designer</title>
 <meta name="description" content="Kaustubh Shukla — visual designer and art director from Ahmedabad. Identity, campaigns, packaging and digital experiences.">
 <meta name="theme-color" content="#070909">
+<meta property="og:title" content="KAUSTUBH SHUKLA — Visual Designer">
+<meta property="og:description" content="Independent visual designer — identity, campaigns, packaging and digital experiences.">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -25,6 +28,10 @@ a,button{color:inherit}a{text-decoration:none}button{border:0;background:none;fo
 .grotesk{font-family:"Space Grotesk",sans-serif}
 .wrap{padding-left:var(--pad);padding-right:var(--pad)}
 .noise{position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.intro-curtain{position:fixed;inset:0;z-index:200;background:#070909;display:grid;place-items:center;transition:clip-path 1.2s cubic-bezier(.76,0,.24,1);clip-path:inset(0)}
+.intro-mark{font:800 clamp(90px,22vw,330px)/.7 "Space Grotesk";letter-spacing:-.12em;color:#f1eee5;transform:scale(.8);animation:introMark 1.15s cubic-bezier(.16,1,.3,1) forwards}
+.intro-status{position:absolute;bottom:28px;left:var(--pad);color:#6f7976;display:flex;gap:10px;align-items:center}.intro-status span{display:inline-block;width:45px;height:1px;background:#39e0cf;animation:statusLine 1.2s ease-in-out infinite}
+@keyframes introMark{to{transform:scale(1)}}@keyframes statusLine{50%{width:85px}}
 .progress{position:fixed;left:0;top:0;height:2px;width:0;background:var(--teal);z-index:100;box-shadow:0 0 18px rgba(57,224,207,.55)}
 .cursor,.cursor-dot{position:fixed;pointer-events:none;z-index:110;transform:translate(-50%,-50%);display:block}
 .cursor{width:26px;height:26px;border:1px solid rgba(241,238,229,.65);border-radius:50%;transition:width .35s var(--ease),height .35s var(--ease),background .35s,border-color .35s}
@@ -68,6 +75,10 @@ a,button{color:inherit}a{text-decoration:none}button{border:0;background:none;fo
 .round-cta{width:112px;height:112px;border:1px solid rgba(241,238,229,.25);border-radius:50%;display:grid;place-items:center;text-align:center;font:500 9px/1.4 "DM Mono";transition:.5s var(--ease)}
 .round-cta:hover{background:var(--teal);border-color:var(--teal);color:var(--ink);transform:rotate(-18deg) scale(1.05)}
 /* marquee */
+.command-strip{display:grid;grid-template-columns:auto 1fr auto auto;gap:15px;align-items:center;padding-top:18px;color:#6f7976}
+.command-line{height:1px;background:linear-gradient(90deg,rgba(57,224,207,.55),transparent);position:relative}
+.command-line:after{content:"";position:absolute;left:0;top:-2px;width:5px;height:5px;background:var(--teal);border-radius:50%;box-shadow:0 0 16px var(--teal);animation:commandDot 2s ease-in-out infinite}
+@keyframes commandDot{50%{left:100%}}
 .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap;background:var(--red)}
 .marquee-track{display:inline-flex;gap:28px;min-width:max-content;padding:14px 0;font-size:clamp(20px,3vw,44px);font-weight:800;letter-spacing:-.06em;text-transform:uppercase;animation:marquee 24s linear infinite}
 .marquee-track i{font-style:normal;font-weight:400}
@@ -118,6 +129,8 @@ a,button{color:inherit}a{text-decoration:none}button{border:0;background:none;fo
 .project-num{color:var(--teal);margin-bottom:7px}
 .open-arrow{position:absolute;right:18px;bottom:62px;width:58px;height:58px;border-radius:50%;background:var(--paper);color:var(--ink);display:grid;place-items:center;font:500 9px "DM Mono";opacity:0;transform:scale(.7) rotate(-25deg);transition:.5s var(--ease);z-index:5}
 .project:hover .open-arrow{opacity:1;transform:none}
+.project:after{content:"SELECTED / 0" attr(data-project);position:absolute;right:0;top:-27px;color:#59625f;font:500 8px "DM Mono";letter-spacing:.12em;text-transform:uppercase;opacity:0;transform:translateY(8px);transition:.4s var(--ease)}
+.project:hover:after{opacity:1;transform:none}
 /* digital */
 .digital{background:var(--paper);color:var(--ink)}
 .digital .label{color:#087b76}
@@ -191,7 +204,8 @@ a,button{color:inherit}a{text-decoration:none}button{border:0;background:none;fo
 @media(max-width:900px){
  .nav-pill a{display:none}.nav-menu{display:block}.hero{padding-top:120px}.hero-foot{grid-template-columns:1fr}.hero-cta{justify-content:space-between}.section-head{grid-template-columns:1fr}.work-grid{display:block}.project{margin:0 0 70px!important}.digital-grid{grid-template-columns:1fr}.about-grid{grid-template-columns:1fr}.process-grid{grid-template-columns:repeat(2,1fr)}
 }
-@media(max-width:600px){
+@media(max-width:600px){.command-strip{grid-template-columns:auto 1fr auto}.command-strip span:last-child{display:none}}
+
  .hero-top span:nth-child(2){display:none}.hero-title{font-size:clamp(60px,18vw,110px)}.hero-title .teal{padding-left:3vw}.round-cta{width:88px;height:88px}.statement-line{white-space:normal;font-size:clamp(42px,12vw,76px)}.statement-line:nth-child(2),.statement-line:nth-child(3){padding-left:0}.process-grid{grid-template-columns:1fr}.archive-grid{grid-template-columns:1fr}.modal-title{font-size:16vw}.case-word{font-size:16vw}
 }
 @media(prefers-reduced-motion:reduce){
@@ -212,6 +226,7 @@ a,button{color:inherit}a{text-decoration:none}button{border:0;background:none;fo
 </header>
 
 <main id="top">
+<div class="intro-curtain" id="introCurtain"><div class="intro-mark">KS</div><div class="intro-status mono">PORTFOLIO / 2026 <span></span> READY</div></div>
 <section class="hero">
  <div class="hero-bg"><div class="hero-grid"></div><div class="hero-orb" id="orb"></div><div class="hero-ring"></div></div>
  <div class="hero-content">
@@ -222,7 +237,7 @@ a,button{color:inherit}a{text-decoration:none}button{border:0;background:none;fo
    <span class="row"><span class="outline">MAKES NOISE.</span></span>
   </h1>
   <div class="hero-foot">
-   <p class="hero-copy">Independent designer building <b>identities, campaigns and digital experiences</b> with a sharp point of view. Less decoration. More recognition.</p>
+   <p class="hero-copy">I build <b>identities, campaigns and digital experiences</b> for brands that need to look impossible to ignore. Strategy first. Distinctive by design.</p>
    <div class="hero-cta"><span class="avail mono">AVAILABLE FOR SELECT PROJECTS</span><a class="round-cta" href="#work">ENTER<br>SELECTED<br>WORK ↓</a></div>
   </div>
  </div>
@@ -230,6 +245,7 @@ a,button{color:inherit}a{text-decoration:none}button{border:0;background:none;fo
 
 <div class="marquee"><div class="marquee-track">IDENTITY <i>✳</i> ART DIRECTION <i>✳</i> GRAPHIC DESIGN <i>✳</i> DIGITAL <i>✳</i> PACKAGING <i>✳</i> IDENTITY <i>✳</i> ART DIRECTION <i>✳</i> GRAPHIC DESIGN <i>✳</i> DIGITAL <i>✳</i> PACKAGING <i>✳</i></div></div>
 
+<div class="command-strip wrap"><span class="mono">SCROLL / EXPLORE</span><span class="command-line"></span><span class="mono" id="clock">00:00:00</span><span class="mono">AHM / IN</span></div>
 <section class="section wrap" id="work">
  <div class="section-head reveal"><div class="label mono">01 / SELECTED WORK</div><h2 class="section-title">Designed to be <em>remembered.</em></h2></div>
  <div class="work-grid" id="workGrid"></div>
@@ -412,6 +428,7 @@ a,button{color:inherit}a{text-decoration:none}button{border:0;background:none;fo
  observe();
 
  $("#year").textContent=new Date().getFullYear();
+function clock(){const d=new Date();$("#clock").textContent=[d.getHours(),d.getMinutes(),d.getSeconds()].map(x=>String(x).padStart(2,"0")).join(":")} clock(); setInterval(clock,1000);
 
  const progress=$("#progress");
  let ticking=false;
@@ -469,6 +486,15 @@ a,button{color:inherit}a{text-decoration:none}button{border:0;background:none;fo
   panel.querySelectorAll("a").forEach(a=>a.onclick=()=>panel.remove());
   $("#mclose").onclick=()=>panel.remove();
  });
+})();
+</script>
+<script>
+(() => {
+ const curtain=document.getElementById("introCurtain");
+ if(!curtain)return;
+ const seen=sessionStorage.getItem("ks_intro_seen");
+ if(seen){curtain.remove();return}
+ setTimeout(()=>{curtain.style.clipPath="inset(0 0 100% 0)";sessionStorage.setItem("ks_intro_seen","1");setTimeout(()=>curtain.remove(),1250)},900);
 })();
 </script>
 </body>
