@@ -163,6 +163,38 @@ a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;border:0;
  *,*:before,*:after{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
  .reveal{opacity:1;transform:none}
 }
+
+/* ===== NO-PHOTO ART DIRECTION ===== */
+.work-media,.archive-thumb{background:#0b1516!important;position:relative;overflow:hidden}
+.work-media img,.archive-thumb img{display:none!important}
+.art{display:flex;align-items:flex-end;padding:clamp(20px,4vw,55px);isolation:isolate}
+.art:before{content:"";position:absolute;inset:0;z-index:-2;background:
+ linear-gradient(120deg,transparent 0 32%,rgba(49,212,199,.12) 32.2% 32.8%,transparent 33%),
+ linear-gradient(90deg,transparent 0 72%,rgba(242,238,227,.08) 72.2% 72.6%,transparent 72.8%),
+ repeating-linear-gradient(0deg,transparent 0 42px,rgba(242,238,227,.05) 43px 44px)}
+.art:after{content:"";position:absolute;z-index:-1;width:55%;aspect-ratio:1;border-radius:50%;right:-8%;top:-18%;border:1px solid rgba(49,212,199,.35);box-shadow:0 0 80px rgba(49,212,199,.08),inset 0 0 80px rgba(49,212,199,.05);transition:transform 1s var(--ease)}
+.work-card:hover .art:after{transform:scale(1.18) rotate(24deg)}
+.art-word{font-size:clamp(45px,8vw,120px);line-height:.78;letter-spacing:-.09em;font-weight:800;text-transform:uppercase;max-width:85%;word-break:break-word}
+.art-index{position:absolute;top:20px;left:20px;font:500 10px "DM Mono";color:var(--teal);letter-spacing:.12em}
+.art-type{position:absolute;right:20px;bottom:20px;max-width:35%;font:500 9px/1.35 "DM Mono";text-align:right;color:#aab4b2}
+.art-1:before{background-color:#0c2425}.art-1:after{border-color:var(--coral);background:radial-gradient(circle,rgba(214,91,66,.2),transparent 65%)}
+.art-2:before{background-color:#121a11}.art-2:after{width:42%;border-radius:0;border-color:#d8ff3e;transform:rotate(45deg)}
+.art-3:before{background-color:#20110d}.art-3:after{border-radius:12%;border-color:#ffb39f;transform:rotate(-18deg)}
+.art-4:before{background-color:#111423}.art-4:after{border-radius:0 50% 50% 50%;border-color:#a4b9ff}
+.art-5:before{background-color:#16120a}.art-5:after{border-color:#f0c86b;background:radial-gradient(circle,rgba(240,200,107,.2),transparent 68%)}
+.work-card:nth-child(even) .art{aspect-ratio:3/4}
+.archive-thumb{display:flex;align-items:center;justify-content:center;padding:20px}
+.archive-thumb .archive-art{position:relative;width:100%;height:100%;border:1px solid rgba(242,238,227,.14);display:flex;align-items:flex-end;padding:18px;overflow:hidden;background:linear-gradient(135deg,#0d191a,#071011)}
+.archive-art:before{content:"";position:absolute;inset:12%;border:1px solid rgba(49,212,199,.25);transform:rotate(12deg);transition:.7s var(--ease)}
+.archive-card:hover .archive-art:before{transform:rotate(-8deg) scale(1.08)}
+.archive-art:after{content:"";position:absolute;width:45%;aspect-ratio:1;right:-10%;top:-15%;border-radius:50%;background:var(--teal);opacity:.12;filter:blur(2px)}
+.archive-art strong{position:relative;z-index:2;font-size:clamp(25px,3.5vw,52px);line-height:.8;letter-spacing:-.08em;text-transform:uppercase;max-width:90%}
+.archive-art small{position:absolute;top:14px;right:14px;z-index:2;font:500 8px "DM Mono";color:var(--teal);letter-spacing:.12em}
+.case-visual{min-height:48vh;border:1px solid var(--line);background:#0b1516;position:relative;overflow:hidden;display:grid;place-items:center;padding:8vw}
+.case-visual:before{content:"";position:absolute;inset:8%;border:1px solid rgba(49,212,199,.2);transform:rotate(-3deg)}
+.case-visual:after{content:"";position:absolute;width:38vw;max-width:520px;aspect-ratio:1;border:1px solid var(--teal);border-radius:50%;opacity:.3;box-shadow:0 0 100px rgba(49,212,199,.08)}
+.case-word{position:relative;z-index:2;font-size:clamp(50px,12vw,190px);line-height:.72;letter-spacing:-.1em;font-weight:800;text-transform:uppercase;text-align:center;max-width:1000px}
+.case-number{position:absolute;z-index:3;left:20px;top:20px;color:var(--teal)}
 </style>
 </head>
 <body>
@@ -275,11 +307,11 @@ const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const fine = matchMedia("(hover:hover) and (pointer:fine)").matches;
 
 const featured = [
- {title:"WAFFLORA",label:"FOOD BRAND",image:"assets/work/page-01.jpg",key:"wafflora"},
- {title:"MEXICAN PIZZA PARLOUR",label:"MENU / FOOD / QR",image:"assets/work/page-02.jpg",key:"mexican"},
- {title:"FUNWAVE",label:"BRAND / PACKAGING / CHARACTERS",image:"assets/work/page-08.jpg",key:"funwave"},
- {title:"KS ENTERPRISE",label:"CORPORATE / FESTIVE",image:"assets/work/page-46.jpg",key:"ks"},
- {title:"EVENT & INVITATION DESIGN",label:"EVENT / INVITATION",image:"assets/work/page-49.jpg",key:"events"}
+ {title:"WAFFLORA",label:"FOOD BRAND",key:"wafflora"},
+ {title:"MEXICAN PIZZA PARLOUR",label:"MENU / FOOD / QR",key:"mexican"},
+ {title:"FUNWAVE",label:"BRAND / PACKAGING / CHARACTERS",key:"funwave"},
+ {title:"KS ENTERPRISE",label:"CORPORATE / FESTIVE",key:"ks"},
+ {title:"EVENT & INVITATION DESIGN",label:"EVENT / INVITATION",key:"events"}
 ];
 
 const digital = [
@@ -292,7 +324,7 @@ const digital = [
 const featuredWrap = $("#featuredWork");
 featuredWrap.innerHTML = featured.map((p,i)=>`
 <a href="#archive" class="work-card reveal" data-key="${p.key}" data-cursor>
-  <div class="work-media"><img src="${p.image}" alt="${p.title}" loading="${i<2?"eager":"lazy"}"><div class="work-overlay"></div><span class="work-open">OPEN ↗</span></div>
+  <div class="work-media art art-${i+1}"><span class="art-index">0${i+1} / CASE</span><span class="art-word">${p.title}</span><span class="art-type">${p.label}</span><div class="work-overlay"></div><span class="work-open">OPEN ↗</span></div>
   <div class="work-info"><div><div class="work-number">0${i+1}</div><div class="work-name">${p.title}</div></div><div class="work-type mono">${p.label}</div></div>
 </a>`).join("");
 
@@ -315,7 +347,7 @@ async function loadArchive(){
    if(!r.ok) throw new Error("archive unavailable");
    archive = await r.json();
  } catch(e) {
-   archive = featured.map(p=>({key:p.key,title:p.title,category:p.label.toLowerCase(),label:p.label,images:[p.image]}));
+   archive = featured.map(p=>({key:p.key,title:p.title,category:p.label.toLowerCase(),label:p.label,description:"Selected project from Kaustubh Shukla's visual archive."}));
  }
  const cats = ["ALL", ...new Set(archive.map(x => (x.category||"other").toUpperCase()))];
  $("#filters").innerHTML = cats.map(c=>`<button class="filter ${c==="ALL"?"active":""}" data-filter="${c}">${c}</button>`).join("");
@@ -326,7 +358,7 @@ function renderArchive(){
  const filtered = active==="ALL" ? archive : archive.filter(x => (x.category||"").toUpperCase()===active);
  $("#archiveGrid").innerHTML = filtered.map((p,i)=>`
   <button class="archive-card reveal" data-index="${archive.indexOf(p)}" data-cursor>
-    <div class="archive-thumb"><img src="${(p.images&&p.images[0])||"assets/work/page-01.jpg"}" alt="${p.title}" loading="lazy"></div>
+    <div class="archive-thumb"><div class="archive-art"><small>${String(i+1).padStart(2,"0")} / ${(p.category||"PROJECT").toUpperCase()}</small><strong>${p.title}</strong></div></div>
     <div class="archive-meta"><span>${String(i+1).padStart(2,"0")} / ${p.title}</span><small>${p.label||p.category||"PROJECT"}</small></div>
   </button>`).join("");
  observeReveals();
@@ -350,9 +382,9 @@ const modal=$("#modal"), modalGallery=$("#modalGallery");
 function openProject(p){
  $("#modalLabel").textContent=p.label||p.category||"PROJECT";
  $("#modalTitle").textContent=p.title;
- $("#modalCount").textContent=(p.images?.length||0)+" IMAGES";
+ $("#modalCount").textContent="VISUAL SYSTEM";
  $("#modalDesc").textContent=p.description||"A visual project from Kaustubh Shukla’s archive.";
- modalGallery.innerHTML=(p.images||[]).map((src,i)=>`<img src="${src}" alt="${p.title} — ${i+1}" loading="${i<2?"eager":"lazy"}">`).join("");
+ modalGallery.innerHTML=`<div class="case-visual"><span class="case-number mono">01 / SELECTED CASE</span><div class="case-word">${p.title}</div></div>`;
  modal.classList.add("open");modal.setAttribute("aria-hidden","false");document.body.classList.add("modal-open");
 }
 function closeModal(){modal.classList.remove("open");modal.setAttribute("aria-hidden","true");document.body.classList.remove("modal-open")}
