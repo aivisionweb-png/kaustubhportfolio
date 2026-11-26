@@ -359,6 +359,24 @@ body.velocity .work .vis{filter:blur(.8px)}
 "use strict";
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const fine=matchMedia("(hover:hover) and (pointer:fine)").matches,rm=matchMedia("(prefers-reduced-motion:reduce)").matches;
+/* loader boot — keeps the cinematic intro, but never blocks the site */
+const loaderEl=$("#ld"), loaderNum=$("#ldn");
+if(loaderEl&&loaderNum){
+  let n=0;
+  const loaderStart=performance.now();
+  const loaderTick=()=>{
+    n=Math.min(100,n+Math.max(2,Math.floor(Math.random()*8)));
+    loaderNum.textContent=String(n).padStart(2,"0");
+    if(n>=100){
+      setTimeout(()=>{loaderEl.classList.add("off");document.body.classList.add("ready")},220);
+    }else{
+      setTimeout(loaderTick,32);
+    }
+  };
+  setTimeout(loaderTick,80);
+  /* absolute failsafe: intro can never trap the user */
+  setTimeout(()=>{loaderNum.textContent="100";loaderEl.classList.add("off");document.body.classList.add("ready")},4200);
+}
 const P=[
 {n:"Nova",c:"Identity / Art Direction",u:"https://nova-gilt-psi.vercel.app/",d:"A contemporary identity direction built around typography, rhythm and a flexible visual system.",bg:"#024950",fg:"#AFDDE5",l:"N"},
 {n:"Casa Mira",c:"Hospitality / Branding",u:"https://casa-mira-inky.vercel.app/",d:"A warm editorial identity concept balancing architecture, hospitality and understated premium details.",bg:"#964734",fg:"#f4efe4",l:"C"},
