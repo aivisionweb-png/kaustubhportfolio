@@ -212,6 +212,33 @@ a,button{color:inherit}a{text-decoration:none}button{border:0;background:none;fo
 @media(prefers-reduced-motion:reduce){
  *,*:before,*:after{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}
 }
+
+/* command center + feature layer */
+.command-center{position:fixed;inset:0;z-index:160;background:rgba(8,8,10,.88);backdrop-filter:blur(24px);display:none;padding:clamp(70px,10vw,150px) var(--pad);overflow:auto}
+.command-center.open{display:block}
+.command-box{max-width:1100px;margin:auto;border:1px solid rgba(244,239,231,.16);background:#0d0c10;box-shadow:0 30px 100px rgba(0,0,0,.45)}
+.command-top{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid var(--line)}
+.command-search{width:100%;padding:28px 24px;background:transparent;color:var(--paper);border:0;outline:0;font:700 clamp(28px,5vw,64px)/1 Manrope;letter-spacing:-.06em}
+.command-results{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+.command-result{padding:22px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);transition:.25s}
+.command-result:hover,.command-result.selected{background:var(--teal);color:var(--ink)}
+.command-result small{display:block;opacity:.55;font:500 9px "DM Mono";letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
+.command-result b{font-size:25px;letter-spacing:-.05em}
+.command-hint{padding:14px 22px;color:var(--muted);font:500 9px "DM Mono";letter-spacing:.1em}
+.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.skill{padding:28px;min-height:150px;background:var(--ink2);position:relative;overflow:hidden;transition:.45s var(--ease)}
+.skill:hover{background:var(--teal);color:var(--ink);transform:translateY(-5px)}
+.skill-no{font:500 9px "DM Mono";opacity:.55}.skill-name{font-size:clamp(24px,3vw,42px);font-weight:800;letter-spacing:-.07em;margin-top:35px}
+.magnetic{transition:transform .35s var(--ease)}
+.status-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#c7ff3d;box-shadow:0 0 14px #c7ff3d;margin-right:7px;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(.55);opacity:.5}}
+.playground{min-height:55vh;position:relative;overflow:hidden;border:1px solid var(--line);background:#0d0c10;display:grid;place-items:center;cursor:crosshair}
+.playground-word{font:800 clamp(70px,15vw,230px)/.72 Manrope;letter-spacing:-.11em;position:relative;z-index:2;text-align:center;pointer-events:none}
+.playground-orb{position:absolute;width:180px;height:180px;border:1px solid var(--teal);border-radius:50%;box-shadow:0 0 80px rgba(255,79,216,.18);transform:translate(-50%,-50%);pointer-events:none}
+.theme-toggle{padding:9px 13px;border:1px solid rgba(244,239,231,.15);border-radius:999px;font:500 9px "DM Mono";letter-spacing:.1em;text-transform:uppercase}
+.light-mode{--ink:#f4efe7;--ink2:#e9e2d7;--paper:#08080a;--muted:#69636a;--line:rgba(8,8,10,.16);background:var(--ink);color:var(--paper)}
+.light-mode .nav-pill{background:rgba(244,239,231,.72)}.light-mode .visual{border-color:rgba(8,8,10,.13)}.light-mode .process{background:#e3dcd1}.light-mode .digital-card{background:#f4efe7}
+@media(max-width:700px){.command-results{grid-template-columns:1fr}.skills{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -222,7 +249,7 @@ a,button{color:inherit}a{text-decoration:none}button{border:0;background:none;fo
  <a href="#top" class="logo"><span class="logo-box">KS</span><span>KAUSTUBH / DESIGN</span></a>
  <nav class="nav-pill">
   <a href="#work">Work</a><a href="#digital">Digital</a><a href="#about">About</a><a href="#contact">Contact</a>
-  <button class="nav-menu" id="menu">Menu +</button>
+  <button class="theme-toggle magnetic" id="theme">Light</button><button class="nav-menu" id="menu">Menu +</button>
  </nav>
 </header>
 
@@ -283,6 +310,23 @@ a,button{color:inherit}a{text-decoration:none}button{border:0;background:none;fo
  </div>
 </section>
 
+<section class="section wrap" id="skills">
+ <div class="section-head reveal"><div class="label mono">04 / EXPERTISE</div><h2 class="section-title">What I <em>make.</em></h2></div>
+ <div class="skills">
+  <div class="skill reveal"><span class="skill-no">01 / CORE</span><div class="skill-name">Brand Identity</div></div>
+  <div class="skill reveal"><span class="skill-no">02 / VISUAL</span><div class="skill-name">Art Direction</div></div>
+  <div class="skill reveal"><span class="skill-no">03 / SYSTEM</span><div class="skill-name">Packaging</div></div>
+  <div class="skill reveal"><span class="skill-no">04 / DIGITAL</span><div class="skill-name">UI / UX</div></div>
+  <div class="skill reveal"><span class="skill-no">05 / CAMPAIGN</span><div class="skill-name">Social & Campaigns</div></div>
+  <div class="skill reveal"><span class="skill-no">06 / WEB</span><div class="skill-name">Web Design</div></div>
+ </div>
+</section>
+
+<section class="section wrap" id="playground">
+ <div class="section-head reveal"><div class="label mono">05 / PLAYGROUND</div><h2 class="section-title">Move the <em>idea.</em></h2></div>
+ <div class="playground" id="playgroundBox"><div class="playground-orb" id="playOrb"></div><div class="playground-word">MAKE<br><span style="color:var(--teal)">NOISE.</span></div></div>
+</section>
+
 <section class="section process" id="process">
  <div class="wrap">
   <div class="section-head reveal"><div class="label mono">04 / PROCESS</div><h2 class="section-title">Simple on paper. <em>Sharp in execution.</em></h2></div>
@@ -302,7 +346,7 @@ a,button{color:inherit}a{text-decoration:none}button{border:0;background:none;fo
 
 <section class="section contact" id="contact">
  <div class="wrap contact-inner">
-  <div class="mono reveal">06 / HAVE A PROJECT?</div>
+  <div class="mono reveal"><span class="status-dot"></span>AVAILABLE FOR SELECT PROJECTS</div><div class="mono reveal" style="margin-top:10px">07 / HAVE A PROJECT?</div>
   <h2 class="contact-title reveal">Let’s make<br>something <em>loud.</em></h2>
   <a class="email reveal" href="mailto:aivisionstudio2821@gmail.com?subject=Project%20enquiry">aivisionstudio2821@gmail.com</a>
   <div class="contact-actions reveal">
@@ -316,6 +360,15 @@ a,button{color:inherit}a{text-decoration:none}button{border:0;background:none;fo
 </main>
 
 <footer class="footer mono"><span>© <span id="year"></span> KAUSTUBH SHUKLA</span><span>AHMEDABAD — INDIA</span><a href="#top">BACK TO TOP ↑</a></footer>
+
+<div class="command-center" id="commandCenter" aria-hidden="true">
+ <div class="command-box">
+  <div class="command-top"><span class="mono">KS / COMMAND CENTER</span><button id="commandClose" class="mono">ESC ×</button></div>
+  <input id="commandSearch" class="command-search" autocomplete="off" placeholder="Search work, pages, skills…" />
+  <div class="command-results" id="commandResults"></div>
+  <div class="command-hint">↑ ↓ NAVIGATE &nbsp; ENTER OPEN &nbsp; ESC CLOSE &nbsp; CTRL / K TO LAUNCH</div>
+ </div>
+</div>
 
 <div class="modal" id="modal" aria-hidden="true">
  <button class="modal-close" id="close">Close ×</button>
@@ -476,6 +529,48 @@ function clock(){const d=new Date();$("#clock").textContent=[d.getHours(),d.getM
   const b=$("#copy"),old=b.textContent;b.textContent="COPIED ✓";setTimeout(()=>b.textContent=old,1400);
  });
 
+
+// Feature layer: command palette, filters, theme, magnetic controls, playground
+const commandItems=[
+ ...projects.map((p,i)=>({name:p.title,type:"WORK",action:()=>{openProject(p)}})),
+ ...digital.map(p=>({name:p.name,type:"DIGITAL",action:()=>window.open(p.url,"_blank")})),
+ {name:"About",type:"PAGE",action:()=>location.hash="about"},
+ {name:"Expertise",type:"PAGE",action:()=>location.hash="skills"},
+ {name:"Process",type:"PAGE",action:()=>location.hash="process"},
+ {name:"Contact",type:"PAGE",action:()=>location.hash="contact"},
+ {name:"Archive",type:"PAGE",action:()=>{location.hash="archive";$("#archiveToggle").click()}}
+];
+const cc=$("#commandCenter"),cs=$("#commandSearch"),cr=$("#commandResults"); let ci=0;
+function renderCommand(q=""){
+ const a=commandItems.filter(x=>x.name.toLowerCase().includes(q.toLowerCase())||x.type.toLowerCase().includes(q.toLowerCase()));
+ cr.innerHTML=a.map((x,i)=>`<button class="command-result ${i===0?"selected":""}" data-ci="${i}"><small>${x.type}</small><b>${x.name}</b></button>`).join("");
+ ci=0;
+ cr.querySelectorAll(".command-result").forEach((b,i)=>b.onclick=()=>a[i].action());
+}
+function openCommand(){cc.classList.add("open");cc.setAttribute("aria-hidden","false");document.body.classList.add("lock");renderCommand();setTimeout(()=>cs.focus(),20)}
+function closeCommand(){cc.classList.remove("open");cc.setAttribute("aria-hidden","true");document.body.classList.remove("lock")}
+renderCommand();
+cs.addEventListener("input",e=>renderCommand(e.target.value));
+cs.addEventListener("keydown",e=>{
+ const bs=[...cr.querySelectorAll(".command-result")];
+ if(e.key==="ArrowDown"){e.preventDefault();ci=Math.min(ci+1,bs.length-1)}
+ if(e.key==="ArrowUp"){e.preventDefault();ci=Math.max(ci-1,0)}
+ if(e.key==="Enter"&&bs[ci])bs[ci].click();
+ if(e.key==="Escape")closeCommand();
+ bs.forEach((b,i)=>b.classList.toggle("selected",i===ci));
+});
+$("#commandClose").onclick=closeCommand;
+cc.addEventListener("click",e=>{if(e.target===cc)closeCommand()});
+addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();openCommand()}});
+$("#theme").onclick=()=>{document.documentElement.classList.toggle("light-mode");$("#theme").textContent=document.documentElement.classList.contains("light-mode")?"Dark":"Light";localStorage.setItem("ks_theme",document.documentElement.classList.contains("light-mode")?"light":"dark")};
+if(localStorage.getItem("ks_theme")==="light"){document.documentElement.classList.add("light-mode");$("#theme").textContent="Dark"}
+if(fine){
+ $(".magnetic").forEach(el=>el.addEventListener("pointermove",e=>{const r=el.getBoundingClientRect();el.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.18}px,${(e.clientY-r.top-r.height/2)*.18}px)`}));
+ $(".magnetic").forEach(el=>el.addEventListener("pointerleave",()=>el.style.transform=""));
+}
+const pb=$("#playgroundBox"),po=$("#playOrb");
+pb.addEventListener("pointermove",e=>{const r=pb.getBoundingClientRect();po.style.left=e.clientX-r.left+"px";po.style.top=e.clientY-r.top+"px"});
+pb.addEventListener("pointerleave",()=>{po.style.left="50%";po.style.top="50%"});
  const menu=$("#menu");
  menu.addEventListener("click",()=>{
   let panel=$("#mobilePanel");
